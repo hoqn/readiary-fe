@@ -8,12 +8,15 @@
   },
   "devDependencies": {
     "eslint": "^8.48.0",
+    "eslint-import-resolver-typescript": "^3.6.1",
     "prettier": "^3.0.3",
     "tsconfig": "*",
-    "turbo": "latest"
+    "turbo": "latest",
+    "typescript": "^5.2.2",
+    "typescript-plugin-css-modules": "^5.0.1"
   },
   "name": "booknotes",
-  "packageManager": "yarn@1.22.19",
+  "packageManager": "yarn@3.6.3",
   "workspaces": [
     "apps/*",
     "packages/*"
