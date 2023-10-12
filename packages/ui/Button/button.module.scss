@@ -1,15 +1,88 @@
+@import "ui-theme/variables";
+
 .button {
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
 
-  background: red;
+  /** Tint Colors */
 
-  & {
-    display: inline-block;
+  &--neutral {
+    --bg-t-d: #{$color-theme-neutral-2};
+    --txt-t-d: #{$color-theme-neutral-9};
+    --bd-t-d: #{$color-theme-neutral-5};
+    --bg-t-h: #{$color-theme-neutral-3};
+    --bg-t-a: #{$color-theme-neutral-4};
+
+    --bg-c-d: #{$color-theme-neutral-7};
+    --txt-c-d: #{$color-theme-neutral-0};
+    --bd-c-d: #{$color-theme-neutral-7};
+    --bg-c-h: #{$color-theme-neutral-8};
+    --bg-c-a: #{$color-theme-neutral-9};
+  }
+  
+  &--primary {
+    --bg-t-d: #{$color-theme-primary-2};
+    --txt-t-d: #{$color-theme-primary-9};
+    --bd-t-d: #{$color-theme-primary-5};
+    --bg-t-h: #{$color-theme-primary-3};
+    --bg-t-a: #{$color-theme-primary-4};
+
+    --bg-c-d: #{$color-theme-primary-7};
+    --txt-c-d: #{$color-theme-primary-0};
+    --bd-c-d: #{$color-theme-primary-7};
+    --bg-c-h: #{$color-theme-primary-8};
+    --bg-c-a: #{$color-theme-primary-9};
   }
 
-  &__label {
-    font-size: 14px;
+  /** Variants */
+
+  @mixin __button($infix) {
+    border: 1px solid;
+    background-color: var(--bg-#{$infix}-d);
+    color: var(--txt-#{$infix}-d);
+    border-color: var(--bd-#{$infix}-d);
+  
+    transition: 0.12s ease-in-out;
+  
+    &:hover {
+      background-color: var(--bg-#{$infix}-h);
+    }
+    &:active {
+      background-color: var(--bg-#{$infix}-a);
+    }
+  }
+
+  &--tonal {
+    @include __button(t);
+  }
+  &--contained {
+    @include __button(c);
+  }
+
+  /** Shapes + Sizes */
+
+  &--small {
     font-weight: 600;
+    font-size: 0.875rem;
     line-height: 100%;
+    padding: 8px 16px;
+    border-radius: 8px;
   }
 
+  &--medium {
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 100%;
+    padding: 12px 24px;
+    border-radius: 8px;
+  }
+
+  &--large {
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 100%;
+    padding: 16px 32px;
+    border-radius: 8px;
+  }
 }
