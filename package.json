@@ -3,11 +3,14 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
-    "dev:storybook": "turbo run dev --filter=workshop",
+    "dev-storybook": "turbo run dev --filter=workshop",
+    "build-storybook": "turbo run build --filter=workshop --",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "chromatic": "npx chromatic"
   },
   "devDependencies": {
+    "chromatic": "^7.3.0",
     "eslint": "^8.48.0",
     "eslint-import-resolver-typescript": "^3.6.1",
     "prettier": "^3.0.3",
@@ -24,5 +27,8 @@
   ],
   "dependencies": {
     "classnames": "^2.3.2"
-  }
+  },
+  "version": "",
+  "readme": "ERROR: No README data found!",
+  "_id": "booknotes@"
 }

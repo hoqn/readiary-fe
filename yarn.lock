@@ -5199,6 +5199,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "booknotes@workspace:."
   dependencies:
+    chromatic: ^7.3.0
     classnames: ^2.3.2
     eslint: ^8.48.0
     eslint-import-resolver-typescript: ^3.6.1
@@ -5576,6 +5577,17 @@ __metadata:
   version: 2.0.0
   resolution: "chownr@npm:2.0.0"
   checksum: c57cf9dd0791e2f18a5ee9c1a299ae6e801ff58fee96dc8bfd0dcb4738a6ce58dd252a3605b1c93c6418fe4f9d5093b28ffbf4d66648cb2a9c67eaef9679be2f
+  languageName: node
+  linkType: hard
+
+"chromatic@npm:^7.3.0":
+  version: 7.3.0
+  resolution: "chromatic@npm:7.3.0"
+  bin:
+    chroma: dist/bin.js
+    chromatic: dist/bin.js
+    chromatic-cli: dist/bin.js
+  checksum: 0f8bc34aa0cb7f20398ef64c9dbdd2abdd8f33546495b805773e054b2f3eac1902b15608eaabd98b7fca6c1a4ac366976d2aa8eceecfeb8a24fa194eab524750
   languageName: node
   linkType: hard
 
@@ -13136,6 +13148,7 @@ __metadata:
     "@types/node": ^20.5.2
     "@types/react": ^18.2.0
     "@types/react-dom": ^18.2.0
+    classnames: ^2.3.2
     eslint-config-custom: "*"
     react: ^18.2.0
     tsconfig: "*"
