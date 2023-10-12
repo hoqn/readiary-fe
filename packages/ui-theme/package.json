@@ -1,0 +1,11 @@
+{
+  "name": "ui-theme",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "style-dictionary build"
+  },
+  "devDependencies": {
+    "style-dictionary": "^3.8.0"
+  }
+}
