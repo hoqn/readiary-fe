@@ -20,7 +20,7 @@
     "typescript-plugin-css-modules": "^5.0.1"
   },
   "name": "booknotes",
-  "packageManager": "yarn@3.6.3",
+  "packageManager": "yarn@1.22.19",
   "workspaces": [
     "apps/*",
     "packages/*"
