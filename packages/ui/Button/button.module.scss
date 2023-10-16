@@ -1,4 +1,4 @@
-@import "ui-theme/variables";
+@import "ui-theme";
 
 .button {
   display: inline-block;
@@ -8,31 +8,31 @@
   /** Tint Colors */
 
   &--neutral {
-    --bg-t-d: #{$color-theme-neutral-2};
-    --txt-t-d: #{$color-theme-neutral-9};
-    --bd-t-d: #{$color-theme-neutral-5};
-    --bg-t-h: #{$color-theme-neutral-3};
-    --bg-t-a: #{$color-theme-neutral-4};
+    --bg-t-d: #{$theme-color-base-200};
+    --txt-t-d: #{$theme-color-base-900};
+    --bd-t-d: #{$theme-color-base-500};
+    --bg-t-h: #{$theme-color-base-300};
+    --bg-t-a: #{$theme-color-base-400};
 
-    --bg-c-d: #{$color-theme-neutral-7};
-    --txt-c-d: #{$color-theme-neutral-0};
-    --bd-c-d: #{$color-theme-neutral-7};
-    --bg-c-h: #{$color-theme-neutral-8};
-    --bg-c-a: #{$color-theme-neutral-9};
+    --bg-c-d: #{$theme-color-base-700};
+    --txt-c-d: #{$theme-color-base-50};
+    --bd-c-d: #{$theme-color-base-700};
+    --bg-c-h: #{$theme-color-base-800};
+    --bg-c-a: #{$theme-color-base-900};
   }
   
   &--primary {
-    --bg-t-d: #{$color-theme-primary-2};
-    --txt-t-d: #{$color-theme-primary-9};
-    --bd-t-d: #{$color-theme-primary-5};
-    --bg-t-h: #{$color-theme-primary-3};
-    --bg-t-a: #{$color-theme-primary-4};
+    --bg-t-d: #{$theme-color-primary-200};
+    --txt-t-d: #{$theme-color-primary-900};
+    --bd-t-d: #{$theme-color-primary-500};
+    --bg-t-h: #{$theme-color-primary-300};
+    --bg-t-a: #{$theme-color-primary-400};
 
-    --bg-c-d: #{$color-theme-primary-7};
-    --txt-c-d: #{$color-theme-primary-0};
-    --bd-c-d: #{$color-theme-primary-7};
-    --bg-c-h: #{$color-theme-primary-8};
-    --bg-c-a: #{$color-theme-primary-9};
+    --bg-c-d: #{$theme-color-primary-700};
+    --txt-c-d: #{$theme-color-primary-50};
+    --bd-c-d: #{$theme-color-primary-700};
+    --bg-c-h: #{$theme-color-primary-800};
+    --bg-c-a: #{$theme-color-primary-900};
   }
 
   /** Variants */
@@ -50,6 +50,7 @@
     }
     &:active {
       background-color: var(--bg-#{$infix}-a);
+      transform: scale(.98);
     }
   }
 

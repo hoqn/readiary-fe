@@ -2,10 +2,10 @@
   "name": "ui-theme",
   "version": "0.0.0",
   "private": true,
+  "main": "./dist/index.sass",
   "scripts": {
-    "build": "style-dictionary build"
-  },
-  "devDependencies": {
-    "style-dictionary": "^3.8.0"
+    "build": "ts-node ./scripts/build.ts",
+    "build-colors": "ts-node ./scripts/build-colors.ts",
+    "build:dict": "style-dictionary build"
   }
 }
