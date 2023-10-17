@@ -1,0 +1,38 @@
+@use "../../../styles/lib/theme";
+
+.main-header {
+  
+  & {
+    width: 100%;
+    min-height: 56px;
+    height: 56px;
+
+    color: theme.$color-neutral-12;
+    background-color: theme.$color-neutral-2;
+    border-bottom: 1px solid theme.$color-neutral-6;
+  }
+
+  &__inner {
+    display: flex;
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+    height: 100%;
+    min-height: 100%;
+
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__brand {
+    font-weight: 900;
+    font-size: 1.500rem;
+    line-height: 100%;
+
+    font-kerning: -.250rem;
+
+    color: theme.$color-primary-11;
+  }
+
+}
