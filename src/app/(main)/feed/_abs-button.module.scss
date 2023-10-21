@@ -1,0 +1,33 @@
+@use "lib/theme";
+@use "lib/mixin/components";
+
+.absButton {
+  & {
+    display: block;
+    border-radius: 16px;
+    background-color: theme.$color-primary-9;
+    color: theme.$color-white;
+
+    box-shadow: 0 0 0 1px theme.$color-gray-a6, 0 4px 12px theme.$color-gray-a7;
+
+    padding: 16px 24px;
+    text-align: center;
+
+    cursor: pointer;
+  }
+
+  // @include components.pressable(
+  //   theme.$color-primary-9,
+  //   theme.$color-primary-10,
+  //   theme.$color-primary-11,
+  // );
+
+  & {
+    position: relative;
+    overflow: hidden;
+
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 100%;
+  }
+}
