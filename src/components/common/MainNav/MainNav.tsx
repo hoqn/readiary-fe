@@ -9,6 +9,8 @@ import $ from "./MainNav.module.scss";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+import { motion } from "framer-motion";
+
 const MenuItems: {
   id: number;
   active: (pathname: string) => boolean;
@@ -39,28 +41,36 @@ const MenuItems: {
   },
 ];
 
-interface Props extends BaseProps {
-}
+const MotionLink = motion(Link);
 
-function MainNav({ className, ...restProps }: Props) {
+function NavItem({ item }: { item: (typeof MenuItems)[number] }) {
   const pathname = usePathname();
 
+  return (
+    <MotionLink
+      key={item.id}
+      whileTap={{ scaleX: 0.84, scaleY: 0.8, backgroundBlendMode: "darken" }}
+      className={cs($.bnav__navItem, item.active(pathname) && $.bnav__navItem$selected)}
+      href={item.href}
+    >
+      {item.icon && (
+        <div className={$.bnav__navIcon}>
+          <item.icon />
+        </div>
+      )}
+      {item.label}
+    </MotionLink>
+  );
+}
+
+interface Props extends BaseProps {}
+
+function MainNav({ className, ...restProps }: Props) {
   return (
     <div className={cs(className, $.bnav)} {...restProps}>
       <div className={$.bnav__navItems} style={{ color: "InfoText" }}>
         {MenuItems.map((it) => (
-          <Link
-            key={it.id}
-            className={cs($.bnav__navItem, it.active(pathname) && $.bnav__navItem$selected)}
-            href={it.href}
-          >
-            {it.icon && (
-              <div className={$.bnav__navIcon}>
-                <it.icon />
-              </div>
-            )}
-            {it.label}
-          </Link>
+          <NavItem key={it.id} item={it} />
         ))}
       </div>
     </div>
