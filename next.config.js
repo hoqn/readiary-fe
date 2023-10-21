@@ -1,11 +1,12 @@
+const path = require("path");
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   webpack(config) {
-    // SVGR 적용
-    
-    const fileLoaderRule = config.module.rules.find((rule) =>
-      rule.test?.test?.('.svg'),
-    )
+    // @svgr/webpack 설정: https://react-svgr.com/docs/next/
+
+    const fileLoaderRule = config.module.rules.find((rule) => rule.test?.test?.(".svg"));
+
     config.module.rules.push(
       {
         ...fileLoaderRule,
@@ -15,14 +16,29 @@ const nextConfig = {
       {
         test: /\.svg$/i,
         issuer: /\.[jt]sx?$/,
-        resourceQuery: { not: /url/ }, // exclude if *.svg?url
-        use: ['@svgr/webpack'],
-      },
-    )
-    fileLoaderRule.exclude = /\.svg$/i
+        // resourceQuery: { not: /url/ }, // exclude if *.svg?url
+        resourceQuery: /svgr/,
+        use: [{ loader: "@svgr/webpack" }],
+      }
+    );
 
-    return config
-  }
-}
+    fileLoaderRule.exclude = /\.svg$/i;
 
-module.exports = nextConfig
+    // CSS Modules Pascalcase
+
+    // config.module.rules
+    //   .find(({ oneOf }) => !!oneOf)
+    //   .oneOf.filter(({ use }) => JSON.stringify(use)?.includes("css-loader"))
+    //   .reduce((ac, { use }) => ac.concat(use), [])
+    //   .forEach(({ options }) => {
+    //     if (options.modules) options.modules.exportLocalsConvention = "camelCaseOnly";
+    //   });
+
+    return config;
+  },
+  sassOptions: {
+    includePaths: [path.join(__dirname, "src/styles")],
+  },
+};
+
+module.exports = nextConfig;
