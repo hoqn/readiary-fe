@@ -1,0 +1,26 @@
+@use "lib/theme";
+@use "./utils";
+
+@mixin pressable(
+  $bg-color: theme.$color-neutral-3,
+  $bg-color--hover: theme.$color-neutral-4,
+  $bg-color--active: theme.$color-neutral-5,
+  $transition-duration: .2s,
+) {
+  cursor: pointer;
+  transition: background-color #{$transition-duration} ease;
+
+  background-color: $bg-color;
+
+  @include utils.hover {
+    background-color: $bg-color--hover;
+  }
+
+  &:active {
+    background-color: $bg-color--active;
+  }
+
+  &:focus-visible {
+    outline: 2px solid currentColor;
+  }
+}

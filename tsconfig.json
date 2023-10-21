@@ -18,7 +18,15 @@
         "name": "next"
       },
       { 
-        "name": "typescript-plugin-css-modules"
+        "name": "typescript-plugin-css-modules",
+        "options": {
+          // "classnameTransform": "dashesOnly",
+          "rendererOptions": {
+            "sass": {
+              "loadPaths": ["./src/styles"]
+            }
+          }  
+        },
       }
     ],
     "paths": {

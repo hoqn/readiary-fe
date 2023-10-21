@@ -1,3 +1,5 @@
+@use "lib/theme";
+
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable-dynamic-subset.css");
 @import "./reset";
 @import "./colors";
@@ -8,8 +10,14 @@ html {
 
 html {
   background-color: var(--sage-1);
+  -webkit-tap-highlight-color: transparent;
 }
 
 html, body {
   height: 100%;
+}
+
+body {
+  color: theme.$color-neutral-12;
+  background-color: theme.$color-neutral-1;
 }
