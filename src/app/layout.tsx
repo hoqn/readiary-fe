@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import "@/styles/global.scss";
+import { QueryClient } from "@tanstack/react-query";
 
 export const metadata: Metadata = {
   title: "BookDiary",
