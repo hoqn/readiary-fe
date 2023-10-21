@@ -14,7 +14,7 @@
     height: 64px;
     padding: 8px 16px;
 
-    box-shadow: 0px -4px 16px 0px theme.$color-gray-a4;
+    box-shadow: 0px -4px 16px 0px hwb(0 25% 75% / 0.08);
   }
 
   &__navItems {
@@ -36,7 +36,7 @@
     justify-content: center;
     align-items: center;
 
-    transition: background-color .2s ease-in-out;
+    transition: .2s ease-in-out;
 
     cursor: pointer;
 
@@ -45,7 +45,7 @@
     
     color: $_color;
     background-color: $_bg-color;
-    border-radius: 9999px;
+    border-radius: 16px;
 
     @media (hover: hover) {
       &:hover {
@@ -54,8 +54,7 @@
     }
     
     &\$selected {
-      // font-size: .875rem;
-      font-weight: 600;
+      font-size: .875rem;
       color: $_color--selected !important;
       background-color: $_bg-color--selected !important;
     }
