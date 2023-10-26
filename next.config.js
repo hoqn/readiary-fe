@@ -39,6 +39,19 @@ const nextConfig = {
   sassOptions: {
     includePaths: [path.join(__dirname, "src/styles")],
   },
+
+  images: {
+    remotePatterns: [
+      // 도서 썸네일
+      {
+        protocol: "https",
+        hostname: "bookthumb-phinf.pstatic.net",
+        port: "",
+        pathname: "cover/**",
+      },
+    ],
+    domains: ["bookthumb-phinf.pstatic.net", "image.aladin.co.kr"],
+  },
 };
 
 module.exports = nextConfig;

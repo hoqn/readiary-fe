@@ -1,11 +1,18 @@
 "use client";
 
 import SearchBar from "@/components/search/SearchBar";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
-export default function BookSearchBar({ initialValue }: { initialValue: string }) {
+export default function BookSearchBar() {
   const router = useRouter();
   const pathname = usePathname();
 
-  return <SearchBar initialValue={initialValue} onSubmit={(value) => router.push(`${pathname}?q=${encodeURI(value)}`)} />;
+  const searchParams = useSearchParams();
+
+  return (
+    <SearchBar
+      initialValue={searchParams.get("q") || ""}
+      onSubmit={(value) => router.push(`${pathname}?q=${encodeURI(value)}`)}
+    />
+  );
 }
