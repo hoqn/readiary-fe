@@ -5,3 +5,17 @@
     }
   }
 }
+
+// Polyfill
+@mixin aspect-ratio($ratio) {
+  &::before {
+    content: "";
+    float: left;
+    padding-top: 1/$ratio;
+  }
+  &::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+}

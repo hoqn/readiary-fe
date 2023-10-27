@@ -1,0 +1,77 @@
+@use "lib/theme";
+@use "lib/mixin/utils" as *;
+
+.resultHead {
+  padding: 24px 24px 16px 24px;
+
+  &__title {
+    display: inline;
+    font-size: 1.125rem;
+    font-weight: bold;
+    line-height: 100%;
+    color: theme.$color-neutral-12;
+  }
+
+  &__caption {
+    display: inline;
+    font-size: 0.875rem;
+    font-weight: normal;
+    line-height: 100%;
+    color: theme.$color-neutral-11;
+
+    margin-left: 16px;
+  }
+}
+
+.resultItem {
+  padding: 8px 16px;
+  display: flex;
+  flex-direction: row;
+
+  & + & {
+    border-top: 1px solid theme.$color-neutral-6;
+  }
+
+  @include hover {
+    background-color: theme.$color-neutral-4;
+  }
+  
+  &:active {
+    background-color: theme.$color-neutral-5;
+  }
+
+  &__thumbnail {
+    @include aspect-ratio(72 / 108);
+    flex: 0 0;
+    width: 72px;
+    min-width: 72px;
+
+    border-radius: 8px;
+    border: 1px solid theme.$color-neutral-6;
+  }
+
+  &__body {
+    flex: 1 0;
+    margin-left: 16px;
+  }
+
+  &__title {
+    font-size: 1.125rem;
+    font-weight: bold;
+    line-height: 1.2;
+    color: theme.$color-neutral-12;
+  }
+
+  &__authors {
+    font-size: 0.875rem;
+    font-weight: normal;
+    line-height: 1.2;
+    color: theme.$color-neutral-11;
+
+    > span+span::before {
+      content: "\007C";
+      margin: 0 4px;
+      opacity: .5;
+    }
+  }
+}
