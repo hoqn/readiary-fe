@@ -16,7 +16,8 @@ const nextConfig = {
       },
       {
         test: /\.svg$/i,
-        issuer: /\.[jt]sx?$/,
+        // https://github.com/vercel/next.js/issues/48177#issuecomment-1506251112
+        // issuer: /\.[jt]sx?$/,
         resourceQuery: { not: /url/ }, // exclude if *.svg?url
         use: ['@svgr/webpack'],
       },
