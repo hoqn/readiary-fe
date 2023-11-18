@@ -32,9 +32,10 @@ $HEADER_HEIGHT: 5rem;
   }
 }
 
-.container {
-  composes: container from global;
-}
+// .container {
+//   composes: container from global;
+// }
+@value container: container;
 
 .result__header {
   display: block;

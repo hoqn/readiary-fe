@@ -2,14 +2,13 @@
 
 import BookSearchBar from "@/components/search/book-search-bar";
 import * as BookSearchResult from "@/components/search/book-search-result";
+import LoadingIndicator from "@/components/ui/loading-indicator";
 import bookApiService from "@/services/book.service";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useCallback, useContext, useEffect, useRef, useState } from "react";
-import styles from "./page.module.scss";
-import Button from "@/components/ui/button/button";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import LoadingIndicator from "@/components/ui/loading-indicator";
 import cs from "classnames";
+import { usePathname, useRouter } from "next/navigation";
+import { useCallback, useEffect, useRef, useState } from "react";
+import styles from "./page.module.scss";
 
 export default function Layout({ searchParams }: { searchParams: { q: string } }) {
   const pathname = usePathname();
@@ -56,7 +55,7 @@ export default function Layout({ searchParams }: { searchParams: { q: string } }
     return () => {
       if (!!currentResultLastElement) resultScrollToBottomObserver.current?.unobserve(currentResultLastElement);
     };
-  }, []);
+  }, [resultLastElement]);
 
   const doOnSubmitSearchQuery = useCallback(
     ({ query }: { query: string }) => {
