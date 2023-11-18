@@ -1,0 +1,90 @@
+@use "theme/color";
+@use "theme/shadow";
+@use "lib/media";
+@use "lib/constant";
+
+$COLOR: color.primary(11);
+$BACKGROUND_COLOR: color.primary(2);
+$BORDER_COLOR: color.primary(6);
+$COLOR--selected: color.primary(12);
+$BACKGROUND_COLOR--HOVER: color.primary(4);
+$BACKGROUND_COLOR--SELECTED: color.primary(5);
+
+%main-nav-size {
+  width: constant.$MAIN_NAV_WIDTH;
+  height: constant.$MAIN_NAV_HEIGHT;
+  @include media.lg {
+    width: constant.$MAIN_NAV_WIDTH--lg;
+    height: constant.$MAIN_NAV_HEIGHT--lg;
+  }
+}
+
+.main-nav {
+  @extend %main-nav-size;
+  
+  padding: 0.5rem 1rem;
+  color: $COLOR;
+  background-color: $BACKGROUND_COLOR;
+  // box-shadow: shadow.$lg;
+  box-shadow: 0 -10px 15px -3px rgb(0 0 0 / 0.05), 0 -4px 6px -4px rgb(0 0 0 / 0.05);
+  
+  @include media.lg {
+    box-shadow: 10px 0 15px -3px rgb(0 0 0 / 0.05), 4px 0 6px -4px rgb(0 0 0 / 0.05);
+  }
+}
+
+.main-nav__items {
+  composes: container from global;
+
+  display: flex;
+  flex-direction: row;
+  flex: 1 0;
+  margin: 0 auto;
+
+  width: 100%;
+  height: 100%;
+
+  @include media.lg {
+    flex-direction: column;
+  }
+}
+
+.main-nav__item {
+  composes: pressable from global;
+
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 0.75rem;
+  font-weight: normal;
+  line-height: 100%;
+
+  border-radius: 1rem;
+
+  @include media.lg {
+    flex: 0;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: .5rem;
+    padding: .5rem 1rem;
+  }
+
+  &:active {
+    background-color: $BACKGROUND_COLOR--HOVER;
+  }
+
+  &[data-selected] {
+    background-color: $BACKGROUND_COLOR--SELECTED;
+    font-weight: bold;
+  }
+}
+
+.main-nav__item-icon {
+  height: 1.5rem;
+  width: 1.5rem;
+  fill: currentColor;
+}
