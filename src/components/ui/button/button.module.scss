@@ -1,0 +1,51 @@
+@use "theme/color";
+
+.root {
+  composes: pressable from global;
+
+  border: 1px solid;
+  border-radius: .25rem;
+
+  padding: .5rem 1rem;
+
+  // Tints
+
+  &--primary {
+    @include color.set-local-accent(primary);
+  }
+  
+  &--neutral {
+    @include color.set-local-accent(neutral);
+  }
+
+  // Intents
+
+  &--contained {
+    border-width: 1px;
+    border-color: color.local-accent(9);
+    background-color: color.local-accent(9);
+
+    &:active {
+      background-color: color.local-accent(10);
+    }
+  }
+  
+  &--tonal {
+    border-width: 1px;
+    border-color: color.local-accent(7);
+    background-color: color.local-accent(3);
+
+    &:active {
+      background-color: color.local-accent(5);
+    }
+  }
+
+  &--text {
+
+  }
+
+  &--link {
+
+  }
+}
+
