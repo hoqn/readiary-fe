@@ -1,0 +1,27 @@
+{
+  "version": 1.0,
+  "properties": [
+    {
+      "name": "composes",
+      "description": "CSS Modules composes"
+    }
+  ],
+  "atDirectives": [
+    {
+      "name": "value",
+      "description": "CSS Modules value"
+    }
+  ],
+  "pseudoClasses": [
+    {
+      "name": "global",
+      "description": "Global Scope"
+    }
+  ],
+  "pseudoElements": [
+    {
+      "name": "global",
+      "description": "Global Scope"
+    }
+  ]
+}
