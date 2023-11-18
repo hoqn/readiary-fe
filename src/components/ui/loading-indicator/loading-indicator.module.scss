@@ -1,0 +1,66 @@
+@use "theme/color";
+
+.ellipsis {
+  $DURATION: .6s;
+
+  & {
+    display: inline-block;
+    position: relative;
+    width: 8px*4 + 12px*3;
+    height: 8px*2 + 12px;
+  }
+  
+  div {
+    position: absolute;
+    top: 8px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+    background-color: color.primary(9);
+  }
+  
+  div:nth-child(1) {
+    left: 8px;
+    animation: fade-in $DURATION infinite;
+  }
+  div:nth-child(2) {
+    left: 8px;
+    animation: translation $DURATION infinite;
+  }
+  div:nth-child(3) {
+    left: 8px + 12px + 8px;
+    animation: translation $DURATION infinite;
+  }
+  div:nth-child(4) {
+    left: 8px + 12px + 8px + 12px + 8px;
+    animation: fade-out $DURATION infinite;
+  }
+
+  @keyframes fade-in {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  @keyframes fade-out {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(0);
+      opacity: 0;
+    }
+  }
+  @keyframes translation {
+    0% {
+      transform: translate(0, 0);
+    }
+    100% {
+      transform: translate(12px + 8px, 0);
+    }
+  }
+}
