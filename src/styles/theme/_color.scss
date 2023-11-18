@@ -1,9 +1,15 @@
 @function primary($scale) {
   @return var(--green-#{$scale});
 }
+@function primary-a($scale) {
+  @return var(--green-a#{$scale});
+}
 
 @function neutral($scale) {
   @return var(--sage-#{$scale});
+}
+@function neutral-a($scale) {
+  @return var(--sage-a#{$scale});
 }
 
 @function gray-a($scale) {
@@ -13,25 +19,25 @@
 @function local-accent($scale) {
   @return var(--l-#{$scale});
 }
+@function local-accent-a($scale) {
+  @return var(--l-a#{$scale});
+}
 
 .--l-color-primary {
   @for $i from 1 through 12 {
     --l-#{$i}: #{primary($i)};
+    --l-a#{$i}: #{primary-a($i)};
   }
+  --l-9-contrast: #{primary(9-contrast)};
 }
 
 .--l-color-neutral {
   @for $i from 1 through 12 {
     --l-#{$i}: #{neutral($i)};
+    --l-a#{$i}: #{neutral-a($i)};
   }
+  --l-9-contrast: #{neutral(9-contrast)};
 }
 
-@mixin set-local-accent($colors) {
-  @if $colors == "primary" {
-    composes: --l-color-primary from global;
-  } @elseif $colors == "neutral" {
-    composes: --l-color-neutral from global;
-  } @else {
-    @error "색 확인하세요"
-  }
-}
+$LOCAL_ACCENT_COLOR_PRIMARY: --l-color-primary;
+$LOCAL_ACCENT_COLOR_NEUTRAL: --l-color-primary;
