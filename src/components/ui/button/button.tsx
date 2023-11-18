@@ -13,22 +13,29 @@ const $root = cva(styles.root, {
     intent: {
       tonal: styles["root--tonal"],
       contained: styles["root--contained"],
+      text: styles["root--text"],
     },
+    size: {
+      sm: styles["root--sm"],
+      md: styles["root--md"],
+      lg: styles["root--lg"],
+    }
   },
   defaultVariants: {
     tint: "neutral",
     intent: "tonal",
+    size: "md",
   },
 });
 
 interface Props extends BaseProps, PropsWithChildren, VariantProps<typeof $root> {}
 
 const Button = polymorphicForwardRef<"button", Props>(
-  ({ className, children, as, intent, tint, ...restProps }, ref) => {
+  ({ className, children, as, intent, tint, size, ...restProps }, ref) => {
     const Component = as || "button";
 
     return (
-      <Component className={cs($root({ intent, tint }), className)} ref={ref} {...restProps}>
+      <Component className={cs($root({ intent, tint, size }), className)} ref={ref} {...restProps}>
         <span className={cs("label")}>{children}</span>
       </Component>
     );
