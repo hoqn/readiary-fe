@@ -1,0 +1,62 @@
+@use "theme/color";
+@use "theme/shadow";
+
+.book-search-result-list {
+  display: block;
+}
+
+.book-search-result-item {
+  display: block;
+  & + & {
+    border-top: 1px solid color.neutral(6);
+  }
+}
+
+.book-search-result-item__inner { //anchor
+  composes: pressable from global;
+
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  padding: 1rem;
+
+  background: color.neutral(1);
+
+  &:active {
+    background-color: color.neutral(5);
+  }
+}
+
+.book-search-result-item__left {
+  flex: 0;
+}
+
+.book-search-result-item__right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: 1rem;
+}
+
+.book-search-result-item__image {
+  object-fit: cover;
+  width: 4rem;
+  min-width: 4rem;
+  max-width: 4rem;
+  height: 6rem;
+
+  border-radius: .25rem;
+  box-shadow: shadow.$base;
+}
+
+.book-search-result-item__title {
+  font-size: 1.125rem;
+  font-weight: bold;
+  color: color.neutral(12);
+}
+
+.book-search-result-item__authors {
+  font-size: .875rem;
+  font-weight: normal;
+  color: color.neutral(11);
+}

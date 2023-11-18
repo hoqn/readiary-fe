@@ -1,0 +1,25 @@
+@use "theme/color";
+
+.book-search-bar {
+  outline: 1px solid color.neutral(7);
+  background-color: color.neutral(3);
+  border-radius: .5rem;
+
+  &:focus-within {
+    outline-width: 2px;
+    outline-color: color.primary(8);
+  }
+}
+
+.book-search-bar__query-input {
+  display: block;
+  width: 100%;
+  font-size: 1rem;
+  line-height: 3rem;
+  padding: 0 1rem;
+  color: color.neutral(12);
+
+  &::placeholder {
+    color: color.neutral(11);
+  }
+}
