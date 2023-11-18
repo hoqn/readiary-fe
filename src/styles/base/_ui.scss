@@ -1,0 +1,22 @@
+@use "lib/media";
+
+.transition {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.pressable {
+  cursor: pointer;
+  @extend .transition;
+}
+
+.container {
+  margin: 0 auto;
+  width: 100%;
+  max-width: media.$screen-md;
+}
+
+.container--sm {
+  max-width: media.$screen-sm;
+}
+

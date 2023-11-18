@@ -1,0 +1,37 @@
+@function primary($scale) {
+  @return var(--green-#{$scale});
+}
+
+@function neutral($scale) {
+  @return var(--sage-#{$scale});
+}
+
+@function gray-a($scale) {
+  @return var(--gray-a#{$scale});
+}
+
+@function local-accent($scale) {
+  @return var(--l-#{$scale});
+}
+
+.--l-color-primary {
+  @for $i from 1 through 12 {
+    --l-#{$i}: #{primary($i)};
+  }
+}
+
+.--l-color-neutral {
+  @for $i from 1 through 12 {
+    --l-#{$i}: #{neutral($i)};
+  }
+}
+
+@mixin set-local-accent($colors) {
+  @if $colors == "primary" {
+    composes: --l-color-primary from global;
+  } @elseif $colors == "neutral" {
+    composes: --l-color-neutral from global;
+  } @else {
+    @error "색 확인하세요"
+  }
+}
