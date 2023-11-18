@@ -25,10 +25,12 @@ interface ItemProps extends BaseProps {
 function BookSearchResultItem({ data, className, ...restProps }: ItemProps) {
   return (
     <li className={cs(styles["book-search-result-item"], className)}>
-      <Link className={styles['book-search-result-item__inner']} href={`/book/${data.isbn13}`} {...restProps}>
+      <Link className={styles["book-search-result-item__inner"]} href={`/book/${data.isbn13}`} {...restProps}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           className={cs(styles["book-search-result-item__left"], styles["book-search-result-item__image"])}
           src={data.bookImageURL}
+          alt="책 표지 이미지"
         />
         <div className={styles["book-search-result-item__right"]}>
           <div className={styles["book-search-result-item__title"]}>{data.bookname}</div>

@@ -19,7 +19,7 @@ export default function Layout({ searchParams }: { searchParams: { q: string } }
 
   useEffect(() => {
     router.replace(`${pathname}?q=${searchQuery}`);
-  }, [searchQuery]);
+  }, [pathname, router, searchQuery]);
 
   // Fetch
   const {
@@ -43,18 +43,20 @@ export default function Layout({ searchParams }: { searchParams: { q: string } }
     resultScrollToBottomObserver.current = new window.IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) fetchNextPage();
     });
-  }, []);
+  }, [fetchNextPage]);
 
   const resultLastElement = useRef<HTMLDivElement>(null);
 
   // Apply Observers
   useEffect(() => {
-    if (!!resultLastElement?.current) resultScrollToBottomObserver.current?.observe(resultLastElement.current);
+    const currentResultLastElement = resultLastElement?.current;
+
+    if (!!currentResultLastElement) resultScrollToBottomObserver.current?.observe(currentResultLastElement);
 
     return () => {
-      if (!!resultLastElement?.current) resultScrollToBottomObserver.current?.unobserve(resultLastElement.current);
+      if (!!currentResultLastElement) resultScrollToBottomObserver.current?.unobserve(currentResultLastElement);
     };
-  }, [resultLastElement.current, searchResult]);
+  }, []);
 
   const doOnSubmitSearchQuery = useCallback(
     ({ query }: { query: string }) => {
@@ -83,6 +85,7 @@ export default function Layout({ searchParams }: { searchParams: { q: string } }
                   {searchResult?.pages.map((page) =>
                     page.response.docs.map(({ doc: { isbn13, bookname, authors, bookImageURL } }) => (
                       <BookSearchResult.Item
+                        key={isbn13}
                         data={{
                           isbn13,
                           bookname,
