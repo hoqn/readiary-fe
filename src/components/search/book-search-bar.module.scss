@@ -1,13 +1,14 @@
 @use "theme/color";
 
 .book-search-bar {
-  outline: 1px solid color.neutral(7);
-  background-color: color.neutral(3);
+  composes: transition from global;
+
+  box-shadow: 0 0 0 1px color.neutral(6);
+  background-color: color.neutral(1);
   border-radius: .5rem;
 
   &:focus-within {
-    outline-width: 2px;
-    outline-color: color.primary(8);
+    box-shadow: 0 0 0 2px color.primary(8);
   }
 }
 
