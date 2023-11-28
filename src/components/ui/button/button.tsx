@@ -3,6 +3,7 @@ import { PropsWithChildren } from "react";
 import cs from "classnames";
 import { VariantProps, cva } from "class-variance-authority";
 import styles from "./button.module.scss";
+import LoadingIndicator from "../loading-indicator";
 
 const $root = cva(styles.root, {
   variants: {
@@ -28,15 +29,19 @@ const $root = cva(styles.root, {
   },
 });
 
-interface Props extends BaseProps, PropsWithChildren, VariantProps<typeof $root> {}
+interface Props extends BaseProps, PropsWithChildren, VariantProps<typeof $root> {
+  loading?: boolean;
+  disabled?: boolean;
+}
 
 const Button = polymorphicForwardRef<"button", Props>(
-  ({ className, children, as, intent, tint, size, ...restProps }, ref) => {
+  ({ className, children, as, intent, tint, size, loading = false, disabled, ...restProps }, ref) => {
     const Component = as || "button";
 
     return (
-      <Component className={cs($root({ intent, tint, size }), className)} ref={ref} {...restProps}>
-        <span className={cs("label")}>{children}</span>
+      <Component className={cs($root({ intent, tint, size }), className)} ref={ref} disabled={disabled || loading} {...restProps}>
+        {loading && (<LoadingIndicator className={styles["loading-indicator"]} />)}
+        <span className={styles["label"]}>{children}</span>
       </Component>
     );
   }

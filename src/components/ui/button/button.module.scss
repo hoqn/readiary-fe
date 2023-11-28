@@ -72,5 +72,16 @@
       background-color: color.local-accent(a4);
     }
   }
+  
+  &:disabled, &[aria-disabled] {
+    cursor: not-allowed;
+    filter: saturate(.5) brightness(.8);
+  }
+
+}
+
+.loading-indicator {
+  font-size: .5em;
+  margin-right: .5rem;
 }
 
