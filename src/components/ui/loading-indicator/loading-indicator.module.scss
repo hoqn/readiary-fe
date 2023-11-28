@@ -6,34 +6,34 @@
   & {
     display: inline-block;
     position: relative;
-    width: 8px*4 + 12px*3;
-    height: 8px*2 + 12px;
+    width: 0.5em*4 + .75em*3;
+    height: 0.5em*2 + .75em;
   }
   
   div {
     position: absolute;
-    top: 8px;
-    width: 12px;
-    height: 12px;
+    top: .5em;
+    width: .75em;
+    height: .75em;
     border-radius: 50%;
     animation-timing-function: cubic-bezier(0, 1, 1, 0);
-    background-color: color.primary(9);
+    background-color: currentColor;
   }
   
   div:nth-child(1) {
-    left: 8px;
+    left: .5em;
     animation: fade-in $DURATION infinite;
   }
   div:nth-child(2) {
-    left: 8px;
+    left: .5em;
     animation: translation $DURATION infinite;
   }
   div:nth-child(3) {
-    left: 8px + 12px + 8px;
+    left: .5em + .75em + .5em;
     animation: translation $DURATION infinite;
   }
   div:nth-child(4) {
-    left: 8px + 12px + 8px + 12px + 8px;
+    left: .5em + .75em + .5em + .75em + .5em;
     animation: fade-out $DURATION infinite;
   }
 
@@ -60,7 +60,7 @@
       transform: translate(0, 0);
     }
     100% {
-      transform: translate(12px + 8px, 0);
+      transform: translate(.75em + .5em, 0);
     }
   }
 }
