@@ -1,3 +1,14 @@
+@use "lib/media";
+@use "lib/constant";
+
+.body {
+  margin-left: 0;
+  
+  @include media.lg {
+    margin-left: constant.$MAIN_NAV_WIDTH--lg;
+  }
+}
+
 .loading-page {
   display: flex;
   justify-content: center;
