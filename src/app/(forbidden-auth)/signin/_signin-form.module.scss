@@ -1,0 +1,51 @@
+@use "theme/color";
+
+.root {
+  padding: 1rem;
+
+  border-radius: 1rem;
+  background-color: color.neutral(2);
+  box-shadow: 0 0 0 1px color.neutral(6);
+}
+
+.signin-label {
+  display: block;
+  font-size: .875rem;
+  font-weight: bold;
+  color: color.neutral(12);
+}
+
+.signin-input {
+  composes: transition from global;
+  
+  display: block;
+  width: 100%;
+  border-radius: .25rem;
+  box-shadow: 0 0 0 1px color.neutral(6);
+  background-color: color.neutral(1);
+
+  font-size: 1rem;
+  line-height: 2rem;
+  padding: 0 .5rem;
+  margin: .5rem 0 1rem 0;
+
+  color: color.neutral(12);
+  &::placeholder {
+    color: color.neutral(11);
+  }
+
+  &:focus-visible {
+    box-shadow: 0 0 0 2px color.primary(8);
+  }
+
+  & + & {
+    margin-top: 1rem;
+  }
+}
+
+.signin-button {
+  // display: block;
+  width: 100%;
+  
+  margin-top: 1.5rem;
+}

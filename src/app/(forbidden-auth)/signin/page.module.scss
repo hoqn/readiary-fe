@@ -1,0 +1,67 @@
+@use "theme/color";
+@use "lib/media";
+@use "lib/constant";
+
+.header {
+  position: fixed;
+  inset: 0 0 auto 0;
+}
+
+.body {
+  padding-top: constant.$HEADER_HEIGHT;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  min-height: 100%;
+  background-color: color.neutral(1);
+}
+
+.body-heading {
+  display: block;
+  text-align: center;
+
+  margin-top: 4rem;
+  margin-bottom: 1rem;
+}
+
+.body-heading__title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: color.neutral(12);
+}
+
+.body-heading__description {
+  margin-top: 1rem;
+  font-size: .875rem;
+  font-weight: normal;
+  color: color.neutral(11);
+}
+
+.signin-form {
+  composes: container from global;
+  max-width: 24rem !important;
+}
+
+.suggestion-card {
+  composes: container from global;
+  max-width: 24rem !important;
+
+  padding: 1rem;
+  margin-top: 2rem;
+
+  border-radius: 1rem;
+  background-color: color.neutral(1);
+  box-shadow: 0 0 0 1px color.neutral(6);
+}
+
+.suggestion {
+  font-size: .875rem;
+  font-weight: normal;
+  color: color.neutral(11);
+  text-align: center;
+}
+
+.go-signup-button {
+  display: inline-block;
+  margin-top: .5rem;
+  margin-bottom: -.5rem;
+}
