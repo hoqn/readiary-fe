@@ -1,0 +1,29 @@
+@use "theme/color";
+
+.root {
+  color: color.neutral(12);
+  background-color: color.neutral(2);
+  box-shadow: 0 0 0 1px color.neutral(6);
+  border-radius: .5rem;
+}
+
+.inner {
+  display: flex;
+  flex-direction: row;
+}
+
+.pan-left {
+  flex: 0 0;
+  padding: 1rem 0 1rem 1rem;
+}
+
+.pan-right {
+  flex: 1 0;
+  padding: 1rem;
+}
+
+.content-name {
+  font-size: 1.125rem;
+  font-weight: bold;
+  line-height: 1.5;
+}

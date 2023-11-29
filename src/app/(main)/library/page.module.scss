@@ -1,0 +1,27 @@
+.body-top {
+  composes: container container--sm from global;
+
+  padding: 1rem;
+}
+
+.sign-menu {
+  display: block;
+  text-align: right;
+  padding-bottom: 1rem;
+
+  &>* + * {
+    margin-left: 1rem;
+  }
+}
+
+.signin-link, .signout-link {
+  //
+}
+
+.menu-bar {
+  margin-top: 1rem;
+}
+
+.body-bottom {
+  composes: container from global;
+}

@@ -1,0 +1,39 @@
+@use "theme/color";
+
+.root {
+  composes: container container--sm from global;
+}
+
+.list {
+  display: flex;
+  flex-direction: row;
+}
+
+.item {
+  composes: pressable pressable--opacity from global;
+
+  display: block;
+  flex: 1;
+  text-align: center;
+
+  padding: 1rem .5rem;
+
+  color: color.neutral(12);
+}
+
+.item__icon {
+  padding-bottom: .5rem;
+
+  >svg {
+    fill: currentColor;
+  }
+}
+
+.item__label {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+:export {
+  ICON_SIZE: 32;
+}
