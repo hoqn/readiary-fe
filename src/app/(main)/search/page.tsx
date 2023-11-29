@@ -3,13 +3,13 @@
 import BookSearchBar from "@/components/search/book-search-bar";
 import * as BookSearchResult from "@/components/search/book-search-result";
 import LoadingIndicator from "@/components/ui/loading-indicator";
-import bookApiService from "@/services/book.service";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import cs from "classnames";
 import { usePathname, useRouter } from "next/navigation";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { RefCallback, RefObject, useCallback, useEffect, useRef, useState } from "react";
 import styles from "./page.module.scss";
-
+import bookApi from "@/services/api/book.api";
+import { getClientSession, useSession } from "@/helpers/auth.client";
 export default function Layout({ searchParams }: { searchParams: { q: string } }) {
   const pathname = usePathname();
   const router = useRouter();
@@ -17,7 +17,7 @@ export default function Layout({ searchParams }: { searchParams: { q: string } }
   const [searchQuery, setSearchQuery] = useState<string>(searchParams.q || "");
 
   useEffect(() => {
-    router.replace(`${pathname}?q=${searchQuery}`);
+    if (!!searchQuery?.length) router.replace(`${pathname}?q=${searchQuery}`);
   }, [pathname, router, searchQuery]);
 
   // Fetch
@@ -26,36 +26,43 @@ export default function Layout({ searchParams }: { searchParams: { q: string } }
     status,
     error,
     hasNextPage,
+    isFetching,
     fetchNextPage,
   } = useInfiniteQuery({
     queryKey: ["search-book", "title", searchQuery],
-    queryFn: ({ pageParam }) => bookApiService.searchBooksByTitle(searchQuery, pageParam).then((res) => res.json()),
+    // queryFn: ({ pageParam }) => bookApiService.searchBooksByTitle(searchQuery, pageParam).then((res) => res.json()),
+    queryFn: async ({ pageParam }) => {
+      const authorization = getClientSession().accessToken;
+
+      return bookApi
+        .searchBooksByTitle(searchQuery, pageParam, {
+          authorization,
+        })
+        .then((res) => res.json());
+    },
     enabled: !!searchQuery?.length,
     getNextPageParam: (lastPage, _, lastPageParam) => (lastPage?.response?.docs?.length ? lastPageParam + 1 : null),
     initialPageParam: 1,
   });
 
-  // Detecting scroll to bottom
-  const resultScrollToBottomObserver = useRef<IntersectionObserver>();
-
-  useEffect(() => {
-    resultScrollToBottomObserver.current = new window.IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) fetchNextPage();
-    });
-  }, [fetchNextPage]);
-
-  const resultLastElement = useRef<HTMLDivElement>(null);
-
-  // Apply Observers
-  useEffect(() => {
-    const currentResultLastElement = resultLastElement?.current;
-
-    if (!!currentResultLastElement) resultScrollToBottomObserver.current?.observe(currentResultLastElement);
-
-    return () => {
-      if (!!currentResultLastElement) resultScrollToBottomObserver.current?.unobserve(currentResultLastElement);
-    };
-  }, [resultLastElement]);
+  const resultLastElement: RefCallback<HTMLElement> = useCallback(
+    (element) => {
+      if (!!element) {
+        const resultScrollToBottomObserver = new window.IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            console.log("detect");
+            if (entry.isIntersecting) {
+              fetchNextPage();
+              console.log("insecting detect");
+            }
+          });
+        });
+        resultScrollToBottomObserver.observe(element);
+        console.log("has successfully applied", resultScrollToBottomObserver);
+      }
+    },
+    [fetchNextPage]
+  );
 
   const doOnSubmitSearchQuery = useCallback(
     ({ query }: { query: string }) => {
@@ -97,7 +104,7 @@ export default function Layout({ searchParams }: { searchParams: { q: string } }
                 </BookSearchResult.Root>
                 {hasNextPage ? (
                   <div className={styles["result__bottom-item"]} ref={resultLastElement}>
-                    <LoadingIndicator />
+                    {isFetching && <LoadingIndicator />}
                   </div>
                 ) : (
                   <div className={cs(styles["result__bottom-item"], styles["result__bottom-item--no-next-page"])}>
@@ -126,8 +133,8 @@ export default function Layout({ searchParams }: { searchParams: { q: string } }
             }
           } else {
             return (
-              <div className={styles['result-error']}>
-                <div className={styles['result-error__message']}>오류가 발생했어요 {":("}</div>
+              <div className={styles["result-error"]}>
+                <div className={styles["result-error__message"]}>오류가 발생했어요 {":("}</div>
                 <div className={styles["result-error__extra"]}>{error.message}</div>
               </div>
             );
