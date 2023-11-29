@@ -13,7 +13,7 @@ function MainNavigationItem({ data: { href, label, slug, icon: Icon } }: { data:
   const selected = useMemo(() => pathname.startsWith(href), [pathname, href]);
 
   return (
-    <Link href={href} className={styles["main-nav__item"]} data-selected={selected ? "" : undefined}>
+    <Link href={href} scroll={false} replace className={styles["main-nav__item"]} data-selected={selected ? "" : undefined}>
       {Icon && <Icon className={styles["main-nav__item-icon"]} />}
       <span>{label}</span>
     </Link>
