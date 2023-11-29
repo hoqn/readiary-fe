@@ -108,7 +108,7 @@ export default function BookActions({ bookData, className }: Props) {
             <>
               <p className={styles["pre-description"]}>이 책은 서재에 있어요.</p>
               {/* TODO: 해당 항목으로 바로 이동 (현재는 목록으로 이동) */}
-              <Button as={Link} className={styles["button-go2lib"]} href="/library/book">
+              <Button as={Link as ElementType} className={styles["button-go2lib"]} href="/library/book">
                 서재로 이동 &#xF045;
               </Button>
             </>

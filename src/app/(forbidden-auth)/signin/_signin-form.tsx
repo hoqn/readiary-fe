@@ -58,7 +58,7 @@ export default function SignInForm({ className, redirect = "/", ...restProps }: 
           </label>
           <input
             className={styles["signin-input"]}
-            tabIndex="0"
+            tabIndex={0}
             autoFocus
             type="email"
             {...register("email", {
@@ -73,7 +73,7 @@ export default function SignInForm({ className, redirect = "/", ...restProps }: 
           </label>
           <input
             className={styles["signin-input"]}
-            tabIndex="0"
+            tabIndex={0}
             autoFocus
             type="password"
             {...register("password", {
