@@ -12,7 +12,7 @@ type TypedResponse<D extends object> = {
 } & Response;
 
 class FetchApiClient {
-  public baseUrl: string = process.env.NEXT_PUBLIC_VERCEL_URL || "http://localhost:3000";
+  public baseUrl: string | null = `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` || null;
 
   public async fetch<D extends object>(
     input: string,
@@ -25,7 +25,7 @@ class FetchApiClient {
     if (init?.authorization) headers.set("Authorization", init.authorization);
     if (headers.get("Content-Type") == null) headers.set("Content-Type", "application/json");
 
-    return fetch(new URL(input, this.baseUrl), { ...init, headers }).then((res) => {
+    return fetch(this.baseUrl ? new URL(input, this.baseUrl) : input, { ...init, headers }).then((res) => {
       if (res.ok) return res as TypedResponse<D>;
       else throw new Error(res.statusText);
     });
