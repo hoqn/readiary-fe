@@ -1,0 +1,29 @@
+@use "theme/color";
+@use "theme/shadow";
+
+.root {
+  border-radius: 1rem 1rem 0 0;
+  background-color: color.neutral(2);
+  box-shadow: shadow.$xl-upward;
+}
+
+.root__inner {
+  composes: container container--sm from global;
+  display: block;
+  padding: 1rem;
+  text-align: center;
+}
+
+.pre-description {
+  font-size: 0.875rem;
+  color: color.neutral(11);
+  margin-bottom: 1rem;
+}
+
+.button-add2lib {
+  width: 100%;
+}
+
+.button-go2lib {
+  width: 100%;
+}

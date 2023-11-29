@@ -1,0 +1,134 @@
+@use "theme/color";
+@use "theme/shadow";
+@use "lib/constant";
+
+$BOTTOM_FLOAT_HEIGHT: 1rem*2 + 3rem;
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.body {
+  min-height: 100%;
+  padding-top: constant.$HEADER_HEIGHT;
+  padding-bottom: $BOTTOM_FLOAT_HEIGHT;
+}
+
+// Head Setion
+
+.head-section {
+  display: block;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid color.neutral(6);
+}
+
+.head-section__content {
+  composes: container container--sm from global;
+
+  display: flex;
+  flex-direction: row;
+}
+
+.head-section__left {
+  flex: 0;
+  margin-bottom: -3rem;
+}
+.head-section__right {
+  flex: 1;
+  margin-top: auto;
+  margin-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.book-img {
+  border-radius: .5rem;
+  box-shadow: shadow.$base;
+  width: 6rem;
+  height: 9rem;
+  min-width: 6rem;
+  max-width: 6rem;
+  min-height: 9rem;
+  max-height: 9rem;
+  object-fit: cover;
+}
+
+.book-title {
+  font-size: 1.25rem;
+  line-height: 100%;
+  font-weight: bold;
+  color: color.neutral(12);
+}
+
+.book-meta {
+  margin-top: .5rem;
+  font-size: .875rem;
+  line-height: 100%;
+  font-weight: normal;
+  color: color.neutral(11);
+}
+
+.book-authors {
+
+}
+
+// Body Setion
+
+.body-section {
+  composes: container from global;
+  padding: 1rem 1rem;
+}
+
+.desc-section {
+  & + & {
+    margin-top: 1.5rem;
+  }
+}
+
+.desc-section__heading {
+  margin-bottom: 1rem;
+  font-size: 1.125rem;
+  font-weight: bold;
+  color: color.primary(11);
+}
+
+.desc-section__content {
+  font-size: 1rem;
+  font-weight: normal;
+  color: color.neutral(12);
+
+  > table {
+    border-collapse: collapse;
+
+    tr + tr {
+      border-top: .5rem solid transparent;
+    }
+  }
+}
+
+.desc-section__th {
+  color: color.neutral(11);
+
+  &::after {
+    content: "|";
+    float: right;
+    margin: 0 1rem;
+  }
+}
+
+.desc-section__td {
+  color: color.neutral(12);
+}
+
+.actions-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+}
