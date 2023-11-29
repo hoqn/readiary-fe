@@ -1,0 +1,29 @@
+@use "theme/shadow";
+
+.root {
+  position: relative;
+  min-height: 3.5rem;
+
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    inset: 0;
+    box-shadow: shadow.$lg;
+    border-radius: inherit;
+  }
+  
+  &:active {
+    transform: scale(.96);
+    &::before {
+      box-shadow: none;
+    }
+
+  }
+
+  &:disabled, &[aria-disabled] {
+    &:active {
+      transform: none;
+    }
+  }
+}
