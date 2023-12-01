@@ -12,7 +12,7 @@ type TypedResponse<D extends object> = {
 } & Response;
 
 class FetchApiClient {
-  public baseUrl: string | null = `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` || null;
+  public baseUrl: string = process.env.BACKEND_URL || "";
 
   public async fetch<D extends object>(
     input: string,
