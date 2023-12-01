@@ -98,12 +98,16 @@ export interface SetRatingResponse {
   bookDiaryId: number;
 }
 
-function setRating(diaryId: number, body: SetRatingDto, { apiClient = fetchApiClient, authorization }: RequestOptionsAuthorized) {
+function setRating(
+  diaryId: number,
+  body: SetRatingDto,
+  { apiClient = fetchApiClient, authorization }: RequestOptionsAuthorized
+) {
   return apiClient.fetch<SetRatingResponse>(`/api/diary/${diaryId}/rate`, {
     method: "PATCH",
     body: JSON.stringify(body),
-    authorization
-  })
+    authorization,
+  });
 }
 
 export interface GetDiariesByMemberIdResponse {
@@ -159,18 +163,19 @@ function getDiaryDetail(diaryId: number, { apiClient = fetchApiClient, authoriza
   });
 }
 
+export interface CheckIfDiaryExistsResponse {
+  bookDiaryId: number;
+}
+
 function checkIfDiaryExists(
   memberId: number,
   isbn: string,
   { apiClient = fetchApiClient, authorization }: RequestOptionsAuthorized
-): Promise<boolean | null> {
-  return apiClient
-    .fetch<Record<"response", "YES" | "NO">>(`/api/diary/${memberId}/${isbn}`, {
-      method: "GET",
-      authorization,
-    })
-    .then((res) => res.json())
-    .then(({ response }) => (response === "YES" ? true : response === "NO" ? false : null));
+) {
+  return apiClient.fetch<CheckIfDiaryExistsResponse>(`/api/diary/${memberId}/${isbn}`, {
+    method: "GET",
+    authorization,
+  });
 }
 
 const diaryApi = {
