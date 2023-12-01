@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import styles from "./_signin-form.module.scss";
+import { signIn } from "./actions";
 
 interface SignInFormData {
   email: string;
@@ -32,10 +33,8 @@ export default function SignInForm({ className, redirect = "/", ...restProps }: 
       handleSubmit((data) => {
         setIsFetching(true);
 
-        authApi
-          .signIn(data)
-          .then((res) => res.json())
-          .then(({ "access-token": accessToken }) => {
+        signIn(data)
+          .then(({ accessToken }) => {
             setCurrentAccessToken(accessToken);
             router.replace(redirect, { scroll: false });
           })
