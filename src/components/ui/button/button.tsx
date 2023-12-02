@@ -40,8 +40,10 @@ const Button = polymorphicForwardRef<"button", Props>(
 
     return (
       <Component className={cs($root({ intent, tint, size }), className)} ref={ref} disabled={disabled || loading} {...restProps}>
-        {loading && (<LoadingIndicator className={styles["loading-indicator"]} />)}
-        <span className={styles["label"]}>{children}</span>
+        <div className={styles["root__inner"]}>
+          {loading && (<LoadingIndicator className={styles["loading-indicator"]} />)}
+          <span className={styles["label"]}>{children}</span>
+        </div>
       </Component>
     );
   }

@@ -8,10 +8,14 @@
 .root {
   composes: pressable from global;
   
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  display: inline-block;
+  
+  &__inner {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
   
   // Sizes
   
