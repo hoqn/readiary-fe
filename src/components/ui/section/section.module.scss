@@ -1,0 +1,29 @@
+@use "theme/color";
+
+.root {
+  display: block;
+}
+
+.root__inner {
+  display: block;
+}
+
+.head {
+  padding: 1rem 2rem;
+}
+
+.head__title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: color.primary(11);
+}
+
+.head__subtitle {
+  font-size: 1rem;
+  font-weight: normal;
+  color: color.neutral(11);
+}
+
+.body {
+
+}
