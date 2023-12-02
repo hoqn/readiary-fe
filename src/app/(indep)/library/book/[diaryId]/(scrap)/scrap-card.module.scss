@@ -1,0 +1,52 @@
+@use "theme/color";
+
+.root {
+  composes: pressable from global;
+
+  display: block;
+  background-color: color.neutral(2);
+  border-radius: 1rem;
+  border: 1px solid color.neutral(6);
+
+  &:active {
+    background-color: color.neutral(5);
+  }
+}
+
+.root__inner {
+  display: flex !important;
+  flex-direction: row;
+}
+
+.root__left {
+  flex: 1;
+  width: 100%;
+}
+
+.root__right {
+  flex: 0;
+}
+
+.content {
+  padding: 1rem;
+}
+
+.content>p {
+  text-wrap: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.content__page {
+  margin-top: .5rem;
+  font-size: .75rem;
+  text-align: right;
+  color: color.neutral(11);
+}
+
+.memo {
+  @extend .content;
+
+  border-top: 1px solid color.neutral(6);
+}
+

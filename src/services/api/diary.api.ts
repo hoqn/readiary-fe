@@ -38,7 +38,7 @@ function addScrap(
   { apiClient = fetchApiClient, authorization }: RequestOptionsAuthorized
 ) {
   return apiClient.fetch<AddScrapResponse>(`/api/diary/${diaryId}/scrap`, {
-    method: "PATCH",
+    method: "POST",
     body: JSON.stringify(body),
     authorization,
   });
@@ -152,7 +152,7 @@ export interface GetDiaryDetailResponse {
     score: number | null;
     takeaway: string;
   };
-  scraps: [];
+  scraps: { scrapId: number; content: string; memo?: string | null; imageUrl?: string | null }[];
   questions: [];
 }
 

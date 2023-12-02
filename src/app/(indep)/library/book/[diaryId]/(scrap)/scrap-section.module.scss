@@ -1,0 +1,23 @@
+.scrap-section {
+  composes: container from global;
+  padding-top: 1rem;
+}
+
+.scrap-button-wrapper {
+  padding: 0 1rem;
+}
+
+.scrap-button {
+  display: block !important;
+  text-align: center;
+  width: 100%;
+}
+
+.scrap-list {
+
+}
+
+.scrap-item {
+  margin-top: .5rem;
+  padding: 0 1rem;
+}

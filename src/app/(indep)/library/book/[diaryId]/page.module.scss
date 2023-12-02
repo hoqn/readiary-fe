@@ -1,0 +1,74 @@
+@use "theme/color";
+@use "theme/shadow";
+
+.head-section {
+  border-bottom: 1px solid color.neutral(6);
+  margin-bottom: 2rem;
+}
+
+.head-section__inner {
+  composes: container container--sm from global;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+}
+
+.head-section__left {
+  flex: 0;
+}
+
+.head-section__right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: 1rem;
+}
+
+.head-section__under {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+
+.book-img {
+  border-radius: .5rem;
+  box-shadow: shadow.$base;
+  width: 6rem;
+  height: 9rem;
+  min-width: 6rem;
+  max-width: 6rem;
+  min-height: 9rem;
+  max-height: 9rem;
+  object-fit: cover;
+
+  margin: 2rem 1.5rem -2rem 1.5rem;
+}
+
+.book-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.book-authors {
+  margin-top: .5rem;
+  font-size: .875rem;
+  font-weight: normal;
+}
+
+.status-chip {
+  padding: 0 1rem;
+  display: block;
+  float: right;
+  margin: 0 1.5rem;
+
+  font-size: .875rem;
+  font-weight: 600;
+  line-height: 1.5rem;
+
+  background-color: color.primary(11);
+  color: color.primary(9-contrast);
+
+  border-radius: 0 0 .5rem .5rem;
+}
