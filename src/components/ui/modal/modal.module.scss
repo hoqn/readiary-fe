@@ -1,0 +1,44 @@
+@use "theme/color";
+@use "theme/shadow";
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(#000, 0.4);
+  z-index: 6;
+}
+
+.dialog {
+  position: fixed;
+  z-index: 12;
+  left: 50%;
+  top: 50%;
+
+  transform: translateX(-50%) translateY(-50%);
+  
+  border-radius: 1rem;
+  box-shadow: shadow.$xl;
+
+  background-color: color.neutral(2);
+  
+  width: 100%;
+  max-width: 32rem;
+  max-height: 80vh;
+}
+
+.sheet {
+  position: fixed;
+  z-index: 12;
+  
+  composes: container container--sm from global;
+  
+  left: 50%;
+  bottom: 0;
+  
+  transform: translateX(-50%);
+  
+  border-radius: 1rem 1rem 0 0;
+  box-shadow: shadow.$xl-upward;
+  
+  background-color: color.neutral(2);
+}
