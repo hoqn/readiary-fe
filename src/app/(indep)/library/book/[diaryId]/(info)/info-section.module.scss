@@ -1,0 +1,20 @@
+@use "theme/color";
+
+.info-section {
+  composes: container container--sm from global;
+
+  padding: 1rem 1.5rem;
+}
+
+.takeaway {
+  composes: container container--sm from global;
+
+  font-size: 1rem;
+  color: color.neutral(12);
+}
+
+.takeaway-empty {
+  font-size: .875rem;
+  color: color.neutral(11);
+  text-align: center;
+}

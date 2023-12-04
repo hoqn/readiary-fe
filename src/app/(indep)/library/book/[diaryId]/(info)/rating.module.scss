@@ -1,0 +1,22 @@
+@use "theme/color";
+
+.rating-stars-wrapper {
+  display: block;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.rating-stars-label {
+  font-size: .75rem;
+  color: color.neutral(11);
+}
+
+.rating-stars {
+  font-size: 2.5rem;
+  color: color.neutral(11);
+
+  svg {
+    width: 1em;
+    height: 1em;
+  }
+}

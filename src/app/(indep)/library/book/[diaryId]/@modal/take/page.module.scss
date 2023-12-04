@@ -1,0 +1,24 @@
+@use "theme/color";
+
+.root {
+  padding: 1rem;
+}
+
+.label-container {
+  text-align: center;
+  font-size: .875rem;
+  color: color.neutral(11);
+}
+
+.rating-stars-container {
+  text-align: center;
+}
+
+.actions-container {
+  text-align: right;
+  padding-top: 1.5rem;
+
+  >*+* {
+    margin-left: .5rem;
+  }
+}

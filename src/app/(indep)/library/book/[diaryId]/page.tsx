@@ -3,6 +3,7 @@ import { ReadingStatus } from "@/services/api/diary.api";
 import ScrapSection from "./(scrap)/scrap-section";
 import { fetchDiaryDetail } from "./actions";
 import styles from "./page.module.scss";
+import InfoSection from "./(info)/info-section";
 
 const ReadingStatusLabel: Record<ReadingStatus, string> = {
   "0": "읽기 전",
@@ -41,6 +42,7 @@ export default async function Page({ params }: { params: { diaryId: number } }) 
           </div>
         </section>
         <div>
+          <InfoSection diaryInfo={data.bookDiary} />
           <ScrapSection scraps={data.scraps} />
         </div>
       </main>
