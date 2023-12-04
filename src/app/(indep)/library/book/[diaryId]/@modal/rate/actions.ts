@@ -1,7 +1,7 @@
 "use server";
 
 import diaryApi from "@/services/api/diary.api";
-import { revalidatePath } from "next/cache";
+import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -14,5 +14,6 @@ export async function setDiaryRate(diaryId: number, rating: number | null) {
     authorization
   });
 
-  revalidatePath(`/library/book/${diaryId}`, "page");
+  revalidateTag("diary/detail");
+  redirect("..");
 }

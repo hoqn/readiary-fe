@@ -160,6 +160,9 @@ function getDiaryDetail(diaryId: number, { apiClient = fetchApiClient, authoriza
   return apiClient.fetch<GetDiaryDetailResponse>(`/api/diary/specific/${diaryId}`, {
     method: "GET",
     authorization,
+    next: {
+      tags: ["diary/detail"],
+    }
   });
 }
 

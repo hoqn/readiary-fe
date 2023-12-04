@@ -27,14 +27,10 @@ export default function Page({
       handleSubmit((data) => {
         setLoading(true);
         postScrap(diaryId, data)
-          .then(() => {
-            router.back();
-            router.refresh();
-          })
           .catch((e) => alert(e))
           .finally(() => setLoading(false));
       }),
-    [diaryId, handleSubmit, router]
+    [diaryId, handleSubmit]
   );
 
   return (

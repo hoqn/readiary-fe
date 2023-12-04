@@ -61,7 +61,7 @@ export default function Page({ initialData, params: { diaryId } }: Props) {
             size="md"
             onClick={(e) => {
               e.preventDefault();
-              router.back();
+              // router.back();
             }}
           >
             취소

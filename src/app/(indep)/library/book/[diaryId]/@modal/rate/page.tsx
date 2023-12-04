@@ -46,10 +46,6 @@ export default function Page({ params: { diaryId } }: { params: { diaryId: numbe
           onClick={() => {
             setLoading(true);
             setDiaryRate(diaryId, value)
-              .then(() => {
-                router.back();
-                // router.refresh();
-              })
               .finally(() => {
                 setLoading(false);
               });
