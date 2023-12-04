@@ -1,5 +1,16 @@
+@use "theme/color";
+
 .root {
   svg {
     fill: currentColor;
   }
+}
+
+.root--editing {
+  color: color.primary(9);
+}
+
+.inner {
+  display: inline-block;
+  cursor: pointer;
 }
