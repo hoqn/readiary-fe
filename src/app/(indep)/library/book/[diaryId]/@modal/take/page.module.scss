@@ -1,22 +1,39 @@
 @use "theme/color";
 
 .root {
+  display: block;
+}
+
+.page-head {
+  padding: 1rem 1.5rem;
+}
+
+.page-head__title {
+  color: color.primary(11);
+  font-size: 1.125rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.page-head__description {
+  color: color.neutral(11);
+  font-size: .875rem;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.page-body {
   padding: 1rem;
 }
 
-.label-container {
-  text-align: center;
-  font-size: .875rem;
-  color: color.neutral(11);
-}
-
-.rating-stars-container {
-  text-align: center;
+.textarea {
+  width: 100%;
+  min-height: 16rem;
 }
 
 .actions-container {
   text-align: right;
-  padding-top: 1.5rem;
+  padding: 0 1rem 1rem 1rem;
 
   >*+* {
     margin-left: .5rem;

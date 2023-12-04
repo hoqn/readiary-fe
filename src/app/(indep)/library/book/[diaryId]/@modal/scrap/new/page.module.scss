@@ -48,4 +48,15 @@
 .actions {
   margin-top: 1rem;
   text-align: right;
+
+  display: flex;
+  flex-direction: row;
+
+  >* {
+    flex: 1;
+  }
+
+  >*+* {
+    margin-left: 1rem;
+  }
 }

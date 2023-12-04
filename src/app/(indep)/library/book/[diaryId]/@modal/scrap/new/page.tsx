@@ -3,7 +3,7 @@
 import { useForm } from "react-hook-form";
 import styles from "./page.module.scss";
 import Button from "@/components/ui/button";
-import { useMemo, useState } from "react";
+import { MouseEventHandler, useCallback, useMemo, useState } from "react";
 import { postScrap } from "./actions";
 import { useRouter } from "next/navigation";
 import cs from "classnames";
@@ -32,6 +32,11 @@ export default function Page({
       }),
     [diaryId, handleSubmit]
   );
+
+  const doCancel: MouseEventHandler = useCallback((e) => {
+    e.preventDefault();
+    router.back();
+  }, [router]);
 
   return (
     <div className={styles["root"]}>
@@ -76,7 +81,10 @@ export default function Page({
           </div>
         </fieldset>
         <div className={styles["actions"]}>
-          <Button type="submit" intent="contained" tint="primary" size="md" loading={isLoading}>
+          <Button intent="text" tint="neutral" size="lg" onClick={doCancel}>
+            취소
+          </Button>
+          <Button type="submit" intent="contained" tint="primary" size="lg" loading={isLoading}>
             추가
           </Button>
         </div>

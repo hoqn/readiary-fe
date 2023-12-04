@@ -3,7 +3,7 @@
 import diaryApi from "@/services/api/diary.api";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+import { RedirectType, redirect } from "next/navigation";
 
 export async function setDiaryRate(diaryId: number, rating: number | null) {
   const authorization = cookies().get("access-token")?.value || "";
@@ -15,5 +15,5 @@ export async function setDiaryRate(diaryId: number, rating: number | null) {
   });
 
   revalidateTag("diary/detail");
-  redirect("..");
+  redirect(`/library/book/${diaryId}`, RedirectType.replace);
 }

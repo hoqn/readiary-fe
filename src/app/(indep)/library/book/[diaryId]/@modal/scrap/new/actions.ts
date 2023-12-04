@@ -3,7 +3,7 @@
 import diaryApi from "@/services/api/diary.api";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+import { RedirectType, redirect } from "next/navigation";
 
 export async function postScrap(
   diaryId: number,
@@ -19,5 +19,5 @@ export async function postScrap(
   });
 
   revalidateTag("diary/detail");
-  redirect("..");
+  redirect(`/library/book/${diaryId}`, RedirectType.replace);
 }

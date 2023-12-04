@@ -18,6 +18,13 @@
   text-align: right;
   padding-top: 1.5rem;
 
+  display: flex;
+  flex-direction: row;
+
+  >* {
+    flex: 1;
+  }
+
   >*+* {
     margin-left: .5rem;
   }
