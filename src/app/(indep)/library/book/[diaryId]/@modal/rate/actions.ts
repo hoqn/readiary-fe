@@ -15,5 +15,4 @@ export async function setDiaryRate(diaryId: number, rating: number | null) {
   });
 
   revalidateTag("diary/detail");
-  redirect(`/library/book/${diaryId}`, RedirectType.replace);
 }

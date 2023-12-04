@@ -15,5 +15,4 @@ export async function setDiaryReport(diaryId: number, content: string) {
   });
 
   revalidateTag("diary/detail");
-  redirect(`/library/book/${diaryId}`, RedirectType.replace);
 }

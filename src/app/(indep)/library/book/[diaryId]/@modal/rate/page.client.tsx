@@ -4,8 +4,9 @@ import { MouseEventHandler, useCallback, useState } from "react";
 import styles from "./page.module.scss";
 import RatingStars from "@/components/ui/rating-stars";
 import Button from "@/components/ui/button";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { setDiaryRate } from "./actions";
+import { setDiaryReport } from "../take/actions";
 
 interface Props {
   initialData: {
@@ -32,11 +33,15 @@ export default function Page({ initialData, params: { diaryId } }: Props) {
     (e) => {
       e.preventDefault();
       setLoading(true);
-      setDiaryRate(diaryId, value).finally(() => {
-        setLoading(false);
-      });
+      setDiaryRate(diaryId, value)
+        .then(() => {
+          router.back();
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     },
-    [diaryId, value]
+    [diaryId, router, value]
   );
 
   return (

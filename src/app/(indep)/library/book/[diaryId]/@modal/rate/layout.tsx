@@ -1,14 +1,10 @@
 "use client";
 
-import { ModalDialog, ModalOverlay } from "@/components/ui/modal"
+import { ModalDialog, ModalOverlay } from "@/components/ui/modal";
 import { useRouter } from "next/navigation";
 import { useCallback } from "react";
 
-export default function Layout({
-  children
-}: {
-  children: React.ReactNode
-}) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
 
   const doOnCancel = useCallback(() => {
@@ -18,9 +14,7 @@ export default function Layout({
   return (
     <>
       <ModalOverlay isCancelable onCancel={doOnCancel} />
-      <ModalDialog>
-        {children}
-      </ModalDialog>
+      <ModalDialog>{children}</ModalDialog>
     </>
-  )
+  );
 }
