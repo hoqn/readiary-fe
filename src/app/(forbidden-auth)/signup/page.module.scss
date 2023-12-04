@@ -1,0 +1,71 @@
+@use "theme/color";
+
+.root {
+  composes: container container--sm from global;
+  color: color.neutral(12);
+}
+
+.page-head {
+  padding: 4rem 1.5rem 2rem 1.5rem;
+}
+
+.page-head__welcome {
+  color: color.neutral(11);
+  font-size: .875rem;
+  text-align: center;
+}
+
+.page-body {
+  padding: 0 1.5rem;
+}
+
+.form {
+
+}
+
+.field {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  & + & {
+    margin-top: 1.5rem;
+  }
+}
+
+.field__left {
+  flex: 0 1 8rem;
+}
+
+.field__right {
+  flex: 1 1;
+  max-width: 16rem;
+}
+
+.field__label {
+  line-height: 2.5rem;
+}
+
+.field__input {
+  width: 100%;
+}
+
+.field__under {
+  height: 0;
+  padding: .25rem .5rem;
+
+  svg {
+    vertical-align: bottom;
+    margin-right: .25rem;
+  }
+}
+
+.actions-container {
+  padding: 2rem 1rem 1rem 1rem;
+  text-align: center;
+}
+
+.field__error {
+  font-size: .875rem;
+  color: color.error(11);
+}
