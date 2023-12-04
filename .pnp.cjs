@@ -41,6 +41,7 @@ const RAW_RUNTIME_STATE =
           ["classnames", "npm:2.3.2"],\
           ["eslint", "npm:8.53.0"],\
           ["eslint-config-next", "virtual:f9523f7abf538b10f7920ef4769f6721baa341d772a6b1d0f8fcbbfd9c4e595d9ec23755c65243fbfea28ab804ad6cb5b113f9acf7e50977594e723d3a66b7b7#npm:14.0.2"],\
+          ["framer-motion", "virtual:f9523f7abf538b10f7920ef4769f6721baa341d772a6b1d0f8fcbbfd9c4e595d9ec23755c65243fbfea28ab804ad6cb5b113f9acf7e50977594e723d3a66b7b7#npm:10.16.12"],\
           ["jsonwebtoken", "npm:9.0.2"],\
           ["next", "virtual:f9523f7abf538b10f7920ef4769f6721baa341d772a6b1d0f8fcbbfd9c4e595d9ec23755c65243fbfea28ab804ad6cb5b113f9acf7e50977594e723d3a66b7b7#npm:14.0.3"],\
           ["postcss", "npm:8.4.31"],\
@@ -4175,6 +4176,25 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@emotion/is-prop-valid", [\
+      ["npm:0.8.8", {\
+        "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/@emotion-is-prop-valid-npm-0.8.8-261a0f2426-10c0.zip/node_modules/@emotion/is-prop-valid/",\
+        "packageDependencies": [\
+          ["@emotion/is-prop-valid", "npm:0.8.8"],\
+          ["@emotion/memoize", "npm:0.7.4"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@emotion/memoize", [\
+      ["npm:0.7.4", {\
+        "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/@emotion-memoize-npm-0.7.4-5648cf11b8-10c0.zip/node_modules/@emotion/memoize/",\
+        "packageDependencies": [\
+          ["@emotion/memoize", "npm:0.7.4"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["@eslint-community/eslint-utils", [\
       ["npm:4.4.0", {\
         "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/@eslint-community-eslint-utils-npm-4.4.0-d1791bd5a3-10c0.zip/node_modules/@eslint-community/eslint-utils/",\
@@ -7726,6 +7746,34 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["framer-motion", [\
+      ["npm:10.16.12", {\
+        "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/framer-motion-npm-10.16.12-f9436feed4-10c0.zip/node_modules/framer-motion/",\
+        "packageDependencies": [\
+          ["framer-motion", "npm:10.16.12"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:f9523f7abf538b10f7920ef4769f6721baa341d772a6b1d0f8fcbbfd9c4e595d9ec23755c65243fbfea28ab804ad6cb5b113f9acf7e50977594e723d3a66b7b7#npm:10.16.12", {\
+        "packageLocation": "./.yarn/__virtual__/framer-motion-virtual-ef40310d14/4/AppData/Local/Yarn/Berry/cache/framer-motion-npm-10.16.12-f9436feed4-10c0.zip/node_modules/framer-motion/",\
+        "packageDependencies": [\
+          ["framer-motion", "virtual:f9523f7abf538b10f7920ef4769f6721baa341d772a6b1d0f8fcbbfd9c4e595d9ec23755c65243fbfea28ab804ad6cb5b113f9acf7e50977594e723d3a66b7b7#npm:10.16.12"],\
+          ["@emotion/is-prop-valid", "npm:0.8.8"],\
+          ["@types/react", "npm:18.2.37"],\
+          ["@types/react-dom", "npm:18.2.15"],\
+          ["react", "npm:18.2.0"],\
+          ["react-dom", "virtual:f9523f7abf538b10f7920ef4769f6721baa341d772a6b1d0f8fcbbfd9c4e595d9ec23755c65243fbfea28ab804ad6cb5b113f9acf7e50977594e723d3a66b7b7#npm:18.2.0"],\
+          ["tslib", "npm:2.6.2"]\
+        ],\
+        "packagePeers": [\
+          "@types/react-dom",\
+          "@types/react",\
+          "react-dom",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["fs-extra", [\
       ["npm:9.1.0", {\
         "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/fs-extra-npm-9.1.0-983c2ddb4c-10c0.zip/node_modules/fs-extra/",\
@@ -10356,6 +10404,7 @@ const RAW_RUNTIME_STATE =
           ["classnames", "npm:2.3.2"],\
           ["eslint", "npm:8.53.0"],\
           ["eslint-config-next", "virtual:f9523f7abf538b10f7920ef4769f6721baa341d772a6b1d0f8fcbbfd9c4e595d9ec23755c65243fbfea28ab804ad6cb5b113f9acf7e50977594e723d3a66b7b7#npm:14.0.2"],\
+          ["framer-motion", "virtual:f9523f7abf538b10f7920ef4769f6721baa341d772a6b1d0f8fcbbfd9c4e595d9ec23755c65243fbfea28ab804ad6cb5b113f9acf7e50977594e723d3a66b7b7#npm:10.16.12"],\
           ["jsonwebtoken", "npm:9.0.2"],\
           ["next", "virtual:f9523f7abf538b10f7920ef4769f6721baa341d772a6b1d0f8fcbbfd9c4e595d9ec23755c65243fbfea28ab804ad6cb5b113f9acf7e50977594e723d3a66b7b7#npm:14.0.3"],\
           ["postcss", "npm:8.4.31"],\
