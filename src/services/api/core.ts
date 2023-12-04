@@ -27,7 +27,7 @@ class FetchApiClient {
 
     return fetch(this.baseUrl ? new URL(input, this.baseUrl) : input, { ...init, headers }).then((res) => {
       if (res.ok) return res as TypedResponse<D>;
-      else throw new Error(res.statusText);
+      else throw res;
     });
   }
 }

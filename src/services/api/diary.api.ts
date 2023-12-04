@@ -91,7 +91,7 @@ function setReadingStatus(
 }
 
 export interface SetRatingDto {
-  score: number;
+  score: number | null;
 }
 
 export interface SetRatingResponse {
