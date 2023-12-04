@@ -8,6 +8,9 @@
 @import "@radix-ui/colors/sage-dark-alpha.css";
 @import "@radix-ui/colors/gray-alpha.css";
 
+@import "@radix-ui/colors/red.css";
+@import "@radix-ui/colors/red-dark.css";
+
 :root, .light, .light-theme {
   --green-9-contrast: #fff;
   --sage-9-contrast: #fff;

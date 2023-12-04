@@ -16,6 +16,10 @@
   @return var(--gray-a#{$scale});
 }
 
+@function error($scale) {
+  @return var(--red-#{$scale});
+}
+
 @function local-accent($scale) {
   @return var(--l-#{$scale});
 }

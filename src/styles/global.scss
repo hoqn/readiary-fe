@@ -22,6 +22,10 @@ html, body {
   overscroll-behavior-y: none;
 }
 
+svg {
+  fill: currentColor;
+}
+
 @media screen and (display-mode: standalone) {
   * {
     user-select: none;

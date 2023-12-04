@@ -1,3 +1,5 @@
+@use "theme/color";
+@use "theme/shadow";
 @use "lib/media";
 
 .transition {
@@ -13,11 +15,11 @@
 .pressable--opacity {
   @media screen and (hover: hover) {
     &:hover {
-      opacity: .80;
+      opacity: 0.8;
     }
   }
   &:active {
-    opacity: .56;
+    opacity: 0.56;
   }
 }
 
@@ -31,3 +33,31 @@
   max-width: media.$screen-sm;
 }
 
+textarea,
+input:not([type="button"], [type="submit"], [type="checkbox"], [type="radio"]) {
+  @extend .transition;
+
+  overflow: hidden;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 0 1px color.neutral(6);
+  
+  padding: .5rem 1rem;
+  line-height: 1.5;
+
+  &::placeholder {
+    opacity: .5;
+  }
+
+  &:focus-visible {
+    box-shadow: 0 0 0 2px color.primary(8);
+  }
+  
+  &.invalid,
+  &[aria-invalid="true"] {
+    box-shadow: 0 0 0 1px color.error(6);
+
+    &:focus-visible {
+      box-shadow: 0 0 0 2px color.error(8);
+    }
+  }
+}
