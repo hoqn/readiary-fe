@@ -1,0 +1,12 @@
+@use "lib/constant";
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.body {
+  padding-top: constant.$HEADER_HEIGHT;
+}
