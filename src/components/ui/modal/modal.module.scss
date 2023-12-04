@@ -6,6 +6,8 @@
   inset: 0;
   background-color: rgba(#000, 0.4);
   z-index: 6;
+
+  animation: show-overlay .1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .dialog {
@@ -24,6 +26,8 @@
   width: 100%;
   max-width: 32rem;
   max-height: 80vh;
+
+  animation: show-modal-dialog .15s cubic-bezier(.16,1,.3,1);
 }
 
 .sheet {
@@ -41,4 +45,36 @@
   box-shadow: shadow.$xl-upward;
   
   background-color: color.neutral(2);
+  animation: show-modal-sheet .15s cubic-bezier(.16,1,.3,1);
+}
+
+@keyframes show-modal-dialog {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes show-modal-sheet {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 32%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes show-overlay {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
