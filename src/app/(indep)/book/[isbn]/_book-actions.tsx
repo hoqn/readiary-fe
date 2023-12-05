@@ -90,7 +90,7 @@ export default function BookActions({ bookData, className }: Props) {
         })
         .then((res) => res.json())
         .then(({ bookDiaryId }) => (bookDiaryId >= 0 ? bookDiaryId : null));
-        // 없을 땐 -1, 있을 땐 0 이상의 다이어리 id 반환
+      // 없을 땐 -1, 있을 땐 0 이상의 다이어리 id 반환
     },
   });
 
@@ -114,8 +114,10 @@ export default function BookActions({ bookData, className }: Props) {
           {diaryId !== null ? (
             <>
               <p className={styles["pre-description"]}>이 책은 서재에 있어요.</p>
-              <Button as={Link as ElementType} className={styles["button-go2lib"]} href={`/library/book/${diaryId}`}>
-                서재로 이동 &#xF045;
+              <Button asChild>
+                <Link className={styles["button-go2lib"]} href={`/library/book/${diaryId}`}>
+                  서재로 이동 &#xF045;
+                </Link>
               </Button>
             </>
           ) : (

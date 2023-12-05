@@ -82,6 +82,15 @@
     filter: saturate(.5) brightness(.8);
   }
 
+  // &:focus {
+  //   outline: 2px solid color.local-accent(12);
+  // }
+
+  // &:focus-visible {
+  //   outline: 1px solid color.local-accent(11);
+  //   box-shadow: 0 0 0 4px color.local-accent(a4);
+  // }
+
 }
 
 .loading-indicator {

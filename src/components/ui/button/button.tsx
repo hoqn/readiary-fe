@@ -1,9 +1,10 @@
 import { polymorphicForwardRef } from "@/utils/polymorphic-forward-ref";
-import { PropsWithChildren } from "react";
+import { ComponentPropsWithoutRef, PropsWithChildren, PropsWithoutRef, forwardRef } from "react";
 import cs from "classnames";
 import { VariantProps, cva } from "class-variance-authority";
 import styles from "./button.module.scss";
 import LoadingIndicator from "../loading-indicator";
+import { Slot } from "@radix-ui/react-slot";
 
 const $root = cva(styles.root, {
   variants: {
@@ -20,7 +21,7 @@ const $root = cva(styles.root, {
       sm: styles["root--sm"],
       md: styles["root--md"],
       lg: styles["root--lg"],
-    }
+    },
   },
   defaultVariants: {
     tint: "neutral",
@@ -32,16 +33,22 @@ const $root = cva(styles.root, {
 interface Props extends BaseProps, PropsWithChildren, VariantProps<typeof $root> {
   loading?: boolean;
   disabled?: boolean;
+  asChild?: boolean;
 }
 
-const Button = polymorphicForwardRef<"button", Props>(
-  ({ className, children, as, intent, tint, size, loading = false, disabled, ...restProps }, ref) => {
-    const Component = as || "button";
+const Button = forwardRef<"button", Props & ComponentPropsWithoutRef<"button">>(
+  ({ className, children, asChild, intent, tint, size, loading = false, disabled, ...restProps }, ref) => {
+    const Component = asChild ? Slot : "button";
 
     return (
-      <Component className={cs($root({ intent, tint, size }), className)} ref={ref} disabled={disabled || loading} {...restProps}>
+      <Component
+        className={cs($root({ intent, tint, size }), className)}
+        ref={(asChild ? undefined : ref) as any}
+        disabled={disabled || loading}
+        {...restProps}
+      >
         <div className={styles["root__inner"]}>
-          {loading && (<LoadingIndicator className={styles["loading-indicator"]} />)}
+          {loading && <LoadingIndicator className={styles["loading-indicator"]} />}
           <span className={styles["label"]}>{children}</span>
         </div>
       </Component>

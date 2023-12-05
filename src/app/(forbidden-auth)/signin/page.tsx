@@ -20,8 +20,8 @@ export default function Page({ searchParams: { redirect = "/" } }: { searchParam
         <div className={styles["suggestion-card"]}>
           <div className={styles["suggestion"]}>
             <p>아직 회원이 아니신가요?</p>
-            <Button as={Link as ElementType} href="/signup" intent="text">
-              회원 가입 &#xF045;
+            <Button intent="text" asChild>
+              <Link href="/signup">회원 가입 &#xF045;</Link>
             </Button>
           </div>
         </div>

@@ -20,15 +20,10 @@ export default function ScrapSection({ scraps }: Props) {
   return (
     <Section title="나의 스크랩" className={styles["scrap-section"]}>
       <div className={styles["scrap-button-wrapper"]}>
-        <Button
-          as={Link as React.ElementType}
-          href={`${pathname}/scrap/new`}
-          className={styles["scrap-button"]}
-          tint="neutral"
-          intent="tonal"
-          size="lg"
-        >
-          스크랩 추가
+        <Button tint="neutral" intent="tonal" size="lg" asChild>
+          <Link href={`${pathname}/scrap/new`} className={styles["scrap-button"]}>
+            스크랩 추가
+          </Link>
         </Button>
       </div>
       <ul className={styles["scrap-list"]}>
