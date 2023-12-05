@@ -1,5 +1,6 @@
 "use server";
 
+import { getAccessTokenFromCookie } from "@/helpers/auth.server";
 import diaryApi from "@/services/api/diary.api";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
@@ -12,7 +13,7 @@ export async function postScrap(
     memo: string;
   }
 ) {
-  const authorization = cookies().get("access-token")?.value || "";
+  const authorization = await getAccessTokenFromCookie() || "";
 
   await diaryApi.addScrap(diaryId, body, {
     authorization,

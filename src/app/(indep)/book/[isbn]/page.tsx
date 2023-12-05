@@ -7,7 +7,7 @@ import BookActions from "./_book-actions";
 import styles from "./page.module.scss";
 
 export default async function Page({ params: { isbn } }: { params: { isbn: string } }) {
-  const currentSession = getServerSession();
+  const currentSession = await getServerSession();
 
   if (!currentSession) {
     return NextResponse.redirect("/");

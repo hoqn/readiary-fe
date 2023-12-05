@@ -6,8 +6,8 @@ import Link from "next/link";
 import { getServerSession } from "@/helpers/auth.server";
 import { redirect } from "next/navigation";
 
-export default function Page() {
-  const currentSession = getServerSession();
+export default async function Page() {
+  const currentSession = await getServerSession();
 
   if (!currentSession) {
     redirect("/signin");

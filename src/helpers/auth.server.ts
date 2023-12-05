@@ -1,9 +1,11 @@
+"use server";
+
 import { AuthSession } from "@/types/auth";
 import { decodeJwt } from "@/utils/jwt";
 import { cookies } from "next/headers";
 
-export function getServerSession(): AuthSession | null {
-  const accessToken = cookies().get("access-token")?.value;
+export async function getServerSession(): Promise<AuthSession | null> {
+  const accessToken = await getAccessTokenFromCookie();
 
   if (!accessToken)
     return null;
@@ -20,4 +22,8 @@ export function getServerSession(): AuthSession | null {
       memberId: decoded.memberId
     },
   };
+}
+
+export async function getAccessTokenFromCookie(): Promise<string|null> {
+  return cookies().get("access-token")?.value || null;
 }

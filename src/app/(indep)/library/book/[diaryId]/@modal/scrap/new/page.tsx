@@ -1,12 +1,11 @@
 "use client";
 
-import { useForm } from "react-hook-form";
-import styles from "./page.module.scss";
 import Button from "@/components/ui/button";
+import { redirect, useRouter } from "next/navigation";
 import { MouseEventHandler, useCallback, useMemo, useState } from "react";
+import { useForm } from "react-hook-form";
 import { postScrap } from "./actions";
-import { useRouter } from "next/navigation";
-import cs from "classnames";
+import styles from "./page.module.scss";
 
 export default function Page({
   params: { diaryId },
@@ -27,10 +26,13 @@ export default function Page({
       handleSubmit((data) => {
         setLoading(true);
         postScrap(diaryId, data)
+          .then(() => {
+            router.replace(`/library/book/${diaryId}`);
+          })
           .catch((e) => alert(e))
           .finally(() => setLoading(false));
       }),
-    [diaryId, handleSubmit]
+    [diaryId, handleSubmit, router]
   );
 
   const doCancel: MouseEventHandler = useCallback((e) => {

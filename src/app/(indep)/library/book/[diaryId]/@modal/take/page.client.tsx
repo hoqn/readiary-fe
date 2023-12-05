@@ -40,7 +40,7 @@ export default function Page({ initialData, params: { diaryId } }: Props) {
         setLoading(true);
         setDiaryReport(diaryId, data.takeaway)
           .then(() => {
-            router.back();
+            router.replace(`/library/book/${diaryId}`);
           })
           .catch((e) => {
             alert(e);
