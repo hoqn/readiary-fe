@@ -7,7 +7,7 @@ $HEADER_HEIGHT: 5rem;
 .header {
   height: $HEADER_HEIGHT;
   position: fixed;
-  inset: 0 0 0;
+  inset: 0 0 auto 0;
 
   padding: 1rem;
 
