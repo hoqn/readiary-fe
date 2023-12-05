@@ -1,8 +1,10 @@
+@use "theme/color";
 @use "lib/media";
 @use "lib/constant";
 
 .body {
   margin-left: 0;
+  background-color: color.neutral(1);
   
   @include media.lg {
     margin-left: constant.$MAIN_NAV_WIDTH--lg;
