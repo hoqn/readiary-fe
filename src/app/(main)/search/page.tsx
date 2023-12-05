@@ -3,13 +3,15 @@
 import BookSearchBar from "@/components/search/book-search-bar";
 import * as BookSearchResult from "@/components/search/book-search-result";
 import LoadingIndicator from "@/components/ui/loading-indicator";
+import { getClientSession } from "@/helpers/auth.client";
+import { useBottomDetection } from "@/helpers/hooks/bottom-detect";
+import bookApi from "@/services/api/book.api";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import cs from "classnames";
 import { usePathname, useRouter } from "next/navigation";
-import { RefCallback, RefObject, useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styles from "./page.module.scss";
-import bookApi from "@/services/api/book.api";
-import { getClientSession, useSession } from "@/helpers/auth.client";
+
 export default function Layout({ searchParams }: { searchParams: { q: string } }) {
   const pathname = usePathname();
   const router = useRouter();
@@ -45,24 +47,11 @@ export default function Layout({ searchParams }: { searchParams: { q: string } }
     initialPageParam: 1,
   });
 
-  const resultLastElement: RefCallback<HTMLElement> = useCallback(
-    (element) => {
-      if (!!element) {
-        const resultScrollToBottomObserver = new window.IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
-            console.log("detect");
-            if (entry.isIntersecting) {
-              fetchNextPage();
-              console.log("insecting detect");
-            }
-          });
-        });
-        resultScrollToBottomObserver.observe(element);
-        console.log("has successfully applied", resultScrollToBottomObserver);
-      }
+  const { lastElementRef } = useBottomDetection({
+    onDetect: () => {
+      fetchNextPage();
     },
-    [fetchNextPage]
-  );
+  });
 
   const doOnSubmitSearchQuery = useCallback(
     ({ query }: { query: string }) => {
@@ -103,7 +92,7 @@ export default function Layout({ searchParams }: { searchParams: { q: string } }
                   )}
                 </BookSearchResult.Root>
                 {hasNextPage ? (
-                  <div className={styles["result__bottom-item"]} ref={resultLastElement}>
+                  <div className={styles["result__bottom-item"]} ref={lastElementRef}>
                     {isFetching && <LoadingIndicator />}
                   </div>
                 ) : (
