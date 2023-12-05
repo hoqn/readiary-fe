@@ -120,3 +120,13 @@
     font-size: .75rem;
   }
 }
+
+.last-item {
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.last-item--no-next-page {
+  font-size: .875rem;
+  color: color.neutral(11);
+}
