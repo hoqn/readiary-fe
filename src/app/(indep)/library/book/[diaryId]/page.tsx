@@ -4,6 +4,7 @@ import ScrapSection from "./(scrap)/scrap-section";
 import { fetchDiaryDetail } from "./actions";
 import styles from "./page.module.scss";
 import InfoSection from "./(info)/info-section";
+import BasicLayout from "@/components/layouts/basic";
 
 const ReadingStatusLabel: Record<ReadingStatus, string> = {
   "0": "읽기 전",
@@ -20,8 +21,7 @@ export default async function Page({ params }: { params: { diaryId: number } }) 
   const data = await fetchDiaryDetail(params.diaryId);
 
   return (
-    <>
-      <Header title="책" hasBackButton />
+    <BasicLayout title="나의 서재">
       <main>
         <section className={styles["head-section"]}>
           <div className={styles["head-section__inner"]}>
@@ -46,6 +46,6 @@ export default async function Page({ params }: { params: { diaryId: number } }) 
           <ScrapSection scraps={data.scraps} />
         </div>
       </main>
-    </>
+    </BasicLayout>
   );
 }
