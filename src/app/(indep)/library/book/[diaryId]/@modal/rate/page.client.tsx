@@ -35,7 +35,8 @@ export default function Page({ initialData, params: { diaryId } }: Props) {
       setLoading(true);
       setDiaryRate(diaryId, value)
         .then(() => {
-          router.replace(`/library/book/${diaryId}`);
+          router.back();
+          router.refresh();
         })
         .finally(() => {
           setLoading(false);

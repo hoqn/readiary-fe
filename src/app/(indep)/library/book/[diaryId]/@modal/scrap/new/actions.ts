@@ -2,9 +2,6 @@
 
 import { getAccessTokenFromCookie } from "@/helpers/auth.server";
 import diaryApi from "@/services/api/diary.api";
-import { revalidateTag } from "next/cache";
-import { cookies } from "next/headers";
-import { RedirectType, redirect } from "next/navigation";
 
 export async function postScrap(
   diaryId: number,
@@ -19,6 +16,7 @@ export async function postScrap(
     authorization,
   });
 
-  revalidateTag("diary/detail");
-  redirect(`/library/book/${diaryId}`, RedirectType.replace);
+  // TODO: 이 부분 오류로 client side에서 처리. 이후 상황에 따라 개선
+  // revalidateTag("diary/detail");
+  // redirect(`/library/book/${diaryId}`, RedirectType.replace);
 }

@@ -27,7 +27,8 @@ export default function Page({
         setLoading(true);
         postScrap(diaryId, data)
           .then(() => {
-            router.replace(`/library/book/${diaryId}`);
+            router.back();
+            router.refresh();
           })
           .catch((e) => alert(e))
           .finally(() => setLoading(false));
