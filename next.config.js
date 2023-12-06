@@ -33,7 +33,17 @@ const nextConfig = {
       source: "/api/:path*",
       destination: "http://3.37.121.16:8080/api/:path*"
     }
-  ]
+  ],
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "s3.console.aws.amazon.com",
+        port: "",
+        pathname: "/s3/object/bookdiary-bucket",
+      }
+    ]
+  }
 }
 
 module.exports = withPWA(nextConfig);

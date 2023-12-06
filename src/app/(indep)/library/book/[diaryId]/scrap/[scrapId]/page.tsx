@@ -27,7 +27,7 @@ export default async function Page({
       <div className={styles["page-body"]}>
         <div className={styles["image-container"]}>
           {scrap.imageUrl?.length ? (
-            <Image className={styles["image"]} src={scrap.imageUrl} alt="스크랩 생성 이미지" />
+            <Image className={styles["image"]} src={scrap.imageUrl} alt="스크랩 생성 이미지" width="96" height="96" />
           ) : (
             <div className={styles["image-no"]}>
               <p>이미지를 생성해보세요!</p>
