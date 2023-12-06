@@ -15,15 +15,15 @@ const data: {
   value: ReadingStatus;
 }[] = [
   {
-    label: "읽을 예정이에요",
+    label: "읽기 전",
     value: ReadingStatus.BEFORE,
   },
   {
-    label: "읽고 있어요",
+    label: "읽는 중",
     value: ReadingStatus.READING,
   },
   {
-    label: "다 읽었어요",
+    label: "다 읽음",
     value: ReadingStatus.AFTER,
   },
 ];
