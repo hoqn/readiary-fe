@@ -36,7 +36,7 @@ interface Props extends BaseProps, PropsWithChildren, VariantProps<typeof $root>
   asChild?: boolean;
 }
 
-const Button = forwardRef<"button", Props & ComponentPropsWithoutRef<"button">>(
+const Button = forwardRef<HTMLButtonElement, Props & ComponentPropsWithoutRef<"button">>(
   ({ className, children, asChild, intent, tint, size, loading = false, disabled, ...restProps }, ref) => {
     const Component = asChild ? Slot : "button";
 

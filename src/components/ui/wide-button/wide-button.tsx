@@ -1,21 +1,18 @@
 "use client";
 
-import { Slot } from "@radix-ui/react-slot";
 import cs from "classnames";
-import { motion } from "framer-motion";
-import { ComponentPropsWithoutRef, PropsWithChildren } from "react";
+import { MotionProps, motion } from "framer-motion";
 import Button from "../button";
 import styles from "./wide-button.module.scss";
 
-interface Props extends BaseProps, PropsWithChildren {
-  tint?: Parameters<typeof Button>[0]["tint"];
-  loading?: Parameters<typeof Button>[0]["loading"];
-  asChild?: boolean;
-}
+interface Props extends Omit<PropsOf<typeof Button>, "intent" | "size"> {}
 
-const WideButton = function ({ className, tint = "primary", loading, asChild, children, ...restProps }: Props & ComponentPropsWithoutRef<"button">) {
+const WideButton = function ({
+  className,
+  tint = "primary",
+  ...restProps
+}: Props & MotionProps) {
   const RootComponent = motion(Button);
-  const ButtonComponent = asChild ? Slot : "button";
 
   return (
     <RootComponent
@@ -23,11 +20,11 @@ const WideButton = function ({ className, tint = "primary", loading, asChild, ch
       intent="contained"
       tint={tint}
       size="lg"
-      loading={loading}
-      asChild
-    >
-      <ButtonComponent {...restProps}>{children}</ButtonComponent>
-    </RootComponent>
+      whileTap={{
+        scale: 0.96,
+      }}
+      {...restProps}
+    />
   );
 };
 
