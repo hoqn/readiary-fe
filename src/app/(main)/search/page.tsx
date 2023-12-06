@@ -19,6 +19,10 @@ export default function Layout({ searchParams }: { searchParams: { q: string } }
   const [searchQuery, setSearchQuery] = useState<string>(searchParams.q || "");
 
   useEffect(() => {
+    setSearchQuery(searchParams.q);
+  }, [searchParams.q]);
+
+  useEffect(() => {
     if (!!searchQuery?.length) router.replace(`${pathname}?q=${searchQuery}`);
   }, [pathname, router, searchQuery]);
 
@@ -104,7 +108,7 @@ export default function Layout({ searchParams }: { searchParams: { q: string } }
             );
           } else if (status === "pending") {
             // 아직 검색어가 입력되지 않음
-            if (!searchQuery.length) {
+            if (!searchQuery?.length) {
               return (
                 <div className={styles["result-waiting"]}>
                   <p>검색어를 입력해주세요</p>
