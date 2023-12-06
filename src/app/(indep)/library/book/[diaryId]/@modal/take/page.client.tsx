@@ -7,22 +7,22 @@ import Button from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { setDiaryReport } from "./actions";
 import { useForm } from "react-hook-form";
+import { useLocalContext } from "../../context";
 
 interface Props {
-  initialData: {
-    takeaway: string;
-  };
   params: { diaryId: number };
 }
 
-export default function Page({ initialData, params: { diaryId } }: Props) {
+export default function Page({ params: { diaryId } }: Props) {
   const router = useRouter();
 
   const [isLoading, setLoading] = useState<boolean>(false);
 
+  const { diaryDetail, revalidateDiaryDetail } = useLocalContext();
+
   const { register, handleSubmit } = useForm<Record<"takeaway", string>>({
     defaultValues: {
-      takeaway: initialData.takeaway,
+      takeaway: diaryDetail?.bookDiary.takeaway || "",
     },
   });
 
@@ -41,7 +41,8 @@ export default function Page({ initialData, params: { diaryId } }: Props) {
         setDiaryReport(diaryId, data.takeaway)
           .then(() => {
             router.back();
-            router.refresh();
+            // router.refresh();
+            revalidateDiaryDetail();
           })
           .catch((e) => {
             alert(e);
@@ -50,7 +51,7 @@ export default function Page({ initialData, params: { diaryId } }: Props) {
             setLoading(false);
           });
       }),
-    [diaryId, handleSubmit, router]
+    [diaryId, handleSubmit, revalidateDiaryDetail, router]
   );
 
   return (

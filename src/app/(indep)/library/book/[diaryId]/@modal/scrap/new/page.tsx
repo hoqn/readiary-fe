@@ -6,6 +6,7 @@ import { MouseEventHandler, useCallback, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { postScrap } from "./actions";
 import styles from "./page.module.scss";
+import { useLocalContext } from "../../../context";
 
 export default function Page({
   params: { diaryId },
@@ -16,6 +17,8 @@ export default function Page({
 }) {
   const router = useRouter();
   const [isLoading, setLoading] = useState<boolean>(false);
+
+  const { revalidateDiaryDetail } = useLocalContext();
 
   const { register, handleSubmit, watch, formState } = useForm<Record<"content" | "memo", string>>({
     mode: "onBlur",
@@ -28,12 +31,12 @@ export default function Page({
         postScrap(diaryId, data)
           .then(() => {
             router.back();
-            router.refresh();
+            revalidateDiaryDetail();
           })
           .catch((e) => alert(e))
           .finally(() => setLoading(false));
       }),
-    [diaryId, handleSubmit, router]
+    [diaryId, handleSubmit, revalidateDiaryDetail, router]
   );
 
   const doCancel: MouseEventHandler = useCallback((e) => {

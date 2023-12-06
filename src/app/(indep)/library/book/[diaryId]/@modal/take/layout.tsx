@@ -1,6 +1,6 @@
 "use client";
 
-import { ModalOverlay, ModalSheet } from "@/components/ui/modal"
+import { ModalOverlay, ModalSheet } from "@/components/ui/modal";
 import { useRouter } from "next/navigation";
 import { useCallback } from "react";
 

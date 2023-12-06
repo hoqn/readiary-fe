@@ -1,26 +1,29 @@
 "use client";
 
-import RatingStars from "@/components/ui/rating-stars";
 import Section from "@/components/ui/section";
-import { GetDiaryDetailResponse } from "@/services/api/diary.api";
-import styles from "./info-section.module.scss";
-import Rating from "./rating";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useLocalContext } from "../context";
+import styles from "./info-section.module.scss";
+import Rating from "./rating";
 
-interface Props {
-  diaryInfo: GetDiaryDetailResponse["bookDiary"];
-}
-
-export default function InfoSection({ diaryInfo }: Props) {
+export default function InfoSection() {
   const pathname = usePathname();
+
+  const { diaryDetail } = useLocalContext();
+
+  if (!diaryDetail) return;
+
+  const {
+    bookDiary: { takeaway },
+  } = diaryDetail;
 
   return (
     <Section className={styles["info-section"]}>
-      <Rating value={diaryInfo.score} />
+      <Rating />
       <Link className={styles["takeaway-wrapper"]} href={`${pathname}/take`}>
-        {diaryInfo.takeaway?.length ? (
-          <div className={styles["takeaway"]}>{diaryInfo.takeaway}</div>
+        {takeaway?.length ? (
+          <div className={styles["takeaway"]}>{takeaway}</div>
         ) : (
           <div className={styles["takeaway-empty"]}>감상평을 남겨주세요!</div>
         )}

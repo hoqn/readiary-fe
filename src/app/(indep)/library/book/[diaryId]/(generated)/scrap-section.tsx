@@ -9,13 +9,16 @@ import { usePathname } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { GetDiaryDetailResponse } from "@/services/api/diary.api";
 import { useEffect, useState } from "react";
+import { useLocalContext } from "../context";
 
-interface Props {
-  scraps: GetDiaryDetailResponse["scraps"];
-}
-
-export default function ScrapSection({ scraps }: Props) {
+export default function ScrapSection() {
   const pathname = usePathname();
+
+  const { diaryDetail } = useLocalContext();
+
+  if (!diaryDetail) return;
+
+  const { scraps } = diaryDetail;
 
   return (
     <Section title="나의 스크랩" className={styles["scrap-section"]}>

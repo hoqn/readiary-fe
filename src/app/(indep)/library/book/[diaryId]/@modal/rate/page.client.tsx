@@ -7,19 +7,19 @@ import Button from "@/components/ui/button";
 import { usePathname, useRouter } from "next/navigation";
 import { setDiaryRate } from "./actions";
 import { setDiaryReport } from "../take/actions";
+import { useLocalContext } from "../../context";
 
 interface Props {
-  initialData: {
-    score: number | null;
-  };
   params: { diaryId: number };
 }
 
-export default function Page({ initialData, params: { diaryId } }: Props) {
+export default function Page({ params: { diaryId } }: Props) {
   const router = useRouter();
 
+  const { diaryDetail, revalidateDiaryDetail } = useLocalContext();
+
   const [isLoading, setLoading] = useState<boolean>(false);
-  const [value, setValue] = useState<number | null>(initialData.score);
+  const [value, setValue] = useState<number | null>(diaryDetail?.bookDiary.score || null);
 
   const doOnCancel: MouseEventHandler = useCallback(
     (e) => {
@@ -36,13 +36,13 @@ export default function Page({ initialData, params: { diaryId } }: Props) {
       setDiaryRate(diaryId, value)
         .then(() => {
           router.back();
-          router.refresh();
+          revalidateDiaryDetail();
         })
         .finally(() => {
           setLoading(false);
         });
     },
-    [diaryId, router, value]
+    [diaryId, revalidateDiaryDetail, router, value]
   );
 
   return (
