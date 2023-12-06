@@ -1,0 +1,75 @@
+@use "theme/color";
+
+.status-container {
+  display: block;
+  max-width: 24rem;
+  margin: 0 auto;
+  padding: 1rem 0;
+}
+
+.status {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  border-radius: .5rem;
+
+  background-color: color.primary(3);
+}
+
+.status-item-wrapper {
+  flex: 1;
+
+  &+& {
+    border-left: 1px solid color.primary(4);
+  }
+}
+
+.status-item {
+  composes: pressable pressable--opacity from global;
+
+  position: relative;
+  display: block;
+  text-align: center;
+  
+  z-index: 2;
+  padding: 1rem 1rem;
+  
+  background-color: transparent;
+  color: color.primary(12);
+  
+  &--active {
+    color: color.primary(9-contrast);
+  }
+}
+
+.status-item__active-background {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: .5rem;
+  background-color: color.primary(9);
+  color: color.primary(9-contrast);
+  box-shadow: 0 0 0 2px color.primary(9);
+}
+
+.status-item__icon>svg {
+  position: relative;
+  fill: currentColor;
+  width: 1.5rem;
+  height: 1.5rem;
+  z-index: 2;
+}
+
+.status-item__label {
+  position: relative;
+  font-size: .875rem;
+  font-weight: 600;
+  z-index: 2;
+}
+
+.status-item__loading {
+  position: relative;
+  font-size: .5rem;
+  z-index: 2;
+}

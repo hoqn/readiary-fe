@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useLocalContext } from "../context";
 import styles from "./info-section.module.scss";
 import Rating from "./rating";
+import Status from "./status";
 
 export default function InfoSection() {
   const pathname = usePathname();
@@ -20,6 +21,7 @@ export default function InfoSection() {
 
   return (
     <Section className={styles["info-section"]}>
+      <Status />
       <Rating />
       <Link className={styles["takeaway-wrapper"]} href={`${pathname}/take`}>
         {takeaway?.length ? (
