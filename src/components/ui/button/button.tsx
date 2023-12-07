@@ -1,10 +1,9 @@
-import { polymorphicForwardRef } from "@/utils/polymorphic-forward-ref";
-import { ComponentPropsWithoutRef, PropsWithChildren, PropsWithoutRef, forwardRef } from "react";
-import cs from "classnames";
+import NestedSlot from "@/utils/nested-slot";
 import { VariantProps, cva } from "class-variance-authority";
-import styles from "./button.module.scss";
+import cs from "classnames";
+import { ComponentPropsWithoutRef, PropsWithChildren, forwardRef } from "react";
 import LoadingIndicator from "../loading-indicator";
-import { Slot } from "@radix-ui/react-slot";
+import styles from "./button.module.scss";
 
 const $root = cva(styles.root, {
   variants: {
@@ -38,7 +37,7 @@ interface Props extends BaseProps, PropsWithChildren, VariantProps<typeof $root>
 
 const Button = forwardRef<HTMLButtonElement, Props & ComponentPropsWithoutRef<"button">>(
   ({ className, children, asChild, intent, tint, size, loading = false, disabled, ...restProps }, ref) => {
-    const Component = asChild ? Slot : "button";
+    const Component = asChild ? NestedSlot : "button";
 
     return (
       <Component
