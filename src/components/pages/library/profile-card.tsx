@@ -24,8 +24,8 @@ export default function ProfileCard({ className, user, ...restProps }: Props) {
         </div>
         <div className={styles["pan-right"]}>
           <div className={styles["content-name"]}>{user.email}</div>
-          <Button className={styles["logout-button"]} intent="text" tint="neutral" asChild>
-            <Link href="/logout">로그아웃</Link>
+          <Button className={styles["signout-button"]} intent="text" tint="neutral" asChild>
+            <Link href="/signout">로그아웃</Link>
           </Button>
         </div>
       </div>

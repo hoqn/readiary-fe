@@ -76,7 +76,7 @@ export default function Page({
           </label>
           <textarea
             className={styles["field__textarea"]}
-            placeholder="스크랩에 대한 생각이나 메모을 남길 수도 있어요"
+            placeholder="스크랩에 대한 생각이나 메모를 남길 수도 있어요"
             {...register("memo", {
               maxLength: 256,
             })}
