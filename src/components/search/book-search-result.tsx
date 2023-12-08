@@ -1,6 +1,8 @@
+import cs from "classnames";
+import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { PropsWithChildren } from "react";
-import cs from "classnames";
 import styles from "./book-search-result.module.scss";
 
 interface Props extends BaseProps, PropsWithChildren {}
@@ -26,12 +28,18 @@ function BookSearchResultItem({ data, className, ...restProps }: ItemProps) {
   return (
     <li className={cs(styles["book-search-result-item"], className)}>
       <Link className={styles["book-search-result-item__inner"]} href={`/book/${data.isbn13}`} {...restProps}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          className={cs(styles["book-search-result-item__left"], styles["book-search-result-item__image"])}
-          src={data.bookImageURL}
-          alt="책 표지 이미지"
-        />
+        <motion.div layout layoutId={`bookimg-${data.isbn13}`}>
+          <Image
+            className={cs(styles["book-search-result-item__left"], styles["book-search-result-item__image"])}
+            src={data.bookImageURL}
+            alt="책 표지 이미지"
+            width={64}
+            height={96}
+            unoptimized
+            placeholder="blur"
+            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkqAcAAIUAgUW0RjgAAAAASUVORK5CYII="
+          />
+        </motion.div>
         <div className={styles["book-search-result-item__right"]}>
           <div className={styles["book-search-result-item__title"]}>{data.bookname}</div>
           <div className={styles["book-search-result-item__others"]}>
@@ -43,4 +51,5 @@ function BookSearchResultItem({ data, className, ...restProps }: ItemProps) {
   );
 }
 
-export { BookSearchResult as Root, BookSearchResultItem as Item };
+export { BookSearchResultItem as Item, BookSearchResult as Root };
+
