@@ -1,8 +1,8 @@
 @function primary($scale) {
-  @return var(--green-#{$scale});
+  @return var(--jade-#{$scale});
 }
 @function primary-a($scale) {
-  @return var(--green-a#{$scale});
+  @return var(--jade-a#{$scale});
 }
 
 @function neutral($scale) {

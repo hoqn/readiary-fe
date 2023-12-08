@@ -1,7 +1,7 @@
-@import "@radix-ui/colors/green.css";
-@import "@radix-ui/colors/green-alpha.css";
-@import "@radix-ui/colors/green-dark.css";
-@import "@radix-ui/colors/green-dark-alpha.css";
+@import "@radix-ui/colors/jade.css";
+@import "@radix-ui/colors/jade-alpha.css";
+@import "@radix-ui/colors/jade-dark.css";
+@import "@radix-ui/colors/jade-dark-alpha.css";
 @import "@radix-ui/colors/sage.css";
 @import "@radix-ui/colors/sage-alpha.css";
 @import "@radix-ui/colors/sage-dark.css";
@@ -12,11 +12,11 @@
 @import "@radix-ui/colors/red-dark.css";
 
 :root, .light, .light-theme {
-  --green-9-contrast: #fff;
+  --jade-9-contrast: #fff;
   --sage-9-contrast: #fff;
 }
 
 .dark, .dark-theme {
-  --green-9-contrast: #fff;
+  --jade-9-contrast: #fff;
   --sage-9-contrast: #fff;
 }
