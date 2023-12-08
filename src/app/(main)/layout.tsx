@@ -29,24 +29,7 @@ export default function Layout({ children }: PropsWithChildren) {
 
   return (
     <>
-      <AnimatePresence mode="wait">
-        <motion.div
-          className={styles["main"]}
-          key={pathname}
-          variants={animVariants}
-          initial="hidden"
-          // exit="hidden"
-          onAnimationStart={doOnAnimationStart}
-          onAnimationComplete={doOnAnimationComplete}
-          animate="show"
-          transition={{
-            bounce: 0,
-            ease: "linear",
-          }}
-        >
-          {children}
-        </motion.div>
-      </AnimatePresence>
+      {children}
       <MainNavigation className={styles["bottom-nav"]} />
     </>
   );
