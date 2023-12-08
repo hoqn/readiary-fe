@@ -3,7 +3,6 @@
 import BookSearchBar from "@/components/search/book-search-bar";
 import * as BookSearchResult from "@/components/search/book-search-result";
 import LoadingIndicator from "@/components/ui/loading-indicator";
-import { getClientSession } from "@/helpers/auth.client";
 import { useBottomDetection } from "@/helpers/hooks/bottom-detect";
 import bookApi from "@/services/api/book.api";
 import { useInfiniteQuery } from "@tanstack/react-query";
@@ -11,6 +10,7 @@ import cs from "classnames";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import styles from "./page.module.scss";
+import { getBooksByTitle } from "./actions";
 
 export default function Layout({ searchParams }: { searchParams: { q: string } }) {
   const pathname = usePathname();
@@ -37,15 +37,7 @@ export default function Layout({ searchParams }: { searchParams: { q: string } }
   } = useInfiniteQuery({
     queryKey: ["search-book", "title", searchQuery],
     // queryFn: ({ pageParam }) => bookApiService.searchBooksByTitle(searchQuery, pageParam).then((res) => res.json()),
-    queryFn: async ({ pageParam }) => {
-      const authorization = getClientSession().accessToken;
-
-      return bookApi
-        .searchBooksByTitle(searchQuery, pageParam, {
-          authorization,
-        })
-        .then((res) => res.json());
-    },
+    queryFn: ({ pageParam }) => getBooksByTitle(searchQuery, { page: pageParam }),
     enabled: !!searchQuery?.length,
     getNextPageParam: (lastPage, _, lastPageParam) => (lastPage?.response?.docs?.length ? lastPageParam + 1 : null),
     initialPageParam: 1,

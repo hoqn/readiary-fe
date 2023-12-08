@@ -2,47 +2,20 @@
 
 import ErrorPage from "@/components/common/error-page";
 import FetchingPage from "@/components/common/fetching-page";
-import Header from "@/components/common/header";
 import LoadingIndicator from "@/components/ui/loading-indicator";
 import RatingStars from "@/components/ui/rating-stars";
-import { useSession } from "@/helpers/auth.client";
 import { useBottomDetection } from "@/helpers/hooks/bottom-detect";
 import diaryApi from "@/services/api/diary.api";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import cs from "classnames";
 import Link from "next/link";
 import styles from "./page.module.scss";
+import { getDiariesOfCurrentMember } from "./actions";
 
 export default function Page() {
-  const currentSession = useSession();
-
-  if (!currentSession) throw new Error("로그인이 필요합니다." + currentSession);
-
   const { data, status, isFetchingNextPage, error, fetchNextPage, hasNextPage } = useInfiniteQuery({
     queryKey: ["lib-book"],
-    queryFn: async ({ pageParam }) => {
-      const authorization = currentSession.accessToken;
-
-      return diaryApi
-        .getDiariesByMemberId(currentSession.user.memberId, { page: pageParam }, { authorization })
-        .then((res) => res.json());
-
-      // return fetchApiClient
-      //   .fetch<{
-      //     response: {
-      //       title: string;
-      //       author: string;
-      //       coverImageUrl: string;
-      //       isbn: string;
-      //       readingStatusYN: string;
-      //       score: number | null;
-      //     }[];
-      //   }>(`/api/diary/${currentSession.user.memberId}`, {
-      //     method: "GET",
-      //     authorization,
-      //   })
-      //   .then((res) => res.json());
-    },
+    queryFn: ({ pageParam }) => getDiariesOfCurrentMember({ page: pageParam }),
     getNextPageParam: (lastPage, _, lastPageParam) => {
       if (lastPage.response.data.length) return lastPageParam + 1;
       else return null;
@@ -106,7 +79,9 @@ export default function Page() {
                     )}
                   </ul>
                   {hasNextPage ? (
-                    <div className={styles["last-item"]} ref={lastElementRef}>{isFetchingNextPage && <LoadingIndicator />}</div>
+                    <div className={styles["last-item"]} ref={lastElementRef}>
+                      {isFetchingNextPage && <LoadingIndicator />}
+                    </div>
                   ) : (
                     <div className={cs(styles["last-item"], styles["last-item--no-next-page"])}>목록의 끝이에요</div>
                   )}

@@ -1,19 +1,18 @@
 "use client";
 
-import { clearCookie } from "./actions";
-import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useAuthStore } from "@/stores/auth.store";
+import Loading from "../loading";
+import { useEffect } from "react";
+import { clearCookie } from "./actions";
 
 export default function Page() {
-  const clearCurrentSession = useAuthStore((s) => s.clearCurrentSession);
   const router = useRouter();
 
   useEffect(() => {
-    clearCookie();
-    clearCurrentSession();
-    router.replace("/");
-  }, []);
+    clearCookie().finally(() => {
+      router.replace("/");
+    })
+  }, [router]);
 
-  return null;
+  return <Loading />
 }

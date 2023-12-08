@@ -2,7 +2,6 @@
 
 import Button from "@/components/ui/button";
 import authApi from "@/services/api/auth.api";
-import { useAuthStore } from "@/stores/auth.store";
 import cs from "classnames";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
@@ -20,8 +19,6 @@ interface Props extends BaseProps {
 }
 
 export default function SignInForm({ className, redirect = "/", ...restProps }: Props) {
-  const setCurrentAccessToken = useAuthStore((s) => s.setCurrentAccessToken);
-
   const [isFetching, setIsFetching] = useState<boolean>(false);
 
   const router = useRouter();
@@ -34,8 +31,7 @@ export default function SignInForm({ className, redirect = "/", ...restProps }: 
         setIsFetching(true);
 
         signIn(data)
-          .then(({ accessToken }) => {
-            setCurrentAccessToken(accessToken);
+          .then(() => {
             router.replace(redirect, { scroll: false });
           })
           .catch((e) => {
@@ -44,7 +40,7 @@ export default function SignInForm({ className, redirect = "/", ...restProps }: 
             setIsFetching(false);
           });
       }),
-    [handleSubmit, redirect, router, setCurrentAccessToken]
+    [handleSubmit, redirect, router]
   );
 
   return (

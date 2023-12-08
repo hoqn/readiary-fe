@@ -5,11 +5,11 @@ import styles from "./_book-actions.module.scss";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { GetBookResponse } from "@/services/api/book.api";
 import diaryApi, { ReadingStatus } from "@/services/api/diary.api";
-import { useSession } from "@/helpers/auth.client";
 import { ElementType, MouseEventHandler, createContext, useCallback, useContext, useEffect, useState } from "react";
 import Button from "@/components/ui/button";
 import cs from "classnames";
 import Link from "next/link";
+import { addBookToLibrary, checkDiaryAvaility } from "./actions";
 
 const LocalContext = createContext<{
   diaryId: number | null;
@@ -23,34 +23,17 @@ interface AddBookToLibraryProps extends BaseProps {
 }
 
 function AddBookToLibrary({ bookData }: AddBookToLibraryProps) {
-  const currentSession = useSession();
-
-  if (!currentSession) throw Error;
-
   const localContext = useContext(LocalContext);
 
   const { mutate, isPending } = useMutation({
     mutationKey: ["add-to-library", bookData.isbn13 || bookData.isbn],
-    mutationFn: async () => {
-      return diaryApi
-        .addBookToLibrary(
-          {
-            title: bookData.bookname,
-            author: bookData.authors,
-            coverImageUrl: bookData.bookImageURL,
-            isbn: bookData.isbn13 || bookData.isbn,
-            memberId: currentSession.user.memberId,
-          },
-          { authorization: currentSession.accessToken }
-          // );
-
-          // // 확인
-          // return diaryApi.checkIfDiaryExists(currentSession.user.memberId, bookData.isbn13 || bookData.isbn, {
-          //   authorization: currentSession.accessToken,
-          // });
-        )
-        .then((res) => res.json());
-    },
+    mutationFn: () =>
+      addBookToLibrary({
+        title: bookData.bookname,
+        author: bookData.authors,
+        coverImageUrl: bookData.bookImageURL,
+        isbn: bookData.isbn13 || bookData.isbn,
+      }),
     onSuccess: ({ bookDiaryId }) => {
       localContext?.setDiaryId(bookDiaryId);
     },
@@ -76,20 +59,15 @@ interface Props extends BaseProps {
 }
 
 export default function BookActions({ bookData, className }: Props) {
-  const currentSession = useSession();
-
   const [diaryId, setDiaryId] = useState<number | null>(null);
 
   // 이미 담긴 책인지 체크
   const { data, status } = useQuery({
     queryKey: ["check-diary-exist", bookData.isbn13 || bookData.isbn],
     queryFn: () => {
-      return diaryApi
-        .checkIfDiaryExists(currentSession!.user.memberId, bookData.isbn13 || bookData.isbn, {
-          authorization: currentSession!.accessToken,
-        })
-        .then((res) => res.json())
-        .then(({ bookDiaryId }) => (bookDiaryId >= 0 ? bookDiaryId : null));
+      return checkDiaryAvaility(bookData.isbn13 || bookData.isbn).then(({ bookDiaryId }) =>
+        bookDiaryId >= 0 ? bookDiaryId : null
+      );
       // 없을 땐 -1, 있을 땐 0 이상의 다이어리 id 반환
     },
   });
@@ -98,7 +76,7 @@ export default function BookActions({ bookData, className }: Props) {
     setDiaryId(typeof data === "undefined" ? null : data);
   }, [data]);
 
-  if (!currentSession || status !== "success") {
+  if (status !== "success") {
     return null;
   }
 
