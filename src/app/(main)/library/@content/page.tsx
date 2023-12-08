@@ -58,8 +58,7 @@ export default function Page() {
 
   return (
     <>
-      <Header className={styles["header"]} title="내가 읽은 책" hasBackButton />
-      <main className={styles["body"]}>
+      <div className={styles["body"]}>
         {(() => {
           if (status === "success") {
             return (
@@ -120,7 +119,7 @@ export default function Page() {
             return <ErrorPage description={error.message} />;
           }
         })()}
-      </main>
+      </div>
     </>
   );
 }
