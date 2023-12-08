@@ -4,7 +4,7 @@
   color: color.neutral(12);
   background-color: color.neutral(2);
   box-shadow: 0 0 0 1px color.neutral(6);
-  border-radius: .5rem;
+  border-radius: 1.5rem;
 }
 
 .inner {
@@ -14,16 +14,37 @@
 
 .pan-left {
   flex: 0 0;
-  padding: 1rem 0 1rem 1rem;
+  padding: 1rem;
+  line-height: 0; // to fix img tag bug
 }
 
 .pan-right {
   flex: 1 0;
-  padding: 1rem;
+  padding-right: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile-img {
+  width: 2rem;
+  min-width: 2rem;
+  max-width: 2rem;
+  height: 2rem;
+  min-height: 2rem;
+  max-height: 2rem;
+  border-radius: 9999px;
+
+  box-shadow: 0 0 0 1px color.neutral(6);
 }
 
 .content-name {
   font-size: 1.125rem;
   font-weight: bold;
   line-height: 1.5;
+}
+
+.logout-button {
+  float: right;
 }
