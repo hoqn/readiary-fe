@@ -7,21 +7,17 @@ import { useBottomDetection } from "@/helpers/hooks/bottom-detect";
 import bookApi from "@/services/api/book.api";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import cs from "classnames";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import styles from "./page.module.scss";
 import { getBooksByTitle } from "./actions";
 
-export default function Layout({ searchParams }: { searchParams: { q: string } }) {
+export default function Page({ searchParams }: { searchParams: { q: string } }) {
   const pathname = usePathname();
   const router = useRouter();
 
-  const [searchQuery, setSearchQuery] = useState<string>(searchParams.q || "");
-
-  useEffect(() => {
-    setSearchQuery(searchParams.q);
-  }, [searchParams.q]);
-
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  
   useEffect(() => {
     if (!!searchQuery?.length) router.replace(`${pathname}?q=${searchQuery}`);
   }, [pathname, router, searchQuery]);
@@ -43,6 +39,10 @@ export default function Layout({ searchParams }: { searchParams: { q: string } }
     initialPageParam: 1,
   });
 
+  useEffect(() => {
+    setSearchQuery(searchParams.q);
+  }, [searchParams.q]);
+
   const { lastElementRef } = useBottomDetection({
     onDetect: () => {
       fetchNextPage();
@@ -59,7 +59,7 @@ export default function Layout({ searchParams }: { searchParams: { q: string } }
   return (
     <>
       <div className={styles.header}>
-        <BookSearchBar initialValue={searchQuery} onSubmit={doOnSubmitSearchQuery} />
+        <BookSearchBar initialValue={searchQuery || searchParams.q} onSubmit={doOnSubmitSearchQuery} />
       </div>
       <main className={styles.body}>
         {(() => {
