@@ -11,6 +11,7 @@ interface GenImageDto {
 
 interface GenImageResponse {
   imageId: number;
+  imageUrl: string;
 }
 
 export async function genImage(body: GenImageDto) {
