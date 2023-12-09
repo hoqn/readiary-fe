@@ -1,20 +1,25 @@
 "use client";
 
-import cs from "classnames";
-import styles from "./rating-stars.module.scss";
-
-import IcHalfStar from "@material-symbols/svg-400/rounded/star_rate_half-fill.svg";
 import IcFullStar from "@material-symbols/svg-400/rounded/star_rate-fill.svg";
 import IcEmptyStar from "@material-symbols/svg-400/rounded/star_rate.svg";
-import { MouseEventHandler, TouchEventHandler, useCallback, useEffect, useRef, useState } from "react";
+import IcHalfStar from "@material-symbols/svg-400/rounded/star_rate_half-fill.svg";
+import cs from "classnames";
+import {
+  PointerEventHandler,
+  useCallback,
+  useEffect,
+  useRef,
+  useState
+} from "react";
+import styles from "./rating-stars.module.scss";
 
-function Star({ value }: { value: number }) {
+export function Star({ value }: { value: number }) {
   if (value >= 0) return <IcFullStar />;
   else if (value === -1) return <IcHalfStar />;
   else return <IcEmptyStar />;
 }
 
-interface Props extends BaseProps {
+export interface Props extends BaseProps {
   value: number;
   isEditable?: boolean;
   onEdit?: (value: number | null) => void;
@@ -26,35 +31,33 @@ export default function RatingStars({ className, value, isEditable, onEdit, ...r
 
   const ref = useRef<HTMLDivElement>(null);
 
-  const doOnMouseMove: MouseEventHandler<HTMLDivElement> = useCallback((e) => {
-    e.preventDefault();
-
-    if (isEditing && ref.current) {
+  const updateDisplayValue = (x: number) => {
+    if (ref.current) {
       const bounding = ref.current.getBoundingClientRect();
-      setDisplayValue(Math.round((10 * (e.pageX - bounding.x)) / bounding.width));
+      let value = Math.round((10 * (x - bounding.x)) / bounding.width);
+      if (value < 0) value = 0;
+      if (value > 10) value = 10;
+      setDisplayValue(value);
+      return value;
     }
-  }, [isEditing]);
-  
-  const doOnMouseDown: MouseEventHandler = useCallback((e) => {
+  };
+
+  const doOnPointerDown: PointerEventHandler = useCallback((e) => {
     e.preventDefault();
     setEditing(true);
-    if (ref.current) {
-      const bounding = ref.current.getBoundingClientRect();
-      setDisplayValue(Math.round((10 * (e.pageX - bounding.x)) / bounding.width));
-    }
   }, []);
-  
-  const doOnMouseUp: MouseEventHandler = useCallback((e) => {
+
+  const doOnPointerMove: PointerEventHandler = useCallback((e) => {
+    e.preventDefault();
+    updateDisplayValue(e.clientX);
+  }, []);
+
+  const doOnPointerUp: PointerEventHandler = useCallback((e) => {
     e.preventDefault();
     setEditing(false);
-    if (ref.current) {
-      const bounding = ref.current.getBoundingClientRect();
-      const value = Math.round((10 * (e.pageX - bounding.x)) / bounding.width);
-
-      setDisplayValue(value);
-      onEdit && onEdit(value);
-    }
-  }, []);
+    const value = updateDisplayValue(e.clientX);
+    onEdit && onEdit(value || 0);
+  }, [onEdit]);
 
   useEffect(() => {
     setDisplayValue(value);
@@ -62,18 +65,19 @@ export default function RatingStars({ className, value, isEditable, onEdit, ...r
 
   return (
     <div className={cs(styles["root"], isEditing && styles["root--editing"], className)} {...restProps}>
-      <div
-        className={styles["inner"]}
-        onMouseMove={isEditable ? doOnMouseMove : undefined}
-        onMouseDown={isEditable ? doOnMouseDown : undefined}
-        onMouseUp={isEditable ? doOnMouseUp : undefined}
-        ref={ref}
-      >
+      <div className={styles["inner"]}>
         <Star value={displayValue - 2} />
         <Star value={displayValue - 4} />
         <Star value={displayValue - 6} />
         <Star value={displayValue - 8} />
         <Star value={displayValue - 10} />
+        <div
+          className={styles["touch-area"]}
+          ref={ref}
+          onPointerDown={isEditable ? doOnPointerDown : undefined}
+          onPointerMove={isEditing ? doOnPointerMove : undefined}
+          onPointerUp={isEditing ? doOnPointerUp : undefined}
+        ></div>
       </div>
     </div>
   );

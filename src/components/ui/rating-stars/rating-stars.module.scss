@@ -11,6 +11,14 @@
 }
 
 .inner {
+  position: relative;
   display: inline-block;
   cursor: pointer;
+}
+
+.touch-area {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  touch-action: none;
 }
