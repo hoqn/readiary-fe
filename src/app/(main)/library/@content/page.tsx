@@ -11,6 +11,7 @@ import cs from "classnames";
 import Link from "next/link";
 import styles from "./page.module.scss";
 import { getDiariesOfCurrentMember } from "./actions";
+import ListItem from "./$list-item";
 
 export default function Page() {
   const { data, status, isFetchingNextPage, error, fetchNextPage, hasNextPage } = useInfiniteQuery({
@@ -44,36 +45,7 @@ export default function Page() {
                     {data?.pages.map((page) =>
                       page.response.data.map((item) => (
                         <li key={item.isbn} className={styles["item-wrapper"]}>
-                          <Link className={styles["item"]} href={`/library/book/${item.bookDiaryId}`}>
-                            <div className={styles["item__inner"]}>
-                              <div className={styles["item__left"]}>
-                                <picture className={styles["item__image-wrapper"]}>
-                                  <img
-                                    className={styles["item__image"]}
-                                    alt={item.title}
-                                    src={item.coverImageUrl}
-                                    // width={64}
-                                    // height={96}
-                                    onError={(e) =>
-                                      (e.currentTarget.src =
-                                        "https://placehold.co/200x300/E9F6E9/2A7E3B?text=Readiary&font=Roboto")
-                                    }
-                                  />
-                                </picture>
-                              </div>
-                              <div className={styles["item__right"]}>
-                                <div className={styles["item__title"]}>{item.title}</div>
-                                <div className={styles["item__authors"]}>{item.author}</div>
-                                {item.score ? (
-                                  <div className={styles["item__rating"]}>
-                                    <RatingStars value={item.score} />
-                                  </div>
-                                ) : (
-                                  <div className={styles["item__rating-null"]}>회원님의 평가를 기다리고 있어요!</div>
-                                )}
-                              </div>
-                            </div>
-                          </Link>
+                          <ListItem item={item} />
                         </li>
                       ))
                     )}
