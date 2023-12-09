@@ -77,7 +77,7 @@
     }
   }
   
-  &:disabled, &[aria-disabled] {
+  &:disabled, &[aria-disabled="true"] {
     cursor: not-allowed;
     filter: saturate(.5) brightness(.8);
   }

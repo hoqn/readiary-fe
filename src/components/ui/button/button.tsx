@@ -1,4 +1,5 @@
-import NestedSlot from "@/utils/nested-slot";
+import { createNestedSlot } from "@/utils/nested-slot";
+import { Slot } from "@radix-ui/react-slot";
 import { VariantProps, cva } from "class-variance-authority";
 import cs from "classnames";
 import { ComponentPropsWithoutRef, PropsWithChildren, forwardRef } from "react";
@@ -37,18 +38,18 @@ interface Props extends BaseProps, PropsWithChildren, VariantProps<typeof $root>
 
 const Button = forwardRef<HTMLButtonElement, Props & ComponentPropsWithoutRef<"button">>(
   ({ className, children, asChild, intent, tint, size, loading = false, disabled, ...restProps }, ref) => {
-    const Component = asChild ? NestedSlot : "button";
+    const [Component, newChildren] = asChild ? createNestedSlot(children) : ["button", children];
 
     return (
       <Component
         className={cs($root({ intent, tint, size }), className)}
         ref={(asChild ? undefined : ref) as any}
-        disabled={disabled || loading}
+        aria-disabled={disabled || loading}
         {...restProps}
       >
         <div className={styles["root__inner"]}>
           {loading && <LoadingIndicator className={styles["loading-indicator"]} />}
-          <span className={styles["label"]}>{children}</span>
+          <span className={styles["label"]}>{newChildren}</span>
         </div>
       </Component>
     );
