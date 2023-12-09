@@ -6,8 +6,23 @@ import QuestionSection from "./question-section";
 import { GetDiaryDetailResponse } from "@/services/api/diary.api";
 import { useLocalContext } from "../context";
 import styles from "./generated.module.scss";
-import { motion } from "framer-motion";
+import { AnimatePresence, Variants, motion } from "framer-motion";
 import cs from "classnames";
+
+const animVariants: Variants = {
+  fromLeft: {
+    opacity: 0,
+    x: "-10%",
+  },
+  fromRight: {
+    opacity: 0,
+    x: "10%",
+  },
+  show: {
+    opacity: 1,
+    x: 0,
+  },
+};
 
 interface Props {}
 
@@ -47,9 +62,39 @@ export default function GeneratedSection({}: Props) {
           </div>
         </div>
       </div>
-      <div className={styles["body"]}>
-        {view === "scrap" ? <ScrapSection /> : view === "question" ? <QuestionSection /> : null}
-      </div>
+      <AnimatePresence mode="wait" initial={false}>
+        {view === "scrap" ? (
+          <motion.div
+            key={view}
+            className={styles["body"]}
+            variants={animVariants}
+            initial="fromLeft"
+            exit="fromLeft"
+            animate="show"
+            transition={{
+              duration: 0.1,
+              ease: "easeInOut",
+            }}
+          >
+            <ScrapSection />
+          </motion.div>
+        ) : view === "question" ? (
+          <motion.div
+            key={view}
+            className={styles["body"]}
+            variants={animVariants}
+            initial="fromRight"
+            exit="fromRight"
+            animate="show"
+            transition={{
+              duration: 0.1,
+              ease: "easeInOut",
+            }}
+          >
+            <QuestionSection />
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </div>
   );
 }

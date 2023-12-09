@@ -1,0 +1,45 @@
+@use "theme/color";
+
+.root {
+}
+
+.question {
+
+}
+
+.answer {
+  position: relative;
+
+  border-radius: 1rem;
+  background-color: color.neutral(2);
+  box-shadow: 0 0 0 1px color.neutral(6);
+
+  margin-top: .5rem;
+  padding: .5rem;
+
+  margin-left: 1.5rem;
+  
+  &::before {
+    content: "A";
+    
+    position: absolute;
+    display: block;
+    top: .5rem;
+    left: -1.5rem;
+    width: 1.5rem;
+
+    font-weight: bold;
+    font-size: 1em;
+    text-align: center;
+  }
+}
+
+.answer__inner {
+  composes: pressable pressable--opacity from global;
+  display: block;
+}
+
+.answer__empty {
+  font-size: .875rem;
+  color: color.neutral(11);
+}

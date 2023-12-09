@@ -24,7 +24,7 @@ export default function ScrapSection() {
     <Section title="나의 스크랩" className={styles["scrap-section"]}>
       <div className={styles["scrap-button-wrapper"]}>
         <Button tint="neutral" intent="tonal" size="lg" asChild>
-          <Link href={`${pathname}/scrap/new`} className={styles["scrap-button"]}>
+          <Link href={`${pathname}/scrap/new/edit`} className={styles["scrap-button"]}>
             스크랩 추가
           </Link>
         </Button>

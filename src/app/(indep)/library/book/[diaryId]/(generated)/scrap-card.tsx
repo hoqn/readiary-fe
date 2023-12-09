@@ -2,15 +2,19 @@ import cs from "classnames";
 import styles from "./scrap-card.module.scss";
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 interface Props extends BaseProps {
   data: {
+    scrapId: number;
     content: string;
     memo?: string | null;
     imageUrl?: string | null;
   };
   href: string;
 }
+
+const MotionImage = motion(Image);
 
 export default function ScrapCard({ className, data, href, ...restProps }: Props) {
   return (
@@ -30,7 +34,7 @@ export default function ScrapCard({ className, data, href, ...restProps }: Props
       </div>
       {!!data.imageUrl?.length && (
         <div className={styles["root__right"]}>
-          <Image src={data.imageUrl} alt="생성된 이미지" width={96} height={96} />
+          <MotionImage className={styles["image"]} src={data.imageUrl} alt="생성된 이미지" width={96} height={96} layoutId={`scrap-thumb-${data.scrapId}`} />
         </div>
       )}
     </Link>

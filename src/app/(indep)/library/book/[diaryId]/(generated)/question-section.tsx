@@ -7,6 +7,8 @@ import { useLocalContext } from "../context";
 import QuestionCard from "./question-card";
 import cs from "classnames";
 import Button from "@/components/ui/button";
+import Link from "next/link";
+import Section from "@/components/ui/section";
 
 interface Props {
   questions: GetDiaryDetailResponse["questions"];
@@ -39,28 +41,69 @@ export default function QuestionSection() {
       <div className={styles["root"]}>
         <div className={cs(styles["info"], styles["info--gen-able"])}>
           <p>질문을 생성할 수 있어요!</p>
-          <Button intent="contained" tint="primary">
-            질문 생성
+          <Button intent="contained" tint="primary" asChild>
+            <Link href={`${pathname}/gen/questions`}>질문 생성</Link>
           </Button>
         </div>
       </div>
     );
   }
 
+  const firstQuestions = questions.filter(({ degree }) => degree == 1);
+  const secondQuestions = questions.filter(({ degree }) => degree == 2);
+
+  const canGenerateSecondQuestions = firstQuestions?.every(({ answer }) => answer?.length > 0) || false;
+
   return (
     <div className={styles["root"]}>
-      <ul>
-        {questions.map((question, i) => (
-          <QuestionCard
-            key={i}
-            data={{
-              question: question.question,
-              answer: question.answer,
-              degree: question.degree,
-            }}
-          />
-        ))}
-      </ul>
+      <Section title="1차 질문" className={styles["question-service"]}>
+        <ul className={styles["question-list"]}>
+          {firstQuestions.map((question, i) => (
+            <QuestionCard
+              key={i}
+              data={{
+                question: question.question,
+                answer: question.answer,
+                degree: question.degree,
+                // TODO
+                questionId: 22,
+              }}
+            />
+          ))}
+        </ul>
+      </Section>
+      <Section title="2차 질문" className={styles["question-service"]}>
+        {secondQuestions?.length ? (
+          <ul>
+            {secondQuestions.map((question, i) => (
+              <QuestionCard
+                key={i}
+                data={{
+                  question: question.question,
+                  answer: question.answer,
+                  degree: question.degree,
+                  // TODO
+                  questionId: 22,
+                }}
+              />
+            ))}
+          </ul>
+        ) : canGenerateSecondQuestions ? (
+          <div className={cs(styles["info"], styles["info--gen-able"])}>
+            <p>질문을 생성할 수 있어요!</p>
+            <Button intent="contained" tint="primary" asChild>
+              <Link href={`${pathname}/gen/questions`}>질문 생성</Link>
+            </Button>
+          </div>
+        ) : (
+          <div className={styles["info"]}>
+            <p>
+              앞 질문들에 대해 답변을 남겨주시면,
+              <br />더 심도 깊은 질문들을 만들어 드릴게요.
+            </p>
+          </div>
+        )}
+      </Section>
     </div>
   );
 }

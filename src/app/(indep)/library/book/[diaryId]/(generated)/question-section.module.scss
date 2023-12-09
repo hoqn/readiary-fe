@@ -9,7 +9,19 @@
   text-align: center;
   color: color.neutral(11);
 
-  > *+* {
+  > * + * {
     margin-top: 1rem;
+  }
+}
+
+.question-service {
+  &+& {
+    margin-top: 2rem;
+  }
+}
+
+.question-list {
+  > * + * {
+    margin-top: 1.5rem;
   }
 }
