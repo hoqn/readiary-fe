@@ -4,29 +4,39 @@ import Button from "@/components/ui/button";
 import { redirect, useRouter } from "next/navigation";
 import { MouseEventHandler, useCallback, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
-import { postScrap } from "./actions";
+import { editScrap, postScrap } from "./actions";
 import styles from "./page.module.scss";
-import { useLocalContext } from "../../../context";
+import { useLocalContext } from "../../../../context";
 
 export default function Page({
-  params: { diaryId },
+  params: { diaryId, scrapId },
 }: {
   params: {
     diaryId: number;
+    scrapId: number | "new";
   };
 }) {
   const router = useRouter();
   const [isLoading, setLoading] = useState<boolean>(false);
 
-  const { revalidateDiaryDetail } = useLocalContext();
+  const { diaryDetail, revalidateDiaryDetail } = useLocalContext();
+
+  if (scrapId !== "new" && !diaryDetail) throw "잘못된 접근이에요";
+
+  const currentScrap = diaryDetail?.scraps.find(({ scrapId: r }) => r === Number(scrapId));
 
   const { register, handleSubmit, watch, formState } = useForm<Record<"content" | "memo", string>>({
     mode: "onBlur",
+    defaultValues: {
+      content: currentScrap?.content || "",
+      memo: currentScrap?.memo || "",
+    },
   });
 
-  const doOnSubmit = useMemo(
-    () =>
-      handleSubmit((data) => {
+  const doOnSubmit = useMemo(() => {
+    if (scrapId === "new") {
+      // 새로운 스크랩 추가
+      return handleSubmit((data) => {
         setLoading(true);
         postScrap(diaryId, data)
           .then(() => {
@@ -35,14 +45,29 @@ export default function Page({
           })
           .catch((e) => alert(e))
           .finally(() => setLoading(false));
-      }),
-    [diaryId, handleSubmit, revalidateDiaryDetail, router]
-  );
+      });
+    } else {
+      // 기존 스크랩 수정
+      return handleSubmit((data) => {
+        setLoading(true);
+        editScrap(scrapId, data)
+          .then(() => {
+            router.back();
+            revalidateDiaryDetail();
+          })
+          .catch((e) => alert(e))
+          .finally(() => setLoading(false));
+      });
+    }
+  }, [diaryId, handleSubmit, revalidateDiaryDetail, router, scrapId]);
 
-  const doCancel: MouseEventHandler = useCallback((e) => {
-    e.preventDefault();
-    router.back();
-  }, [router]);
+  const doCancel: MouseEventHandler = useCallback(
+    (e) => {
+      e.preventDefault();
+      router.back();
+    },
+    [router]
+  );
 
   return (
     <div className={styles["root"]}>
@@ -91,7 +116,7 @@ export default function Page({
             취소
           </Button>
           <Button type="submit" intent="contained" tint="primary" size="lg" loading={isLoading}>
-            추가
+            {scrapId === "new" ? "추가" : "저장"}
           </Button>
         </div>
       </form>
