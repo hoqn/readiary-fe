@@ -1,0 +1,50 @@
+.root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.head {
+  composes: container from global;
+
+  flex: 0;
+  padding: 2rem 1.5rem 1rem 1.5rem;
+}
+
+.head__title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.head__content {
+  font-size: 1rem;
+  font-weight: normal;
+  line-height: 1.5;
+}
+
+.body {
+  composes: container from global;
+  
+  flex: 1;
+  padding: 1rem;
+}
+
+.body__textarea {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.foot-actions {
+  composes: container from global;
+
+  flex: 0;
+  padding: 1rem;
+}
+
+.actions__done {
+  display: block;
+  width: 100%;
+}
+
