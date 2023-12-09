@@ -9,5 +9,7 @@
 }
 
 .body {
+  height: 100%;
+  min-height: 100%;
   padding-top: constant.$HEADER_HEIGHT;
 }
