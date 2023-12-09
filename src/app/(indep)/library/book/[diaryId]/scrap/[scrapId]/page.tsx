@@ -1,13 +1,16 @@
-import diaryApi from "@/services/api/diary.api";
-import styles from "./page.module.scss";
-import { fetchDiaryDetail } from "./actions";
-import Image from "next/image";
-import Button from "@/components/ui/button";
-import { useCallback } from "react";
-import { genImage } from "@/services/api/image.api";
-import ImageSection from "./image-section";
+"use client";
 
-export default async function Page({
+import Button from "@/components/ui/button";
+import Link from "next/link";
+import { deleteScrap } from "./actions";
+import ImageSection from "./image-section";
+import styles from "./page.module.scss";
+import { useQuery } from "@tanstack/react-query";
+import { useLocalContext } from "../../context";
+import { useCallback } from "react";
+import { useRouter } from "next/navigation";
+
+export default function Page({
   params: { diaryId, scrapId },
 }: {
   params: {
@@ -15,17 +18,27 @@ export default async function Page({
     scrapId: number;
   };
 }) {
-  const data = await fetchDiaryDetail(diaryId);
+  const router = useRouter();
 
-  const diary = data.bookDiary;
-  const scrap = data.scraps.find(({ scrapId: r }) => `${r}` === `${scrapId}`);
+  const { diaryDetail } = useLocalContext();
+
+  if (!diaryDetail) throw "잘못된 접근입니다";
+
+  const { scraps } = diaryDetail;
+  const scrap = scraps.find(({ scrapId: s }) => `${s}` === `${scrapId}`);
 
   if (!scrap) throw "존재하지 않는 스크랩이에요";
+
+  const doOnDelete = useCallback(() => {
+    deleteScrap(scrapId).then(() => {
+      router.back();
+    });
+  }, [router, scrapId]);
 
   return (
     <main className={styles["root"]}>
       <div className={styles["page-head"]}>
-        <h4 className={styles["page-head__title"]}>{diary.title}</h4>
+        <h4 className={styles["page-head__title"]}>{diaryDetail.bookDiary.title}</h4>
       </div>
       <div className={styles["page-body"]}>
         <div className={styles["image-container"]}>
@@ -38,6 +51,14 @@ export default async function Page({
         <div className={styles["memo-container"]}>
           <div className={styles["memo__label"]}>메모</div>
           <div className={styles["memo"]}>{scrap.memo}</div>
+        </div>
+        <div className={styles["actions-container"]}>
+          <Button intent="text" onClick={doOnDelete}>
+            삭제
+          </Button>
+          <Button intent="text" asChild>
+            <Link href={`./${scrap.scrapId}/edit`}>수정</Link>
+          </Button>
         </div>
       </div>
     </main>

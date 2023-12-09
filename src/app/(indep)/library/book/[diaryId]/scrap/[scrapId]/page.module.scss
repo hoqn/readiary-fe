@@ -64,3 +64,9 @@
 .memo {
   font-size: 1rem;
 }
+
+.actions-container {
+  composes: container from global;
+  padding: 1rem 1.5rem;
+  text-align: right;
+}
