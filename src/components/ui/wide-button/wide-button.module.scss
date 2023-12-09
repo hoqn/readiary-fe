@@ -3,6 +3,7 @@
 .root {
   position: relative;
   min-height: 3.5rem;
+  display: block;
 
   &::before {
     content: "";

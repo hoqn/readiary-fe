@@ -1,0 +1,11 @@
+@use "lib/media";
+
+:root {
+  --main-nav_width: 100%;
+  --main-nav-height: 4rem;
+  
+  @include media.lg {
+    --main-nav_width: 24rem;
+    --main-nav-height: 100%;
+  }
+}
