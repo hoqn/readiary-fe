@@ -1,6 +1,7 @@
 import cs from "classnames";
 import styles from "./scrap-card.module.scss";
 import Link from "next/link";
+import Image from "next/image";
 
 interface Props extends BaseProps {
   data: {
@@ -29,7 +30,7 @@ export default function ScrapCard({ className, data, href, ...restProps }: Props
       </div>
       {!!data.imageUrl?.length && (
         <div className={styles["root__right"]}>
-          <img src={data.imageUrl} />
+          <Image src={data.imageUrl} alt="생성된 이미지" width={96} height={96} />
         </div>
       )}
     </Link>

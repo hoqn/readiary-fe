@@ -153,7 +153,7 @@ export interface GetDiaryDetailResponse {
     takeaway: string;
   };
   scraps: { scrapId: number; content: string; memo?: string | null; imageUrl?: string | null }[];
-  questions: [];
+  questions: { question: string; answer: string; degree: number }[];
 }
 
 function getDiaryDetail(diaryId: number, { apiClient = fetchApiClient, authorization }: RequestOptionsAuthorized) {
@@ -162,7 +162,7 @@ function getDiaryDetail(diaryId: number, { apiClient = fetchApiClient, authoriza
     authorization,
     next: {
       tags: ["diary/detail"],
-    }
+    },
   });
 }
 

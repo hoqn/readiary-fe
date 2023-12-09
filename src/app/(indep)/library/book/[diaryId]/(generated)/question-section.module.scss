@@ -1,0 +1,15 @@
+@use "theme/color";
+
+.root {
+  composes: container from global;
+  padding: 2rem 1.5rem;
+}
+
+.info {
+  text-align: center;
+  color: color.neutral(11);
+
+  > *+* {
+    margin-top: 1rem;
+  }
+}

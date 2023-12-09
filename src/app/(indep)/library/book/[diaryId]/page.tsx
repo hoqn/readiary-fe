@@ -8,6 +8,7 @@ import InfoSection from "./(info)/info-section";
 import { fetchDiaryDetail } from "./actions";
 import { LocalContext, useLocalContext } from "./context";
 import styles from "./page.module.scss";
+import GeneratedSection from "./(generated)/generated";
 
 const ReadingStatusLabel: Record<ReadingStatus, string> = {
   "0": "읽기 전",
@@ -48,7 +49,7 @@ export default function Page({ params: { diaryId } }: { params: { diaryId: numbe
           </section>
           <div>
             <InfoSection />
-            <ScrapSection />
+            <GeneratedSection />
           </div>
         </main>
     </BasicLayout>
