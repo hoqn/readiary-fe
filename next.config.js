@@ -44,6 +44,12 @@ const nextConfig = {
       },
       {
         protocol: "https",
+        hostname: "bookdiary-bucket.s3.ap-northeast-2.amazonaws.com",
+        port: "",
+        pathname: "/images/**",
+      },
+      {
+        protocol: "https",
         hostname: "gravatar.com",
         port: "",
         pathname: "/**",

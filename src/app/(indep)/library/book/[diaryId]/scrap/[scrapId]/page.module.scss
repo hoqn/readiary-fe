@@ -1,4 +1,5 @@
 @use "theme/color";
+@use "theme/shadow";
 
 .root {
 }
@@ -25,6 +26,8 @@
 }
 
 .image {
+  border-radius: 1rem;
+  box-shadow: shadow.$base;
 }
 
 .image-no {
