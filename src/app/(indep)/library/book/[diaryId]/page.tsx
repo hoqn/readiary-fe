@@ -1,15 +1,12 @@
 "use client";
 
 import BasicLayout from "@/components/layouts/basic";
-import { ReadingStatus } from "@/services/api/diary.api";
-import { useSuspenseQuery } from "@tanstack/react-query";
-import ScrapSection from "./(generated)/scrap-section";
-import InfoSection from "./(info)/info-section";
-import { fetchDiaryDetail } from "./actions";
-import { LocalContext, useLocalContext } from "./context";
-import styles from "./page.module.scss";
-import GeneratedSection from "./(generated)/generated";
 import SafeImage from "@/components/ui/safe-image";
+import { ReadingStatus } from "@/services/api/diary.api";
+import GeneratedSection from "./(generated)/generated";
+import InfoSection from "./(info)/info-section";
+import { useLocalContext } from "./context";
+import styles from "./page.module.scss";
 
 const ReadingStatusLabel: Record<ReadingStatus, string> = {
   "0": "읽기 전",
@@ -34,6 +31,7 @@ export default function Page({ params: { diaryId } }: { params: { diaryId: numbe
           <div className={styles["head-section__inner"]}>
             <div className={styles["head-section__left"]}>
               <SafeImage
+                unoptimized
                 className={styles["book-img"]}
                 src={diaryDetail.bookDiary.coverImageUrl}
                 alt={diaryDetail.bookDiary.title}
