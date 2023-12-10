@@ -12,6 +12,6 @@ export default function SafeImage({ alt, width, height, ...restProps }: Props) {
   }, [fallbackImgUrl]);
 
   return (
-    <Image alt={alt} width={width} height={height} {...restProps} onError={doOnError} />
+    <Image alt={alt} width={width} height={height} blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mPs/A8AAhcBiiT020IAAAAASUVORK5CYII=" {...restProps} onError={doOnError} />
   )
 }

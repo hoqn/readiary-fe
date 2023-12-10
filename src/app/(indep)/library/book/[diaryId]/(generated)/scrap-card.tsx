@@ -22,9 +22,9 @@ export default function ScrapCard({ className, data, href, ...restProps }: Props
       <div className={styles["root__left"]}>
         <div className={styles["content"]}>
           <p>{data.content}</p>
-          <div>
-            <p className={styles["content__page"]}>p64</p>
-          </div>
+          {/* <div>
+            <p className={styles["content__page"]}>p{}</p>
+          </div> */}
         </div>
         {!!data.memo?.length && (
           <div className={styles["memo"]}>
@@ -34,7 +34,15 @@ export default function ScrapCard({ className, data, href, ...restProps }: Props
       </div>
       {!!data.imageUrl?.length && (
         <div className={styles["root__right"]}>
-          <MotionImage className={styles["image"]} src={data.imageUrl} alt="생성된 이미지" width={96} height={96} layoutId={`scrap-thumb-${data.scrapId}`} />
+          <MotionImage
+            unoptimized
+            className={styles["image"]}
+            src={data.imageUrl}
+            alt="생성된 이미지"
+            width={96}
+            height={96}
+            layoutId={`scrap-thumb-${data.scrapId}`}
+          />
         </div>
       )}
     </Link>
