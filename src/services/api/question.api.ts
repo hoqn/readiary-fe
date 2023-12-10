@@ -5,6 +5,7 @@ import { RequestOptionsAuthorized, fetchApiClient } from "./core";
 
 export interface GetQuestionsResponse {
   questionAnswer: {
+    questionId: number;
     question: string;
     answer: string;
     degree: number;
@@ -43,7 +44,7 @@ export async function generateQuestions(degree: number, diaryId: number) {
 }
 
 interface SubmitQuestionAnswerDto {
-  questionAnswer: {
+  questionAndAnswer: {
     questionId: number;
     answer: string;
   }[];
@@ -57,6 +58,8 @@ export async function submitQuestionAnswer(body: SubmitQuestionAnswerDto) {
   const authorization = await getAccessTokenFromCookie();
 
   if (!authorization) throw "잘못된 로그인 정보입니다";
+
+  console.log("Submit answer", JSON.stringify(body));
 
   return fetchApiClient
     .fetch<SubmitQuestionAnswerResponse>(`/api/questions/first/answer`, {

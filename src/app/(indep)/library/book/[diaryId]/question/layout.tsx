@@ -1,9 +1,8 @@
 "use client";
 
-import BasicLayout from "@/components/layouts/basic";
-import { QuestionContext } from "./context";
-import { useQuery } from "@tanstack/react-query";
 import { getQuestions } from "@/services/api/question.api";
+import { useQuery } from "@tanstack/react-query";
+import { QuestionContext } from "./context";
 
 export default function Layout({
   children,
@@ -12,7 +11,11 @@ export default function Layout({
   children: React.ReactNode;
   params: { diaryId: number };
 }) {
-  const { data: questionAnswers, refetch: revalidateQuestions } = useQuery({
+  const {
+    data: questionAnswers,
+    refetch: revalidateQuestions,
+    status,
+  } = useQuery({
     queryKey: ["questions", diaryId],
     queryFn: () => getQuestions(diaryId).then((data) => data.questionAnswer),
   });
@@ -24,7 +27,7 @@ export default function Layout({
         revalidateQuestions,
       }}
     >
-      <BasicLayout title="질문">{questionAnswers && children}</BasicLayout>;
+      <>{status === "success" && questionAnswers && children}</>
     </QuestionContext.Provider>
   );
 }

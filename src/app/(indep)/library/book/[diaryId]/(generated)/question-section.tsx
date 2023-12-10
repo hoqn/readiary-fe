@@ -42,7 +42,7 @@ export default function QuestionSection() {
         <div className={cs(styles["info"], styles["info--gen-able"])}>
           <p>질문을 생성할 수 있어요!</p>
           <Button intent="contained" tint="primary" asChild>
-            <Link href={`${pathname}/gen/questions`}>질문 생성</Link>
+            <Link href={`${pathname}/question/gen?d=1`}>질문 생성</Link>
           </Button>
         </div>
       </div>
@@ -65,8 +65,6 @@ export default function QuestionSection() {
                 question: question.question,
                 answer: question.answer,
                 degree: question.degree,
-                // TODO
-                questionId: 22,
               }}
             />
           ))}
@@ -82,8 +80,6 @@ export default function QuestionSection() {
                   question: question.question,
                   answer: question.answer,
                   degree: question.degree,
-                  // TODO
-                  questionId: 22,
                 }}
               />
             ))}
@@ -92,7 +88,7 @@ export default function QuestionSection() {
           <div className={cs(styles["info"], styles["info--gen-able"])}>
             <p>질문을 생성할 수 있어요!</p>
             <Button intent="contained" tint="primary" asChild>
-              <Link href={`${pathname}/gen/questions`}>질문 생성</Link>
+              <Link href={`${pathname}/question/gen?d=2`}>질문 생성</Link>
             </Button>
           </div>
         ) : (

@@ -1,0 +1,34 @@
+@use "theme/color";
+
+.root {
+}
+
+.head {
+}
+
+.body {
+  composes: container from global;
+
+  padding: 0 1.5rem;
+}
+
+.info {
+  text-align: center;
+  font-size: 1rem;
+  font-weight: normal;
+  color: color.neutral(12);
+
+  padding: 2rem;
+}
+
+.actions-container {
+  position: absolute;
+
+  inset: auto 0 0 0;
+  padding: 1rem;
+}
+
+.action {
+  display: block;
+  width: 100%;
+}

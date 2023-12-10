@@ -35,7 +35,6 @@
 }
 
 .answer__inner {
-  composes: pressable pressable--opacity from global;
   display: block;
 }
 

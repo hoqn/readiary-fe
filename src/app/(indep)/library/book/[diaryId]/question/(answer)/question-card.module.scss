@@ -1,0 +1,39 @@
+@use "theme/color";
+
+.root {
+  background-color: color.primary(9);
+  box-shadow: 0 0 0 1px color.primary(10);
+  color: color.primary(9-contrast);
+  border-radius: 1rem;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  height: 100%;
+
+  padding: 1rem;
+}
+
+.question {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.answer {
+  flex: 1;
+  margin-top: 1.5rem;
+
+  font-size: 1rem;
+  font-weight: normal;
+
+  textarea {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: color.neutral(1);
+    color: color.neutral(12);
+  }
+}
