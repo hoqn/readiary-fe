@@ -3,7 +3,7 @@
 import Loading from "@/app/loading";
 import WideButton from "@/components/ui/wide-button";
 import { generateQuestions, getQuestions } from "@/services/api/question.api";
-import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
+import { useMutation, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
 import styles from "./page.module.scss";
@@ -21,11 +21,14 @@ export default function Page({
   const router = useRouter();
 
   const { questionAnswers, revalidateQuestions } = useQuestions(diaryId);
+  
+  const queryClient = useQueryClient();
 
-  const { status, mutateAsync } = useMutation({
+  const { status, mutate } = useMutation({
     mutationKey: ["question-generate", diaryId, degree],
     mutationFn: () => generateQuestions(degree, diaryId),
     onSuccess(data, variables, context) {
+      queryClient.invalidateQueries({ queryKey: ["questions", diaryId] });
       router.replace(`./?d=${degree}`);
     },
   });
@@ -41,10 +44,8 @@ export default function Page({
   }, [degree, questionAnswers]);
 
   const doOnClickGenerate = useCallback(() => {
-    mutateAsync().then(() => {
-      revalidateQuestions();
-    });
-  }, [mutateAsync, revalidateQuestions]);
+    mutate();
+  }, [mutate]);
 
   return (
     <main className={styles["root"]}>
