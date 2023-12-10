@@ -26,7 +26,7 @@ export default function Page({
     mutationKey: ["question-generate", diaryId, degree],
     mutationFn: () => generateQuestions(degree, diaryId),
     onSuccess(data, variables, context) {
-      router.replace(".", { query: { d: degree } });
+      router.replace(`./?d=${degree}`);
     },
   });
 

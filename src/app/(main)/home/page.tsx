@@ -4,7 +4,7 @@ import HomeBanner from "./banner";
 
 export default function Page() {
   return (
-    <BasicLayout>
+    <BasicLayout hasBackButton={false}>
       <HomeBanner />
     </BasicLayout>
   );

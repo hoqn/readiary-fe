@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import { useLocalContext } from "../../context";
 import { useQuestions } from "../hooks";
 import styles from "./page.module.scss";
+import Button from "@/components/ui/button";
 
 export default function Page({
   params: { diaryId },
@@ -104,6 +105,18 @@ export default function Page({
       );
     }
   }, [AnswerStore, currentQA.data.questionId, getValues, nextQA, setValue]);
+  
+  const doOnClickPass = useCallback(() => {
+    if (nextQA) {
+      AnswerStore.addQuestionAndAnswer(currentQA.data.questionId, "");
+      setCurrentQA(nextQA);
+      setValue(
+        "answer",
+        AnswerStore.questionAndAnswer.find(({ questionId: r }) => r == nextQA.data.questionId)?.answer ||
+          nextQA.data.answer
+      );
+    }
+  }, [AnswerStore, currentQA.data.questionId, nextQA, setValue]);
 
   const doOnClickDone = useCallback(() => {
     AnswerStore.addQuestionAndAnswer(currentQA.data.questionId, getValues("answer"));
@@ -135,9 +148,9 @@ export default function Page({
         ></textarea>
       </div>
       <div className={styles["foot-actions"]}>
-        {/* <Button className={styles["actions__pass"]} intent="text">
+        <Button className={styles["actions__pass"]} intent="text" onClick={doOnClickPass}>
           이 질문은 넘길래요
-        </Button> */}
+        </Button>
         {/* <WideButton className={styles["actions__done"]} onClick={doOnSubmit} loading={isSubmitting}> */}
         {nextQA ? (
           <WideButton className={styles["actions__next"]} onClick={doOnClickNext}>
