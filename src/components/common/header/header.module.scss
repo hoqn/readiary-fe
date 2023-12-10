@@ -2,6 +2,8 @@
 @use "lib/constant";
 
 .header {
+  composes: transition from global;
+
   width: 100%;
   min-height: 56px;
   height: constant.$HEADER_HEIGHT;
@@ -9,10 +11,15 @@
   color: color.neutral(12);
   // background-color: color.neutral(a2);
   background-color: color.neutral(2);
-  box-shadow: 0 1px color.neutral(6);
+  box-shadow: 0 0 0 1px color.neutral(6);
 
   // background-blend-mode: darken;
   // backdrop-filter: blur(16px);
+
+  &--top {
+    background-color: transparent;
+    box-shadow: none;
+  }
 }
 
 .header__inner {

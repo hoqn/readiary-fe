@@ -1,6 +1,9 @@
+"use client";
+
 import IcBack from "@material-symbols/svg-400/rounded/arrow_back_ios-fill.svg";
 import cs from "classnames";
-import { MouseEventHandler } from "react";
+import { useMotionValueEvent, useScroll } from "framer-motion";
+import { MouseEventHandler, useState } from "react";
 import BackButton from "./back-button";
 import styles from "./header.module.scss";
 
@@ -11,8 +14,20 @@ interface Props extends BaseProps {
 }
 
 export default function Header({ className, title, hasBackButton = false, onClickBackButton, ...restProps }: Props) {
+  const { scrollY } = useScroll();
+
+  const [isTop, setTop] = useState<boolean>(scrollY.get() < 8);
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    if (!isTop && latest < 8) {
+      setTop(true);
+    } else if (isTop && latest > 8) {
+      setTop(false);
+    }
+  });
+
   return (
-    <div className={cs(styles.header, className)} {...restProps}>
+    <div className={cs(styles.header, isTop && styles["header--top"], className)} {...restProps}>
       <div className={styles.header__inner}>
         {hasBackButton && (
           <BackButton className={styles["back-button"]}>
