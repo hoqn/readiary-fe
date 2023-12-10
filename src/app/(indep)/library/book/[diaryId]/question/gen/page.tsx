@@ -32,10 +32,6 @@ export default function Page({
 
   if (questionAnswers === undefined) throw "일시적 오류가 발생했어요";
 
-  const hasDegreeQuestions = useMemo(() => {
-    return questionAnswers.length > 0 && questionAnswers?.some(({ degree: r }) => r == degree);
-  }, [degree, questionAnswers]);
-
   const canGenerateQuestions = useMemo(() => {
     if (degree == 2) {
       return questionAnswers.every(({ degree: r }) => r != degree);
@@ -49,11 +45,6 @@ export default function Page({
       revalidateQuestions();
     });
   }, [mutateAsync, revalidateQuestions]);
-
-  if (status === "success") {
-    router.replace(".");
-    return null;
-  }
 
   return (
     <main className={styles["root"]}>

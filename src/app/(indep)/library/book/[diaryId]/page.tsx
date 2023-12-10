@@ -7,6 +7,9 @@ import GeneratedSection from "./(generated)/generated";
 import InfoSection from "./(info)/info-section";
 import { useLocalContext } from "./context";
 import styles from "./page.module.scss";
+import { motion } from "framer-motion";
+
+const MotionImage = motion(SafeImage);
 
 const ReadingStatusLabel: Record<ReadingStatus, string> = {
   "0": "읽기 전",
@@ -30,13 +33,14 @@ export default function Page({ params: { diaryId } }: { params: { diaryId: numbe
         <section className={styles["head-section"]}>
           <div className={styles["head-section__inner"]}>
             <div className={styles["head-section__left"]}>
-              <SafeImage
+              <MotionImage
                 unoptimized
                 className={styles["book-img"]}
                 src={diaryDetail.bookDiary.coverImageUrl}
                 alt={diaryDetail.bookDiary.title}
                 width={96}
                 height={144}
+                layoutId={`diarythumb-${diaryId}`}
               />
             </div>
             <div className={styles["head-section__right"]}>

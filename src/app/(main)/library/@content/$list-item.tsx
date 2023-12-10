@@ -4,6 +4,9 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import styles from "./$list-item.module.scss";
 import cs from "classnames";
+import SafeImage from "@/components/ui/safe-image";
+
+const MotionImage = motion(SafeImage);
 
 const statusLabel: Record<ReadingStatus, string> = {
   [ReadingStatus.BEFORE]: "읽기 전",
@@ -36,16 +39,14 @@ export default function ListItem({ className, item, ...restProps }: Props) {
       <div className={styles["item__inner"]}>
         <div className={styles["item__left"]}>
           <picture className={styles["item__image-wrapper"]}>
-            <motion.img
-              layoutId={`diaryimg-${item.isbn}`}
+            <MotionImage
+              unoptimized
               className={styles["item__image"]}
               alt={item.title}
               src={item.coverImageUrl}
-              // width={64}
-              // height={96}
-              onError={(e) =>
-                (e.currentTarget.src = "https://placehold.co/200x300/E9F6E9/2A7E3B?text=Readiary&font=Roboto")
-              }
+              width={64}
+              height={96}
+              layoutId={`diarythumb-${item.bookDiaryId}`}
             />
           </picture>
         </div>
