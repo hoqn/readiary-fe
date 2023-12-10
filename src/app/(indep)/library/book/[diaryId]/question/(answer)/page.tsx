@@ -1,23 +1,34 @@
 "use client";
 
 import WideButton from "@/components/ui/wide-button";
-import { useAnimate } from "framer-motion";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import styles from "./page.module.scss";
-import Button from "@/components/ui/button";
-import { useQuestionContext } from "../context";
-import { Controller, useForm } from "react-hook-form";
 import { submitQuestionAnswer } from "@/services/api/question.api";
 import { useAnswerStore } from "@/stores/answer.store";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useForm } from "react-hook-form";
 import { useLocalContext } from "../../context";
+import { useQuestions } from "../hooks";
+import styles from "./page.module.scss";
 
-export default function Page({ params: { diaryId } }: { params: { diaryId: number } }) {
+export default function Page({
+  params: { diaryId },
+  searchParams,
+}: {
+  params: { diaryId: number };
+  searchParams: { d: number };
+}) {
   const AnswerStore = useAnswerStore();
-  const { questionAnswers } = useQuestionContext();
+  const { questionAnswers: questionAnswersRaw } = useQuestions(diaryId);
 
   const router = useRouter();
+
+  const degree = useMemo(() => Number(searchParams?.d || 1), [searchParams?.d]);
+
+  const questionAnswers = useMemo(
+    () => questionAnswersRaw.filter(({ degree: r }) => r == degree),
+    [degree, questionAnswersRaw]
+  );
 
   useEffect(() => {
     AnswerStore.clear();
@@ -65,7 +76,7 @@ export default function Page({ params: { diaryId } }: { params: { diaryId: numbe
     [currentQA.index, questionAnswers]
   );
 
-  const { register, reset, getValues } = useForm<Record<"answer", string>>({
+  const { register, getValues, setValue } = useForm<Record<"answer", string>>({
     defaultValues: {
       answer: "",
     },
@@ -75,21 +86,28 @@ export default function Page({ params: { diaryId } }: { params: { diaryId: numbe
     if (prevQA) {
       AnswerStore.addQuestionAndAnswer(currentQA.data.questionId, getValues("answer"));
       setCurrentQA(prevQA);
-      reset();
+      setValue(
+        "answer",
+        AnswerStore.questionAndAnswer.find(({ questionId: r }) => r == prevQA.data.questionId)?.answer ||
+          prevQA.data.answer
+      );
     }
-  }, [AnswerStore, currentQA.data.questionId, getValues, prevQA, reset]);
+  }, [AnswerStore, currentQA.data.questionId, getValues, prevQA, setValue]);
   const doOnClickNext = useCallback(() => {
     if (nextQA) {
       AnswerStore.addQuestionAndAnswer(currentQA.data.questionId, getValues("answer"));
       setCurrentQA(nextQA);
-      reset();
+      setValue(
+        "answer",
+        AnswerStore.questionAndAnswer.find(({ questionId: r }) => r == nextQA.data.questionId)?.answer ||
+          nextQA.data.answer
+      );
     }
-  }, [AnswerStore, currentQA.data.questionId, getValues, nextQA, reset]);
+  }, [AnswerStore, currentQA.data.questionId, getValues, nextQA, setValue]);
 
   const doOnClickDone = useCallback(() => {
     AnswerStore.addQuestionAndAnswer(currentQA.data.questionId, getValues("answer"));
     mutate();
-    
   }, [AnswerStore, currentQA.data.questionId, getValues, mutate]);
 
   return (

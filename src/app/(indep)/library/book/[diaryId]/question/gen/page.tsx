@@ -1,13 +1,13 @@
 "use client";
 
-import WideButton from "@/components/ui/wide-button";
-import { generateQuestions } from "@/services/api/question.api";
-import { useMutation } from "@tanstack/react-query";
-import { useCallback, useMemo } from "react";
-import { useQuestionContext } from "../context";
-import styles from "./page.module.scss";
-import { useRouter } from "next/navigation";
 import Loading from "@/app/loading";
+import WideButton from "@/components/ui/wide-button";
+import { generateQuestions, getQuestions } from "@/services/api/question.api";
+import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import { useCallback, useMemo } from "react";
+import styles from "./page.module.scss";
+import { useQuestions } from "../hooks";
 
 export default function Page({
   params: { diaryId },
@@ -20,6 +20,8 @@ export default function Page({
 
   const router = useRouter();
 
+  const { questionAnswers, revalidateQuestions } = useQuestions(diaryId);
+
   const { status, mutateAsync } = useMutation({
     mutationKey: ["question-generate", diaryId, degree],
     mutationFn: () => generateQuestions(degree, diaryId),
@@ -27,8 +29,6 @@ export default function Page({
       router.replace(".");
     },
   });
-
-  const { questionAnswers, revalidateQuestions } = useQuestionContext();
 
   if (questionAnswers === undefined) throw "일시적 오류가 발생했어요";
 
