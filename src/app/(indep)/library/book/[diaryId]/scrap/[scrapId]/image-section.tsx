@@ -8,6 +8,7 @@ import Button from "@/components/ui/button";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useLocalContext } from "../../context";
+import LoadingIndicator from "@/components/ui/loading-indicator";
 
 interface Props {
   scrap: GetDiaryDetailResponse["scraps"][number];
@@ -17,6 +18,9 @@ const MotionImage = motion(Image);
 
 export default function ImageSection({ scrap }: Props) {
   const [isGenerating, setGenerating] = useState<boolean>(false);
+  const [isUnreachable, setUnreachable] = useState<boolean>(false);
+
+  const { revalidateDiaryDetail } = useLocalContext();
 
   const [imageUrl, setImageUrl] = useState<string>(scrap.imageUrl || "");
 
@@ -31,16 +35,18 @@ export default function ImageSection({ scrap }: Props) {
         memo: scrap.memo || "",
       }).then(({ imageUrl }) => {
         setImageUrl(imageUrl);
+        revalidateDiaryDetail();
       }).finally(() => {
         setGenerating(false);
       });
     },
-    [scrap.content, scrap.memo, scrap.scrapId]
+    [revalidateDiaryDetail, scrap.content, scrap.memo, scrap.scrapId]
   );
 
-  if (isGenerating) {
+  if (isGenerating || isUnreachable) {
     return (
       <div>
+        <LoadingIndicator />
         <p>열심히 그림을 그리는 중이에요</p>
       </div>
     );
@@ -48,7 +54,7 @@ export default function ImageSection({ scrap }: Props) {
 
   if (imageUrl.length) {
     return <MotionImage className={styles["image"]} src={imageUrl} alt="스크랩 생성 이미지" width="192" height="192" layoutId={`scrap-thumb-${scrap.scrapId}`} onError={(e) => {
-      e.currentTarget.style.display = "none";
+      setUnreachable(true);
     }} />;
   } else {
     return (
