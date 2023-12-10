@@ -38,17 +38,15 @@ export default function ListItem({ className, item, ...restProps }: Props) {
     <Link className={styles["item"]} href={`/library/book/${item.bookDiaryId}`} {...restProps}>
       <div className={styles["item__inner"]}>
         <div className={styles["item__left"]}>
-          <picture className={styles["item__image-wrapper"]}>
-            <MotionImage
-              unoptimized
-              className={styles["item__image"]}
-              alt={item.title}
-              src={item.coverImageUrl}
-              width={64}
-              height={96}
-              layoutId={`diarythumb-${item.bookDiaryId}`}
-            />
-          </picture>
+          <MotionImage
+            unoptimized
+            className={styles["item__image"]}
+            alt={item.title}
+            src={item.coverImageUrl}
+            width={64}
+            height={96}
+            layoutId={`diarythumb-${item.bookDiaryId}`}
+          />
         </div>
         <div className={styles["item__right"]}>
           <div className={styles["item__title"]}>{item.title}</div>
