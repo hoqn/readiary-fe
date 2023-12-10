@@ -9,6 +9,7 @@ import { fetchDiaryDetail } from "./actions";
 import { LocalContext, useLocalContext } from "./context";
 import styles from "./page.module.scss";
 import GeneratedSection from "./(generated)/generated";
+import SafeImage from "@/components/ui/safe-image";
 
 const ReadingStatusLabel: Record<ReadingStatus, string> = {
   "0": "읽기 전",
@@ -28,30 +29,34 @@ export default function Page({ params: { diaryId } }: { params: { diaryId: numbe
 
   return (
     <BasicLayout title="나의 서재">
-        <main>
-          <section className={styles["head-section"]}>
-            <div className={styles["head-section__inner"]}>
-              <div className={styles["head-section__left"]}>
-                <picture>
-                  <img className={styles["book-img"]} src={diaryDetail.bookDiary.coverImageUrl} alt={diaryDetail.bookDiary.title} />
-                </picture>
+      <main>
+        <section className={styles["head-section"]}>
+          <div className={styles["head-section__inner"]}>
+            <div className={styles["head-section__left"]}>
+              <SafeImage
+                className={styles["book-img"]}
+                src={diaryDetail.bookDiary.coverImageUrl}
+                alt={diaryDetail.bookDiary.title}
+                width={96}
+                height={144}
+              />
+            </div>
+            <div className={styles["head-section__right"]}>
+              <h4 className={styles["book-title"]}>{diaryDetail.bookDiary.title}</h4>
+              <div className={styles["book-authors"]}>
+                <span>{diaryDetail.bookDiary.author}</span>
               </div>
-              <div className={styles["head-section__right"]}>
-                <h4 className={styles["book-title"]}>{diaryDetail.bookDiary.title}</h4>
-                <div className={styles["book-authors"]}>
-                  <span>{diaryDetail.bookDiary.author}</span>
-                </div>
-                <div className={styles["head-section__under"]}>
-                  <span className={styles["status-chip"]}>{ReadingStatusLabel[diaryDetail.bookDiary.readingStatus]}</span>
-                </div>
+              <div className={styles["head-section__under"]}>
+                <span className={styles["status-chip"]}>{ReadingStatusLabel[diaryDetail.bookDiary.readingStatus]}</span>
               </div>
             </div>
-          </section>
-          <div>
-            <InfoSection />
-            <GeneratedSection />
           </div>
-        </main>
+        </section>
+        <div>
+          <InfoSection />
+          <GeneratedSection />
+        </div>
+      </main>
     </BasicLayout>
   );
 }

@@ -1,8 +1,8 @@
 import cs from "classnames";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
 import { PropsWithChildren } from "react";
+import SafeImage from "../ui/safe-image";
 import styles from "./book-search-result.module.scss";
 
 interface Props extends BaseProps, PropsWithChildren {}
@@ -29,7 +29,7 @@ function BookSearchResultItem({ data, className, ...restProps }: ItemProps) {
     <li className={cs(styles["book-search-result-item"], className)}>
       <Link className={styles["book-search-result-item__inner"]} href={`/book/${data.isbn13}`} {...restProps}>
         <motion.div layout layoutId={`bookimg-${data.isbn13}`}>
-          <Image
+          <SafeImage
             className={cs(styles["book-search-result-item__left"], styles["book-search-result-item__image"])}
             src={data.bookImageURL}
             alt="책 표지 이미지"
