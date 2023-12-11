@@ -35,7 +35,11 @@ export default function Page({
     AnswerStore.clear();
   }, []);
 
-  if (!questionAnswers?.length) throw "잘못된 접근입니다";
+  if (!questionAnswers?.length) {
+    setTimeout(() => {
+      router.refresh();
+    }, 500);
+  };
 
   const [currentQA, setCurrentQA] = useState(() => ({
     index: 0,
