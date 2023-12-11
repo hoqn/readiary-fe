@@ -21,7 +21,7 @@ export default function Page({ searchParams: { redirect = "/" } }: { searchParam
           <div className={styles["suggestion"]}>
             <p>아직 회원이 아니신가요?</p>
             <Button intent="text" asChild>
-              <Link className="r-chevron" href="/signup">회원 가입</Link>
+              <Link href="/signup">회원 가입 &#xF045;</Link>
             </Button>
           </div>
         </div>

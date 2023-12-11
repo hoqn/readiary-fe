@@ -33,13 +33,6 @@
   max-width: media.$screen-sm;
 }
 
-.l-chevron::before {
-  content: "\F044";
-}
-.r-chevron::after {
-  content: "\F045";
-}
-
 textarea,
 input:not([type="button"], [type="submit"], [type="checkbox"], [type="radio"]) {
   @extend .transition;
