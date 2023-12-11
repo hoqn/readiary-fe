@@ -26,18 +26,21 @@ export default function Page({
 
   const { status, mutate } = useMutation({
     mutationKey: ["question-generate", diaryId, degree],
-    mutationFn: () =>
-      generateQuestions(degree, diaryId).then((data) => {
-        return new Promise((resolve) => {
+    mutationFn: async () => {
+      // 비동기 식으로 변경
+      await generateQuestions(degree, diaryId);
+
+      const check = async (resolve: ((data: any) => void), reject: any) => {
           invalidateQuestions();
-          queryClient.prefetchQuery({
+          await queryClient.fetchQuery({
             queryKey: ["questions", diaryId],
             queryFn: () => getQuestions(diaryId),
-          }).then(() => {
-            resolve(data);
+          }).then((data) => {
+            data.questionAnswer
           });
-        });
-      }),
+      };
+
+    },
     onSuccess(data, variables, context) {
       router.replace(`./?d=${degree}`);
     },
