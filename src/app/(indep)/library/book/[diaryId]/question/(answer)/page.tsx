@@ -2,9 +2,9 @@
 
 import Button from "@/components/ui/button";
 import WideButton from "@/components/ui/wide-button";
-import { submitQuestionAnswer } from "@/services/api/question.api";
+import { getQuestions, submitQuestionAnswer } from "@/services/api/question.api";
 import { useAnswerStore } from "@/stores/answer.store";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -23,13 +23,22 @@ export default function Page({
   const { questionAnswers: questionAnswersRaw } = useQuestions(diaryId);
 
   const router = useRouter();
-
   const degree = useMemo(() => Number(searchParams?.d || 1), [searchParams?.d]);
 
-  const questionAnswers = useMemo(
-    () => questionAnswersRaw.filter(({ degree: r }) => r == degree),
-    [degree, questionAnswersRaw]
-  );
+  const {
+    data: questionAnswers
+  } = useSuspenseQuery({
+    queryKey: ["questions-d", diaryId, degree],
+    queryFn: () =>
+      getQuestions(diaryId)
+        .then((data) => data.questionAnswer?.filter(({ degree: r }) => r == degree))
+        .then((qas) => {
+          if (!qas?.length)
+            throw Error;
+          return qas;
+        }),
+    retry: true,
+  });
 
   useEffect(() => {
     AnswerStore.clear();
@@ -103,7 +112,7 @@ export default function Page({
       );
     }
   }, [AnswerStore, currentQA.data.questionId, getValues, nextQA, setValue]);
-  
+
   const doOnClickPass = useCallback(() => {
     if (nextQA) {
       AnswerStore.addQuestionAndAnswer(currentQA.data.questionId, "");
