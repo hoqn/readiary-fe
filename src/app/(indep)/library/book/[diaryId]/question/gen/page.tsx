@@ -21,12 +21,19 @@ export default function Page({
   const router = useRouter();
 
   const { questionAnswers, revalidateQuestions } = useQuestions(diaryId);
-  
+
   const queryClient = useQueryClient();
 
   const { status, mutate } = useMutation({
     mutationKey: ["question-generate", diaryId, degree],
-    mutationFn: () => generateQuestions(degree, diaryId),
+    mutationFn: () =>
+      generateQuestions(degree, diaryId).then((data) => {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            resolve(data);
+          }, 5000);
+        });
+      }),
     onSuccess(data, variables, context) {
       queryClient.invalidateQueries({ queryKey: ["questions", diaryId] });
       router.replace(`./?d=${degree}`);
