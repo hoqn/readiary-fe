@@ -9,6 +9,7 @@ export async function postScrap(
   body: {
     content: string;
     memo: string;
+    page: number;
   }
 ) {
   const authorization = (await getAccessTokenFromCookie()) || "";
@@ -27,6 +28,7 @@ export async function editScrap(
   body: {
     content: string;
     memo: string;
+    page: number;
   }
 ) {
   const authorization = await getAccessTokenFromCookie();

@@ -9,6 +9,7 @@ interface Props extends BaseProps {
     scrapId: number;
     content: string;
     memo?: string | null;
+    page: number;
     imageUrl?: string | null;
   };
   href: string;
@@ -22,9 +23,11 @@ export default function ScrapCard({ className, data, href, ...restProps }: Props
       <div className={styles["root__left"]}>
         <div className={styles["content"]}>
           <p>{data.content}</p>
-          {/* <div>
-            <p className={styles["content__page"]}>p{}</p>
-          </div> */}
+          {data.page && (
+            <div>
+              <p className={styles["content__page"]}>p{data.page}</p>
+            </div>
+          )}
         </div>
         {!!data.memo?.length && (
           <div className={styles["memo"]}>
