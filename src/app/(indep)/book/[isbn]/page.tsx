@@ -28,11 +28,11 @@ export default function Page({ params: { isbn } }: { params: { isbn: string } })
       <main className={styles.body}>
         <section className={styles["head-section"]}>
           <div className={styles["head-section__content"]}>
-            <div>
+            <div className={cs(styles["book-img"], styles["head-section__left"])}>
               <MotionImage
-                className={cs(styles["book-img"], styles["head-section__left"])}
                 src={data?.bookImageURL || ""}
                 layoutId={`bookimg-${isbn}`}
+                fill={true}
                 alt="책 표지 이미지"
               />
             </div>

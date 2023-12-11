@@ -47,6 +47,8 @@ $BOTTOM_FLOAT_HEIGHT: 1rem*2 + 3rem;
 }
 
 .book-img {
+  position: relative;
+  overflow: hidden;
   border-radius: .5rem;
   box-shadow: shadow.$base;
   width: 6rem;
