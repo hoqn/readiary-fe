@@ -7,7 +7,7 @@ import ImageSection from "./image-section";
 import styles from "./page.module.scss";
 import { useQuery } from "@tanstack/react-query";
 import { useLocalContext } from "../../context";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Page({
@@ -20,7 +20,7 @@ export default function Page({
 }) {
   const router = useRouter();
 
-  const { diaryDetail } = useLocalContext();
+  const { diaryDetail, revalidateDiaryDetail } = useLocalContext();
 
   if (!diaryDetail) throw "잘못된 접근입니다";
 
@@ -29,11 +29,19 @@ export default function Page({
 
   if (!scrap) throw "존재하지 않는 스크랩이에요";
 
+  const [isDeleting, setDeleting] = useState<boolean>(false);
+
   const doOnDelete = useCallback(() => {
-    deleteScrap(scrapId).then(() => {
-      router.back();
-    });
-  }, [router, scrapId]);
+    setDeleting(true);
+    deleteScrap(scrapId)
+      .then(() => {
+        revalidateDiaryDetail();
+        router.back();
+      })
+      .finally(() => {
+        setDeleting(false);
+      });
+  }, [revalidateDiaryDetail, router, scrapId]);
 
   return (
     <main className={styles["root"]}>
@@ -53,7 +61,7 @@ export default function Page({
           <div className={styles["memo"]}>{scrap.memo}</div>
         </div>
         <div className={styles["actions-container"]}>
-          <Button intent="text" onClick={doOnDelete}>
+          <Button intent="text" onClick={doOnDelete} loading={isDeleting}>
             삭제
           </Button>
           <Button intent="text" asChild>
