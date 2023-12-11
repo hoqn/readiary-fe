@@ -45,6 +45,10 @@
   overflow-y: auto;
 }
 
+.field__input {
+  display: block;
+}
+
 .actions {
   margin-top: 1rem;
   text-align: right;

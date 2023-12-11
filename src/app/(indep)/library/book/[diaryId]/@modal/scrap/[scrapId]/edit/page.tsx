@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { editScrap, postScrap } from "./actions";
 import styles from "./page.module.scss";
 import { useLocalContext } from "../../../../context";
+import { useMutation } from "@tanstack/react-query";
 
 export default function Page({
   params: { diaryId, scrapId },
@@ -25,11 +26,16 @@ export default function Page({
 
   const currentScrap = diaryDetail?.scraps.find(({ scrapId: r }) => r === Number(scrapId));
 
-  const { register, handleSubmit, watch, formState } = useForm<Record<"content" | "memo", string>>({
+  const { register, handleSubmit, watch, formState } = useForm<{
+    content: string;
+    memo: string;
+    page: number | null;
+  }>({
     mode: "onBlur",
     defaultValues: {
       content: currentScrap?.content || "",
       memo: currentScrap?.memo || "",
+      page: currentScrap?.page || null,
     },
   });
 
@@ -38,7 +44,11 @@ export default function Page({
       // 새로운 스크랩 추가
       return handleSubmit((data) => {
         setLoading(true);
-        postScrap(diaryId, data)
+        postScrap(diaryId, {
+          content: data.content,
+          memo: data.memo,
+          page: data.page || 0,
+        })
           .then(() => {
             router.back();
             revalidateDiaryDetail();
@@ -50,7 +60,11 @@ export default function Page({
       // 기존 스크랩 수정
       return handleSubmit((data) => {
         setLoading(true);
-        editScrap(scrapId, data)
+        editScrap(scrapId, {
+          content: data.content,
+          memo: data.memo,
+          page: data.page || 0,
+        })
           .then(() => {
             router.back();
             revalidateDiaryDetail();
@@ -72,6 +86,19 @@ export default function Page({
   return (
     <div className={styles["root"]}>
       <form onSubmit={doOnSubmit}>
+        <fieldset className={styles["field"]}>
+          <label className={styles["field__label"]} htmlFor="memo">
+            페이지
+          </label>
+          <input
+            className={styles["field__input"]}
+            type="number"
+            placeholder="(입력하지 않으셔도 돼요)"
+            {...register("page", {
+              maxLength: 256,
+            })}
+          />
+        </fieldset>
         <fieldset className={styles["field"]}>
           <label className={styles["field__label"]} htmlFor="content">
             스크랩 내용

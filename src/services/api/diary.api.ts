@@ -152,7 +152,7 @@ export interface GetDiaryDetailResponse {
     score: number | null;
     takeaway: string;
   };
-  scraps: { scrapId: number; content: string; memo?: string | null; imageUrl?: string | null }[];
+  scraps: { scrapId: number; content: string; memo?: string | null; page: number; imageUrl?: string | null }[];
   questions: { question: string; answer: string; degree: number }[];
 }
 
