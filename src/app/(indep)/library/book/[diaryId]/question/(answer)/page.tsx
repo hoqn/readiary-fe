@@ -1,5 +1,6 @@
 "use client";
 
+import Button from "@/components/ui/button";
 import WideButton from "@/components/ui/wide-button";
 import { submitQuestionAnswer } from "@/services/api/question.api";
 import { useAnswerStore } from "@/stores/answer.store";
@@ -10,7 +11,6 @@ import { useForm } from "react-hook-form";
 import { useLocalContext } from "../../context";
 import { useQuestions } from "../hooks";
 import styles from "./page.module.scss";
-import Button from "@/components/ui/button";
 
 export default function Page({
   params: { diaryId },
