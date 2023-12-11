@@ -10,6 +10,9 @@ import styles from "./page.module.scss";
 import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { getBookDetail } from "./actions";
+import SafeImage from "@/components/ui/safe-image";
+
+const MotionImage = motion(SafeImage);
 
 export default function Page({ params: { isbn } }: { params: { isbn: string } }) {
   const { data } = useQuery({
@@ -25,15 +28,14 @@ export default function Page({ params: { isbn } }: { params: { isbn: string } })
       <main className={styles.body}>
         <section className={styles["head-section"]}>
           <div className={styles["head-section__content"]}>
-            <motion.div layout layoutId={`bookimg-${isbn}`}>
-              <picture>
-                <motion.img
-                  className={cs(styles["book-img"], styles["head-section__left"])}
-                  src={data?.bookImageURL}
-                  alt="책 표지 이미지"
-                />
-              </picture>
-            </motion.div>
+            <div>
+              <MotionImage
+                className={cs(styles["book-img"], styles["head-section__left"])}
+                src={data?.bookImageURL || ""}
+                layoutId={`bookimg-${isbn}`}
+                alt="책 표지 이미지"
+              />
+            </div>
             <div className={styles["head-section__right"]}>
               <h4 className={styles["book-title"]}>{data?.bookname}</h4>
               <div className={styles["book-meta"]}>
