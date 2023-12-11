@@ -1,5 +1,5 @@
 import { getQuestions } from "@/services/api/question.api";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 
 export function useQuestions(diaryId: number) {
   const {
@@ -10,5 +10,11 @@ export function useQuestions(diaryId: number) {
     queryFn: () => getQuestions(diaryId),
   });
 
-  return { questionAnswers, revalidateQuestions };
+  const queryClient = useQueryClient();
+  const invalidateQuestions = () =>
+    queryClient.invalidateQueries({
+      queryKey: ["questions", diaryId],
+    });
+
+  return { questionAnswers, revalidateQuestions, invalidateQuestions };
 }

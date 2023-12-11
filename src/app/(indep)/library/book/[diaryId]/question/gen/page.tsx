@@ -20,7 +20,7 @@ export default function Page({
 
   const router = useRouter();
 
-  const { questionAnswers, revalidateQuestions } = useQuestions(diaryId);
+  const { questionAnswers, invalidateQuestions } = useQuestions(diaryId);
 
   const queryClient = useQueryClient();
 
@@ -29,13 +29,16 @@ export default function Page({
     mutationFn: () =>
       generateQuestions(degree, diaryId).then((data) => {
         return new Promise((resolve) => {
-          setTimeout(() => {
+          invalidateQuestions();
+          queryClient.prefetchQuery({
+            queryKey: ["questions", diaryId],
+            queryFn: () => getQuestions(diaryId),
+          }).then(() => {
             resolve(data);
-          }, 5000);
+          });
         });
       }),
     onSuccess(data, variables, context) {
-      queryClient.invalidateQueries({ queryKey: ["questions", diaryId] });
       router.replace(`./?d=${degree}`);
     },
   });
