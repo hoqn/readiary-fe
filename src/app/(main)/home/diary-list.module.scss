@@ -1,0 +1,16 @@
+@use "theme/color";
+
+.item {
+  border-radius: 1rem;
+  background-color: color.neutral(3);
+  color: color.neutral(12);
+}
+
+.item__bookname {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+.item__bookname {
+  font-size: .875rem;
+  font-weight: normal;
+}

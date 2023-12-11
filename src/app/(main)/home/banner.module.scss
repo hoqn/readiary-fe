@@ -2,7 +2,6 @@
 
 .banner {
   display: block;
-  width: 100%;
 
   border-radius: 1rem;
   background-color: color.primary(4);
@@ -14,6 +13,7 @@
 .banner__headline {
   color: color.primary(12);
   font-size: 1.25rem;
-  text-align: center;
+  text-align: right;
   font-weight: bold;
+  word-wrap: break-word;
 }
