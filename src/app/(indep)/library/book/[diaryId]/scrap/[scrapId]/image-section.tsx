@@ -2,13 +2,14 @@
 
 import { GetDiaryDetailResponse } from "@/services/api/diary.api";
 import { genImage } from "@/services/api/image.api";
-import { MouseEventHandler, useCallback, useState } from "react";
+import { EventHandler, MouseEventHandler, ReactEventHandler, useCallback, useEffect, useRef, useState } from "react";
 import styles from "./page.module.scss";
 import Button from "@/components/ui/button";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useLocalContext } from "../../context";
 import LoadingIndicator from "@/components/ui/loading-indicator";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 interface Props {
   scrap: GetDiaryDetailResponse["scraps"][number];
@@ -17,45 +18,76 @@ interface Props {
 const MotionImage = motion(Image);
 
 export default function ImageSection({ scrap }: Props) {
-  const [isGenerating, setGenerating] = useState<boolean>(false);
-  const [isUnreachable, setUnreachable] = useState<boolean>(false);
-
   const { revalidateDiaryDetail } = useLocalContext();
 
   const [imageUrl, setImageUrl] = useState<string>(scrap.imageUrl || "");
 
-  const doOnClickGenButton: MouseEventHandler = useCallback(
-    async (e) => {
-      e.preventDefault();
-
-      setGenerating(true);
+  const { mutate: doGenerateImage, isPending: isGenerating } = useMutation({
+    mutationFn: () =>
       genImage({
         scrapId: scrap.scrapId,
         content: scrap.content,
         memo: scrap.memo || "",
-      }).then(({ imageUrl }) => {
-        setImageUrl(imageUrl);
-        revalidateDiaryDetail();
-      }).finally(() => {
-        setGenerating(false);
-      });
+      }),
+    onSuccess({ imageUrl }) {
+      setImageUrl(imageUrl);
+      revalidateDiaryDetail();
     },
-    [revalidateDiaryDetail, scrap.content, scrap.memo, scrap.scrapId]
+  });
+
+  const doOnClickGenButton: MouseEventHandler = useCallback(
+    async (e) => {
+      e.preventDefault();
+      doGenerateImage();
+    },
+    [doGenerateImage]
   );
 
-  if (isGenerating || isUnreachable) {
+  const [isValid, setValid] = useState<boolean>(false);
+  const [imgKey, setImgKey] = useState<number>(0);
+
+  const __onError: ReactEventHandler<HTMLImageElement> = useCallback((e) => {
+    setTimeout(() => {
+      setImgKey((s) => s + 1);
+    }, 5000);
+  }, []);
+
+  const __onLoad: ReactEventHandler<HTMLImageElement> = useCallback((e) => {
+    setValid(true);
+  }, []);
+
+  if (isGenerating) {
     return (
       <div>
         <LoadingIndicator />
-        <p>열심히 그림을 그리는 중이에요</p>
+        <p>그림 그릴 준비를 하고 있어요</p>
       </div>
+    );
+  } else if (imageUrl?.length && !isValid) {
+    return (
+      <>
+        <img style={{ display: "none" }} src={`${imageUrl}?${imgKey}`} onError={__onError} onLoad={__onLoad} />
+        <div>
+          <LoadingIndicator />
+          <p>열심히 그림을 그리는 중이에요</p>
+        </div>
+      </>
     );
   }
 
-  if (imageUrl.length) {
-    return <MotionImage className={styles["image"]} src={imageUrl} alt="스크랩 생성 이미지" width="192" height="192" layoutId={`scrap-thumb-${scrap.scrapId}`} onError={(e) => {
-      setUnreachable(true);
-    }} />;
+  if (isValid) {
+    return (
+      <div className={styles["image-wrapper"]}>
+        <MotionImage
+          // unoptimized
+          // src={`${imageUrl}?${imageKey}`}
+          src={imageUrl}
+          alt="스크랩 생성 이미지"
+          fill={true}
+          layoutId={`scrap-thumb-${scrap.scrapId}`}
+        />
+      </div>
+    );
   } else {
     return (
       <div className={styles["image-no"]}>
