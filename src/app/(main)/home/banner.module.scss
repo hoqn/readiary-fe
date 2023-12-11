@@ -1,13 +1,23 @@
 @use "theme/color";
 
 .banner {
+  position: relative;
   display: block;
 
   border-radius: 1rem;
   background-color: color.primary(4);
   box-shadow: 0 0 0 1px color.primary(6);
 
+  height: 128;
+
+  overflow: hidden;
+
   padding: 4rem 1rem;
+}
+
+.banner__layer {
+  position: absolute;
+  inset: 0;
 }
 
 .banner__headline {
@@ -16,4 +26,5 @@
   text-align: right;
   font-weight: bold;
   word-wrap: break-word;
+  padding: 1.5rem;
 }

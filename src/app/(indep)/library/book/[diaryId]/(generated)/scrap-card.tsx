@@ -23,7 +23,7 @@ export default function ScrapCard({ className, data, href, ...restProps }: Props
       <div className={styles["root__left"]}>
         <div className={styles["content"]}>
           <p>{data.content}</p>
-          {data.page && (
+          {!!data.page && (
             <div>
               <p className={styles["content__page"]}>p{data.page}</p>
             </div>
