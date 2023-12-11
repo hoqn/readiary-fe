@@ -57,6 +57,11 @@ export default function QuestionSection() {
   return (
     <div className={styles["root"]}>
       <Section title="1차 질문" className={styles["question-service"]}>
+        {!secondQuestions?.length && (
+          <Button className={styles["question-edit"]} asChild>
+            <Link href={`${pathname}/question?d=1`}>답 수정하기</Link>
+          </Button>
+        )}
         <ul className={styles["question-list"]}>
           {firstQuestions.map((question, i) => (
             <QuestionCard
@@ -71,6 +76,9 @@ export default function QuestionSection() {
         </ul>
       </Section>
       <Section title="2차 질문" className={styles["question-service"]}>
+        <Button className={styles["question-edit"]} asChild>
+          <Link href={`${pathname}/question?d=2`}> 2차 답 수정하기</Link>
+        </Button>
         {secondQuestions?.length ? (
           <ul>
             {secondQuestions.map((question, i) => (
