@@ -1,18 +1,22 @@
 "use client";
 
-import { Control, UseControllerProps, useController, useForm } from "react-hook-form";
-import styles from "./page.module.scss";
-import { useEffect, useMemo, useState } from "react";
 import Button from "@/components/ui/button";
 import IcError from "@material-symbols/svg-400/rounded/error-fill.svg";
-import { signUp } from "./actions";
 import { useRouter } from "next/navigation";
-import { useFormState } from "react-dom";
+import { HTMLAttributes, InputHTMLAttributes, useEffect, useMemo, useState } from "react";
+import { UseControllerProps, useController, useForm } from "react-hook-form";
+import { signUp } from "./actions";
+import styles from "./page.module.scss";
 
 function Field<FV extends {}>(
-  props: { name: string; title: string; component?: React.ElementType } & UseControllerProps<FV>
+  props: {
+    name: string;
+    title: string;
+    component?: React.ElementType;
+    type: InputHTMLAttributes<HTMLInputElement>["type"];
+  } & UseControllerProps<FV>
 ) {
-  const { name, title, component: Component = "input", ...restProps } = props;
+  const { name, title, component: Component = "input", type, ...restProps } = props;
 
   const { field, fieldState } = useController(props);
 
@@ -44,7 +48,7 @@ function Field<FV extends {}>(
         </label>
       </div>
       <div className={styles["field__right"]}>
-        <Component className={styles["field__input"]} aria-invalid={fieldState.invalid} {...field} />
+        <Component className={styles["field__input"]} aria-invalid={fieldState.invalid} type={type} {...field} />
         <div className={styles["field__under"]}>
           {errorMsg && (
             <div className={styles["field__error"]}>
@@ -88,7 +92,8 @@ export default function Page() {
               alert("환영해요! 로그인한 뒤 서비스를 이용할 수 있어요.");
               router.replace("/signin");
             }
-          }).catch(e => {
+          })
+          .catch((e) => {
             alert(JSON.stringify(e));
           })
           .finally(() => {
@@ -111,6 +116,7 @@ export default function Page() {
         <form className={styles["form"]} onSubmit={doOnSubmit}>
           <Field
             name="email"
+            type="email"
             control={control}
             rules={{
               required: true,
@@ -123,6 +129,7 @@ export default function Page() {
           />
           <Field
             name="password"
+            type="password"
             control={control}
             rules={{
               required: true,
@@ -131,6 +138,7 @@ export default function Page() {
           />
           <Field
             name="passwordCheck"
+            type="password"
             control={control}
             rules={{
               required: true,
