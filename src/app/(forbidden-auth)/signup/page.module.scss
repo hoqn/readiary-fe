@@ -34,12 +34,12 @@
 }
 
 .field__left {
-  flex: 0 1 8rem;
+  width: 12rem;
 }
 
 .field__right {
-  flex: 1 1;
-  max-width: 16rem;
+  flex: 1;
+  min-width: 16rem;
 }
 
 .field__label {
