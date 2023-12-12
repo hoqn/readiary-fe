@@ -36,12 +36,20 @@ export default function ImageSection({ scrap }: Props) {
   });
 
   const doOnClickGenButton: MouseEventHandler = useCallback(
-    async (e) => {
+    (e) => {
       e.preventDefault();
       doGenerateImage();
     },
     [doGenerateImage]
   );
+
+  const doOnClickRegenButton: MouseEventHandler = useCallback(e => {
+    e.preventDefault();
+    // 기존 이미지 url 무효화
+    setImageUrl("");
+    revalidateDiaryDetail();
+    doGenerateImage();
+  }, [doGenerateImage, revalidateDiaryDetail]);
 
   const [isValid, setValid] = useState<boolean>(false);
   const [imgKey, setImgKey] = useState<number>(0);
@@ -77,16 +85,21 @@ export default function ImageSection({ scrap }: Props) {
 
   if (isValid) {
     return (
-      <div className={styles["image-wrapper"]}>
-        <MotionImage
-          // unoptimized
-          // src={`${imageUrl}?${imageKey}`}
-          src={imageUrl}
-          alt="스크랩 생성 이미지"
-          fill={true}
-          layoutId={`scrap-thumb-${scrap.scrapId}`}
-        />
-      </div>
+      <>
+        <div className={styles["image-wrapper"]}>
+          <MotionImage
+            // unoptimized
+            // src={`${imageUrl}?${imageKey}`}
+            src={imageUrl}
+            alt="스크랩 생성 이미지"
+            fill={true}
+            layoutId={`scrap-thumb-${scrap.scrapId}`}
+          />
+        </div>
+        <div className={styles["image-regen-wrapper"]}>
+          <Button onClick={doOnClickRegenButton}>이미지 재생성</Button>
+        </div>
+      </>
     );
   } else {
     return (
