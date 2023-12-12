@@ -15,6 +15,8 @@ export interface GetQuestionsResponse {
 export async function getQuestions(diaryId: number) {
   const authorization = await getAccessTokenFromCookie();
 
+  console.log("Get Questions Requested!");
+
   if (!authorization) throw "잘못된 로그인 정보입니다";
 
   return fetchApiClient
@@ -35,12 +37,16 @@ export async function generateQuestions(degree: number, diaryId: number) {
   if (!authorization) throw "잘못된 로그인 정보입니다";
   if (degree !== 1 && degree !== 2) throw "잘못된 요청입니다";
 
-  return fetchApiClient
+  /**
+   * 처리가 10초 이상 걸리는 경우 발생 -> 배포 시 Timeout의 원인
+   * 따라서 이 부분만 비동기 식으로 처리
+   */
+
+  fetchApiClient
     .fetch<GenerateQuestionsResponse>(`/api/questions/${degree === 1 ? "first" : "second"}/${diaryId}`, {
       method: "POST",
       authorization,
-    })
-    .then((res) => res.json());
+    });
 }
 
 interface SubmitQuestionAnswerDto {
