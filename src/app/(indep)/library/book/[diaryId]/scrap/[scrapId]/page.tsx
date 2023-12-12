@@ -9,6 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useLocalContext } from "../../context";
 import { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 
 export default function Page({
   params: { diaryId, scrapId },
@@ -54,11 +55,11 @@ export default function Page({
         </div>
         <div className={styles["content-container"]}>
           <div className={styles["content__label"]}>스크랩한 내용</div>
-          <div className={styles["content"]}>{scrap.content}</div>
+          <motion.div className={styles["content"]} layoutId={`scrapcard-content-${scrapId}`}>{scrap.content}</motion.div>
         </div>
         <div className={styles["memo-container"]}>
           <div className={styles["memo__label"]}>메모</div>
-          <div className={styles["memo"]}>{scrap.memo}</div>
+          <motion.div className={styles["memo"]} layoutId={`scrapcard-memo-${scrapId}`}>{scrap.memo}</motion.div>
         </div>
         <div className={styles["actions-container"]}>
           <Button intent="text" onClick={doOnDelete} loading={isDeleting}>

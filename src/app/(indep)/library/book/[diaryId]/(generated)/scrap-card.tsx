@@ -22,7 +22,7 @@ export default function ScrapCard({ className, data, href, ...restProps }: Props
     <Link className={cs(styles["root"], styles["root__inner"], className)} href={href} {...restProps}>
       <div className={styles["root__left"]}>
         <div className={styles["content"]}>
-          <p>{data.content}</p>
+          <motion.p layoutId={`scrapcard-content-${data.scrapId}`}>{data.content}</motion.p>
           {!!data.page && (
             <div>
               <p className={styles["content__page"]}>p{data.page}</p>
@@ -31,7 +31,7 @@ export default function ScrapCard({ className, data, href, ...restProps }: Props
         </div>
         {!!data.memo?.length && (
           <div className={styles["memo"]}>
-            <p>{data.memo}</p>
+            <motion.p layoutId={`scrapcard-memo-${data.scrapId}`}>{data.memo}</motion.p>
           </div>
         )}
       </div>
@@ -45,6 +45,9 @@ export default function ScrapCard({ className, data, href, ...restProps }: Props
             width={96}
             height={96}
             layoutId={`scrap-thumb-${data.scrapId}`}
+            onError={(e) => {
+              e.currentTarget.style.display = "none";
+            }}
           />
         </div>
       )}
