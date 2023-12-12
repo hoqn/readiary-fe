@@ -1,8 +1,8 @@
 "use client";
 
-import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { usePathname } from "next/navigation";
-import { Fragment } from "react";
+import { Fragment, useCallback } from "react";
 import { fetchDiaryDetail } from "./actions";
 import { LocalContext } from "./context";
 
@@ -19,10 +19,16 @@ export default function Layout({
 }) {
   const pathname = usePathname();
 
-  const { data: diaryDetail, refetch: revalidateDiaryDetail } = useQuery({
+  const queryClient = useQueryClient();
+
+  const { data: diaryDetail } = useQuery({
     queryKey: ["diary-detail", diaryId],
     queryFn: () => fetchDiaryDetail(diaryId),
   });
+
+  const revalidateDiaryDetail = useCallback(() => {
+    queryClient.invalidateQueries({ queryKey: ["diary-detail", diaryId] });
+  }, [diaryId, queryClient]);
 
   if (!diaryDetail)
     return null;
