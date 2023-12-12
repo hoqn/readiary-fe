@@ -31,7 +31,7 @@ export default function DiaryList() {
   }
 
   return (
-    <Section title="나의 서재" subtitle="최근 읽고 있는 책">
+    <Section title="나의 책장" subtitle="최근 읽고 있는 책">
       <ul>
         {data?.map((diary) => (
           <li key={diary.bookDiaryId}>

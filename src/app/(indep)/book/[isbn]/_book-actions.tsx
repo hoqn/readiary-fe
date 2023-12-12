@@ -1,14 +1,13 @@
 "use client";
 
-import WideButton from "@/components/ui/wide-button";
-import styles from "./_book-actions.module.scss";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { GetBookResponse } from "@/services/api/book.api";
-import diaryApi, { ReadingStatus } from "@/services/api/diary.api";
-import { ElementType, MouseEventHandler, createContext, useCallback, useContext, useEffect, useState } from "react";
 import Button from "@/components/ui/button";
+import WideButton from "@/components/ui/wide-button";
+import { GetBookResponse } from "@/services/api/book.api";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import cs from "classnames";
 import Link from "next/link";
+import { MouseEventHandler, createContext, useCallback, useContext, useEffect, useState } from "react";
+import styles from "./_book-actions.module.scss";
 import { addBookToLibrary, checkDiaryAvaility } from "./actions";
 
 const LocalContext = createContext<{
@@ -49,7 +48,7 @@ function AddBookToLibrary({ bookData }: AddBookToLibraryProps) {
 
   return (
     <WideButton className={styles["button-add2lib"]} onClick={doOnClickAddToLibraryButton} loading={isPending}>
-      내 서재에 추가하기
+      내 책장에 추가하기
     </WideButton>
   );
 }
@@ -91,16 +90,16 @@ export default function BookActions({ bookData, className }: Props) {
         <div className={styles["root__inner"]}>
           {diaryId !== null ? (
             <>
-              <p className={styles["pre-description"]}>이 책은 서재에 있어요.</p>
+              <p className={styles["pre-description"]}>이 책은 이미 책장에 있어요.</p>
               <Button asChild>
                 <Link className={styles["button-go2lib"]} href={`/library/book/${diaryId}`}>
-                  서재로 이동 &#xF045;
+                  책장으로 이동 &#xF045;
                 </Link>
               </Button>
             </>
           ) : (
             <>
-              <p className={styles["pre-description"]}>서재에 추가되어 있지 않은 책이에요.</p>
+              <p className={styles["pre-description"]}>아직 내 책장에 없는 책이에요.</p>
               <AddBookToLibrary bookData={bookData} />
             </>
           )}

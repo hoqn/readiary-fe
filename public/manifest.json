@@ -30,8 +30,8 @@
       "url": "/search?utm_source=homescreen"
     },
     {
-      "name": "나의 서재",
-      "short_name": "서재",
+      "name": "나의 책장",
+      "short_name": "책장",
       "description": "나의 독서 생활 기록",
       "url": "/library?utm_source=homescreen"
     }

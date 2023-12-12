@@ -28,7 +28,7 @@ export default function Page({ params: { diaryId } }: { params: { diaryId: numbe
   if (!diaryDetail) return null;
 
   return (
-    <BasicLayout title="나의 서재">
+    <BasicLayout title="나의 책장">
       <main>
         <section className={styles["head-section"]}>
           <div className={styles["head-section__inner"]}>
