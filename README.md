@@ -1,5 +1,9 @@
 # Readiary Web Front-end
 
+- 프로젝트: [소개](https://github.com/relaxed-mind/book-diary)
+
+- (FE) 블로그 글: [프로젝트 블로그 소개 글](https://hoqn.dev/works/readiary)
+
 ### Folder Structure
 
 ```
