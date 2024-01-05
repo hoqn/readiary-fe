@@ -6,9 +6,9 @@
   margin-left: 0;
   background-color: color.neutral(1);
   
-  @include media.lg {
-    margin-left: constant.$MAIN_NAV_WIDTH--lg;
-  }
+  // @include media.lg {
+  //   margin-left: constant.$MAIN_NAV_WIDTH--lg;
+  // }
 }
 
 .loading-page {

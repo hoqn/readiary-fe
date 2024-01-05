@@ -14,9 +14,9 @@ $HEADER_HEIGHT: 5rem;
   background-color: color.neutral(2);
   box-shadow: 0 1px color.neutral(6);
 
-  @include media.lg {
-    padding-left: 1rem + constant.$MAIN_NAV_WIDTH--lg;
-  }
+  // @include media.lg {
+  //   padding-left: 1rem + constant.$MAIN_NAV_WIDTH--lg;
+  // }
 }
 
 .body {
@@ -26,10 +26,10 @@ $HEADER_HEIGHT: 5rem;
 
   padding-left: 0;
   padding-bottom: constant.$MAIN_NAV_HEIGHT;
-  @include media.lg {
-    padding-left: constant.$MAIN_NAV_WIDTH--lg;
-    padding-bottom: 0;
-  }
+  // @include media.lg {
+  //   padding-left: constant.$MAIN_NAV_WIDTH--lg;
+  //   padding-bottom: 0;
+  // }
 }
 
 // .container {
