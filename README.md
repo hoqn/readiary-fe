@@ -1,8 +1,11 @@
 # Readiary Web Front-end
 
-- 프로젝트: [소개](https://github.com/relaxed-mind/book-diary)
-
+- 프로젝트: [메인 페이지](https://github.com/relaxed-mind/book-diary)
 - (FE) 블로그 글: [프로젝트 블로그 소개 글](https://hoqn.dev/works/readiary)
+
+### 스택
+
+`TypeScript` `React` `Next.js` `Sass` `CSS Modules` `Tanstack React Query`
 
 ### Folder Structure
 
@@ -11,23 +14,26 @@ src/
  ├─ @types/
  ├─ app/
  ├─ components/
-    ├─ ui/
-    ├─ common/
-    ├─ pages/
-      ├─ /
-      ├─ book/
-      ├─ search/
+ │  ├─ common/
+ │  ├─ layouts/
+ │  ├─ ui/
+ │  ├─ pages/
+ ├─ services/
+ ├─ stores/
  ├─ styles/
  │  ├─ base/
  │  ├─ lib/
  │  ├─ theme/
- ├─ stores/
- ├─ services/
+ ├─ types/
  ├─ utils/
 ```
 
 ### Routing
 
+- 인증
+  - `/signin`
+  - `/signout`
+  - `/signup`
 - 메인
   - `/home`
   - `/search`
